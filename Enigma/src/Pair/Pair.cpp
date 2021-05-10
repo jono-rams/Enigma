@@ -1,11 +1,13 @@
-#include "../framework.h"
-#include "../pch.h"
-
-#include "../headers/Pair.h"
-#include "../headers/Alphabet.h"
+#include "Pair.h"
+#include "../Alphabet.h"
 
 namespace Enigma
 {
+	std::ostream& operator<<(std::ostream& os, const s_Pairs& pair)
+	{
+		return std::cout << "(" << pair.pair1 << ", " << pair.pair2 << ")" << std::endl;
+	}
+
 	Pair::Pair()
 	{
 		for (int i = 0; i < 26; i++)
@@ -13,20 +15,30 @@ namespace Enigma
 
 		for (int i = 0, j = 25; i < 13; i++, j--)
 		{
-			m_Pairs.pair1[i] = alphabet[i];
-			m_Pairs.pair2[i] = alphabet[j];
+			m_Pairs[i].pair1 = alphabet[i];
+			m_Pairs[i].pair2 = alphabet[j];
 		}
 	}
 
-	Pair::Pair(s_Pairs pairs)
-		: m_Pairs(pairs)
+	Pair::Pair(s_Pairs pairs[13])
 	{
 		for (int i = 0; i < 26; i++)
 			m_Connections[i] = i;
+		SetPairs(pairs);
 	}
 
-	void Pair::SetPairs(s_Pairs pairs)
+	void Pair::SetPairs(s_Pairs pairs[13])
 	{
-		m_Pairs = pairs;
+		for (int i = 0; i < 13; i++)
+		{
+			m_Pairs[i].pair1 = pairs[i].pair1;
+			m_Pairs[i].pair2 = pairs[i].pair2;
+		}
+	}
+
+	void Pair::PrintPairs() const
+	{
+		for (int i = 0; i < 13; i++)
+			std::cout << m_Pairs[i];
 	}
 }
