@@ -1,23 +1,31 @@
 #include "Core.h"
 
 Enigma::Core::Core()
+	: m_PairModule(nullptr)
 {
-
 }
 
 void Enigma::Core::GenPairModule()
 {
-	Pair temp{};
-	m_PairModule = temp;
+	if (m_PairModule != nullptr)
+	{
+		delete m_PairModule;
+		m_PairModule = nullptr;
+	}
+	m_PairModule = new Pair{};
 }
 
 void Enigma::Core::GenPairModule(s_Pairs pairs[13])
 {
-	Pair temp{ pairs };
-	m_PairModule = temp;
+	if (m_PairModule != nullptr)
+	{
+		delete m_PairModule;
+		m_PairModule = nullptr;
+	}
+	m_PairModule = new Pair{ pairs };
 }
 
 Enigma::Core::~Core()
 {
-	
+	delete m_PairModule;
 }

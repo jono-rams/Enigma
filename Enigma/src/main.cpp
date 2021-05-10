@@ -8,6 +8,6 @@ int main()
 {
 	Core machine{};
 	machine.GenPairModule();
-	machine.GetPairModule().PrintPairs();
+	machine.GetPairModule()->PrintPairs();
 	return 0;
 }
