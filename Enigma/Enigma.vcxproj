@@ -88,7 +88,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Core\Core.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Pair\Pair.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Alphabet.h" />
+    <ClInclude Include="src\Core\Core.h" />
+    <ClInclude Include="src\Pair\Pair.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
