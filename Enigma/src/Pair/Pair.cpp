@@ -1,5 +1,8 @@
-#include "Pair.h"
-#include "../Alphabet.h"
+#include "../framework.h"
+#include "../pch.h"
+
+#include "../headers/Pair.h"
+#include "../headers/Alphabet.h"
 
 namespace Enigma
 {
