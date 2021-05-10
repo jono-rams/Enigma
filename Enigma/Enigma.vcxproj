@@ -84,11 +84,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Pair.cpp" />
+    <ClCompile Include="src\Pairs\Pair.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Pair.h" />
+    <ClInclude Include="src\Pairs\Pair.h" />
     <ClInclude Include="src\Alphabet.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
