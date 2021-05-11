@@ -37,6 +37,22 @@ namespace Enigma
 			throw std::logic_error("Duplicate letters in pairs!");
 	}
 
+	char Pair::PairOut(char letter) const // To change to unsigned short after rotor logic is added
+	{
+		for (int i = 0; i < 13; i++)
+		{
+			if (letter == m_Pairs[i].pair1)
+			{
+				return m_Pairs[i].pair2;
+			}
+			
+			if (letter == m_Pairs[i].pair2)
+			{
+				return m_Pairs[i].pair1;
+			}
+		}
+	}
+
 	bool Pair::CheckDuplicates(s_Pairs pairs[13]) const
 	{
 		for (ushort_t i = 0; i < 12; i++)

@@ -35,6 +35,24 @@ void Enigma::Core::GenNewPairModule(s_Pairs pairs[13])
 	}
 }
 
+char Enigma::Core::Encrypt(char letter) const
+{
+	bool invalid{ true };
+	for (int i = 0; i < 26; i++)
+	{
+		if (letter == alphabet[i])
+		{
+			invalid = false;
+			break;
+		}
+	}
+
+	if (invalid)
+		throw std::logic_error("Invalid character\n");
+
+	return m_PairModule->PairOut(letter);
+}
+
 Enigma::Core::~Core()
 {
 	delete m_PairModule;
