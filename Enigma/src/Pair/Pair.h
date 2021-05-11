@@ -27,6 +27,8 @@ namespace Enigma
 		Pair();
 		Pair(s_Pairs pairs[13]);
 
+		char PairOut(char letter) const;
+
 		void DEBUG_PrintPairs() const;
 	};
 }
