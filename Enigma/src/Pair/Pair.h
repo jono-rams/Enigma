@@ -22,7 +22,7 @@ namespace Enigma
 		s_Pairs m_Pairs[13];
 		ushort_t m_Connections[26]{ };
 
-		bool CheckDuplicates() const;
+		bool CheckDuplicates(s_Pairs pairs[13]) const;
 	public:
 		Pair();
 		Pair(s_Pairs pairs[13]);

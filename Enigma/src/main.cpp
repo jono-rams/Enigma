@@ -31,6 +31,8 @@ int main()
 		machine.GenNewPairModule(pairs);
 	delete[] pairs;
 
-	machine.GetPairModule()->DEBUG_PrintPairs();
+	if(machine.GetPairModule() != nullptr)
+		machine.GetPairModule()->DEBUG_PrintPairs();
+
 	return 0;
 }
