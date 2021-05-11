@@ -5,7 +5,7 @@ Enigma::Core::Core()
 {
 }
 
-void Enigma::Core::GenPairModule()
+void Enigma::Core::GenNewPairModule()
 {
 	if (m_PairModule != nullptr)
 	{
@@ -15,14 +15,24 @@ void Enigma::Core::GenPairModule()
 	m_PairModule = new Pair{};
 }
 
-void Enigma::Core::GenPairModule(s_Pairs pairs[13])
+void Enigma::Core::GenNewPairModule(s_Pairs pairs[13])
 {
 	if (m_PairModule != nullptr)
 	{
 		delete m_PairModule;
 		m_PairModule = nullptr;
 	}
-	m_PairModule = new Pair{ pairs };
+	try
+	{
+		m_PairModule = new Pair{ pairs };
+	}
+	catch (std::logic_error err)
+	{
+		std::cout << err.what() << std::endl;
+		std::cout << "Pair could not be generated!\n";
+		delete m_PairModule;
+		m_PairModule = nullptr;
+	}
 }
 
 Enigma::Core::~Core()

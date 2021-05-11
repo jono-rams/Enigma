@@ -24,19 +24,23 @@ namespace Enigma
 	{
 		for (int i = 0; i < 26; i++)
 			m_Connections[i] = i;
-		SetPairs(pairs);
-	}
-
-	void Pair::SetPairs(s_Pairs pairs[13])
-	{
+		
 		for (int i = 0; i < 13; i++)
 		{
 			m_Pairs[i].pair1 = pairs[i].pair1;
 			m_Pairs[i].pair2 = pairs[i].pair2;
 		}
+
+		if (CheckDuplicates())
+			throw std::logic_error("Duplicate letters in pairs!");
 	}
 
-	void Pair::PrintPairs() const
+	bool Pair::CheckDuplicates() const
+	{
+		return false;
+	}
+
+	void Pair::DEBUG_PrintPairs() const
 	{
 		for (int i = 0; i < 13; i++)
 			std::cout << m_Pairs[i];

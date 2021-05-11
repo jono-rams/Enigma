@@ -10,8 +10,8 @@ namespace Enigma
 	public:
 		Core();
 		
-		void GenPairModule();
-		void GenPairModule(s_Pairs pairs[13]);
+		void GenNewPairModule();
+		void GenNewPairModule(s_Pairs pairs[13]);
 		Pair* GetPairModule() const { return m_PairModule; }
 
 		~Core();

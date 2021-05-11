@@ -7,7 +7,7 @@ using namespace Enigma;
 int main()
 {
 	Core machine{};
-	machine.GenPairModule();
-	machine.GetPairModule()->PrintPairs();
+	machine.GenNewPairModule();
+	machine.GetPairModule()->DEBUG_PrintPairs();
 	return 0;
 }

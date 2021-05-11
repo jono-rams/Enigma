@@ -19,12 +19,13 @@ namespace Enigma
 	{
 		s_Pairs m_Pairs[13];
 		int m_Connections[26]{ };
+
+		bool CheckDuplicates() const;
 	public:
 		Pair();
 		Pair(s_Pairs pairs[13]);
-		void SetPairs(s_Pairs pairs[13]);
 
-		void PrintPairs() const;
+		void DEBUG_PrintPairs() const;
 	};
 }
 #endif
