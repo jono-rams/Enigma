@@ -13,3 +13,6 @@ The roadmap has recently been created and will be updated over the next few days
       * A check has been implemented to make sure no duplicate characters are in any of the pairs.
 * Users can encrypt a string of valid characters using pairs module.
   * A check has been implemented to ensure it's only valid characters.
+
+A 2 CHANGELOG
+* IN DEVELOPMENT
