@@ -5,6 +5,8 @@
 #ifndef PAIR_H_
 #define PAIR_H_
 
+typedef unsigned short int ushort_t;
+
 namespace Enigma
 {
 	struct s_Pairs
@@ -18,7 +20,7 @@ namespace Enigma
 	class Pair
 	{
 		s_Pairs m_Pairs[13];
-		int m_Connections[26]{ };
+		ushort_t m_Connections[26]{ };
 
 		bool CheckDuplicates() const;
 	public:
