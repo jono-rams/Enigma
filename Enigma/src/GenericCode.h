@@ -1,11 +1,8 @@
 #pragma once
 
-#ifndef ALPHABET_H_
-#define ALPHABET_H_
-
-#if false // Set to true to enable debug code
-#define DEBUG_CODE_ACTIVE
-#endif
+#ifndef GENERIC_CODE_H_
+#define GENERIC_CODE_H_
+#define DEBUG_CODE_ACTIVE false
 
 typedef unsigned short int ushort_t;
 

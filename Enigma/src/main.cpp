@@ -57,7 +57,7 @@ int main()
 		machine.GenNewPairModule(pairs);
 	delete[] pairs;
 
-#ifdef DEBUG_CODE_ACTIVE	
+#if DEBUG_CODE_ACTIVE	
 		if (machine.GetPairModule() != nullptr)
 			machine.GetPairModule()->DEBUG_PrintPairs();
 #endif

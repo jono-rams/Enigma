@@ -68,7 +68,7 @@ namespace Enigma
 		return false;
 	}
 
-#ifdef DEBUG_CODE_ACTIVE
+#if DEBUG_CODE_ACTIVE
 	void Pair::DEBUG_PrintPairs() const
 	{
 		for (int i = 0; i < 13; i++)
