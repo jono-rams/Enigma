@@ -14,5 +14,5 @@ The roadmap has recently been created and will be updated over the next few days
 * Users can encrypt a string of valid characters using pairs module.
   * A check has been implemented to ensure it's only valid characters.
 
-A 2 CHANGELOG
+# ALPHA 2 CHANGELOG
 * IN DEVELOPMENT
