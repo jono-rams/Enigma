@@ -36,7 +36,7 @@ namespace Enigma
 			throw std::logic_error("Duplicate letters in pairs!");
 	}
 
-	char Pair::PairOut(char letter) const // To change to unsigned short after rotor logic is added
+	char Pair::PairOut(char letter) // To change to unsigned short after rotor logic is added
 	{
 		for (int i = 0; i < 13; i++)
 		{
