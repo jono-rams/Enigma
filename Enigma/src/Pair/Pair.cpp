@@ -1,5 +1,4 @@
 #include "Pair.h"
-#include "../Alphabet.h"
 
 #define CHECK pairs[i].pair1 == pairs[j].pair1 || pairs[i].pair1 == pairs[j].pair2 || pairs[i].pair2 == pairs[j].pair1 || pairs[i].pair2 == pairs[j].pair2
 

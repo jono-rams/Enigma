@@ -1,5 +1,5 @@
 #pragma once
-#include "../Alphabet.h"
+#include "../GenericCode.h"
 #include "../Pair/Pair.h"
 
 namespace Enigma
