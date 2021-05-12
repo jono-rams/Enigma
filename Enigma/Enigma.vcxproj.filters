@@ -29,7 +29,7 @@
     <ClInclude Include="src\Pair\Pair.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Alphabet.h">
+    <ClInclude Include="src\GenericCode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\Core.h">

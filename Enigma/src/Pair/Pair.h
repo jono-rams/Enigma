@@ -1,11 +1,10 @@
 #pragma once
+#include "../GenericCode.h"
 
 #include <iostream>
 
 #ifndef PAIR_H_
 #define PAIR_H_
-
-typedef unsigned short int ushort_t;
 
 namespace Enigma
 {
@@ -27,9 +26,12 @@ namespace Enigma
 		Pair();
 		Pair(s_Pairs pairs[13]);
 
-		char PairOut(char letter) const;
+		char PairOut(char letter);
 
+#if DEBUG_CODE_ACTIVE
 		void DEBUG_PrintPairs() const;
+#endif
+
 	};
 }
 #endif
