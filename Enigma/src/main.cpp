@@ -1,11 +1,9 @@
 #include "Core/Core.h"
 #include "Pair/Pair.h"
-#include "Alphabet.h"
+#include "GenericCode.h"
 
 #include <vector>
 #include <string>
-
-#define DEBUG_CODE_ACTIVE false
 
 using namespace Enigma;
 
@@ -59,11 +57,10 @@ int main()
 		machine.GenNewPairModule(pairs);
 	delete[] pairs;
 
-	if (DEBUG_CODE_ACTIVE)
-	{
+#if DEBUG_CODE_ACTIVE	
 		if (machine.GetPairModule() != nullptr)
 			machine.GetPairModule()->DEBUG_PrintPairs();
-	}
+#endif
 
 	std::vector<char> inp;
 	std::string* temp = new std::string;	

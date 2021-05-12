@@ -1,5 +1,4 @@
 #include "Pair.h"
-#include "../Alphabet.h"
 
 #define CHECK pairs[i].pair1 == pairs[j].pair1 || pairs[i].pair1 == pairs[j].pair2 || pairs[i].pair2 == pairs[j].pair1 || pairs[i].pair2 == pairs[j].pair2
 
@@ -37,7 +36,7 @@ namespace Enigma
 			throw std::logic_error("Duplicate letters in pairs!");
 	}
 
-	char Pair::PairOut(char letter) const // To change to unsigned short after rotor logic is added
+	char Pair::PairOut(char letter) // To change to unsigned short after rotor logic is added
 	{
 		for (int i = 0; i < 13; i++)
 		{
@@ -69,9 +68,11 @@ namespace Enigma
 		return false;
 	}
 
+#if DEBUG_CODE_ACTIVE
 	void Pair::DEBUG_PrintPairs() const
 	{
 		for (int i = 0; i < 13; i++)
 			std::cout << m_Pairs[i];
 	}
+#endif
 }
