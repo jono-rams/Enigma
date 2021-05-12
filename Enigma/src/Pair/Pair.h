@@ -28,7 +28,10 @@ namespace Enigma
 
 		char PairOut(char letter) const;
 
+#ifdef DEBUG_CODE_ACTIVE
 		void DEBUG_PrintPairs() const;
+#endif
+
 	};
 }
 #endif

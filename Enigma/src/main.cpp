@@ -57,11 +57,10 @@ int main()
 		machine.GenNewPairModule(pairs);
 	delete[] pairs;
 
-	if (DEBUG_CODE_ACTIVE)
-	{
+#ifdef DEBUG_CODE_ACTIVE	
 		if (machine.GetPairModule() != nullptr)
 			machine.GetPairModule()->DEBUG_PrintPairs();
-	}
+#endif
 
 	std::vector<char> inp;
 	std::string* temp = new std::string;	

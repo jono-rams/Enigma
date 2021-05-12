@@ -3,7 +3,10 @@
 #ifndef ALPHABET_H_
 #define ALPHABET_H_
 
-#define DEBUG_CODE_ACTIVE false
+#if false // Set to true to enable debug code
+#define DEBUG_CODE_ACTIVE
+#endif
+
 typedef unsigned short int ushort_t;
 
 namespace Enigma
