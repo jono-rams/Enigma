@@ -13,6 +13,7 @@ namespace Enigma
 		char m_Rotator[26]{};
 
 		bool m_FirstRotor{ false };
+		bool m_ThirdRotor{ false };
 		int m_Count{ 0 };
 
 		ushort_t m_SeedNo{};
@@ -21,7 +22,7 @@ namespace Enigma
 	public:
 		Rotor() = delete;
 		
-		Rotor(bool FirstRotor, ushort_t seed);
+		Rotor(bool FirstRotor, ushort_t seed, bool ThirdRotor = false);
 		void In(char& c);
 		void Out(char& c);
 

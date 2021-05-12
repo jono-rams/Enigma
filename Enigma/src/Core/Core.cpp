@@ -116,7 +116,15 @@ namespace Enigma
 		if (invalid)
 			throw std::logic_error("Invalid character\n");
 
-		return m_PairModule->PairOut(letter);
+		m_RotorF->In(letter);
+		m_RotorS->In(letter);
+		m_RotorT->In(letter);
+		m_PairModule->PairOut(letter);
+		m_RotorT->Out(letter);
+		m_RotorS->Out(letter);
+		m_RotorF->Out(letter);
+
+		return letter;
 	}
 
 	Core::~Core()

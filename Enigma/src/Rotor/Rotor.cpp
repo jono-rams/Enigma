@@ -16,8 +16,8 @@ namespace Enigma
 		m_Rotator[25] = temp;
 	}
 
-	Rotor::Rotor(bool FirstRotor, ushort_t seed)
-		: m_FirstRotor(FirstRotor), m_SeedNo(seed)
+	Rotor::Rotor(bool FirstRotor, ushort_t seed, bool ThirdRotor)
+		: m_FirstRotor(FirstRotor), m_SeedNo(seed), m_ThirdRotor(ThirdRotor)
 	{
 		std::vector<ushort_t> temp;
 		ushort_t x{};
@@ -99,7 +99,9 @@ namespace Enigma
 		else
 			Rotate();
 
-		if (m_Count >= 26)
+		if (m_Count >= 26 && !m_ThirdRotor)
+			Rotate();
+		else if (m_Count >= 52)
 			Rotate();
 	}
 	

@@ -36,18 +36,20 @@ namespace Enigma
 			throw std::logic_error("Duplicate letters in pairs!");
 	}
 
-	char Pair::PairOut(char letter)
+	void Pair::PairOut(char &letter)
 	{
 		for (ushort_t i = 0; i < 13; i++)
 		{
 			if (letter == m_Pairs[i].pair1)
 			{
-				return m_Pairs[i].pair2;
+				letter = m_Pairs[i].pair2;
+				return;
 			}
 			
 			if (letter == m_Pairs[i].pair2)
 			{
-				return m_Pairs[i].pair1;
+				letter = m_Pairs[i].pair1;
+				return;
 			}
 		}
 	}

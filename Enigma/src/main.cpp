@@ -33,8 +33,6 @@ int main()
 	return 0;
 #endif
 
-	Rotor rot(true, 1);
-
 	s_Pairs* pairs = new s_Pairs[13];
 
 	for (ushort_t i = 0; i < 13; i++)
@@ -67,7 +65,18 @@ int main()
 		machine.GenNewPairModule(pairs);
 	delete[] pairs;
 
-	machine.GenNewRotorsModules(3, 2, 5);
+	ushort_t r1, r2, r3;
+	std::cout << "Enter 3 of 5 rotors in any order: ";
+	std::cin >> r1 >> r2 >> r3;
+	
+	try 
+	{
+		machine.GenNewRotorsModules(r1, r2, r3);
+	}
+	catch (std::logic_error err)
+	{
+		std::cout << err.what() << std::endl;
+	}
 
 #if DEBUG_CODE_ACTIVE	
 		if (machine.GetPairModule() != nullptr)
@@ -76,7 +85,7 @@ int main()
 
 	std::vector<char> inp;
 	std::string* temp = new std::string;	
-	std::cout << "Input the letters you would like to encrypt: ";
+	std::cout << "Input the letters you would like to encrypt/decrypt: ";
 	std::cin >> *temp;
 	std::copy((*temp).begin(), (*temp).end(), std::back_inserter(inp));
 	delete temp;
