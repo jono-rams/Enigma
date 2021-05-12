@@ -1,5 +1,6 @@
 #include "Core/Core.h"
 #include "Pair/Pair.h"
+#include "Rotor/Rotor.h"
 #include "GenericCode.h"
 
 #include <vector>
@@ -25,6 +26,15 @@ bool CheckInvalidChar(s_Pairs pair)
 
 int main()
 {
+#if DEBUG_CODE_ACTIVE
+	Rotor rot(1);
+	rot.DEBUG_CacheSeedVals();
+
+	return 0;
+#endif
+
+	Rotor rot(true, 1);
+
 	s_Pairs* pairs = new s_Pairs[13];
 
 	for (ushort_t i = 0; i < 13; i++)
@@ -56,6 +66,8 @@ int main()
 	else
 		machine.GenNewPairModule(pairs);
 	delete[] pairs;
+
+	machine.GenNewRotorsModules(3, 2, 5);
 
 #if DEBUG_CODE_ACTIVE	
 		if (machine.GetPairModule() != nullptr)

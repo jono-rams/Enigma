@@ -1,5 +1,9 @@
 #include "Rotor.h"
 
+#include <vector>
+#include <fstream>
+#include <string>
+
 namespace Enigma
 {
 	void Rotor::Rotate()
@@ -13,12 +17,55 @@ namespace Enigma
 	}
 
 	Rotor::Rotor(bool FirstRotor, ushort_t seed)
-		: m_FirstRotor(FirstRotor), m_SeedNo(seed), m_Seed(new std::mt19937(seed * 23))
+		: m_FirstRotor(FirstRotor), m_SeedNo(seed)
 	{
-		for (ushort_t i = 0; i < 26; i++)
+		std::vector<ushort_t> temp;
+		ushort_t x{};
+		bool y{ false };
+
+		if (seed == 1)
 		{
-			m_Rotator[i] = alphabet[25 - i]; // To make in constant random order (at first)
+			std::ifstream in("data1.txt", std::ios::in);
+			while (in >> x)
+			{
+				temp.push_back(x);
+			}
 		}
+		else if (seed == 2)
+		{
+			std::ifstream in("data2.txt", std::ios::in);
+			while (in >> x)
+			{
+				temp.push_back(x);
+			}
+		}
+		else if (seed == 3)
+		{
+			std::ifstream in("data3.txt", std::ios::in);
+			while (in >> x)
+			{
+				temp.push_back(x);
+			}
+		}
+		else if (seed == 4)
+		{
+			std::ifstream in("data4.txt", std::ios::in);
+			while (in >> x)
+			{
+				temp.push_back(x);
+			}
+		}
+		else
+		{
+			std::ifstream in("data5.txt", std::ios::in);
+			while (in >> x)
+			{
+				temp.push_back(x);
+			}
+		}
+
+		for (ushort_t i = 0; i < 26; i++)
+			m_Rotator[i] = alphabet[temp[i]];
 	}
 
 	void Rotor::In(char& c)
@@ -55,4 +102,35 @@ namespace Enigma
 		if (m_Count >= 26)
 			Rotate();
 	}
+	
+#if DEBUG_CODE_ACTIVE
+	void Rotor::DEBUG_CacheSeedVals()
+	{
+		std::vector<ushort_t> temp;
+		std::string fileN = "data1.txt";
+		std::ofstream file(fileN, std::ios::out);
+		ushort_t x{};
+		bool y{ false };
+
+		while (1)
+		{
+			x = (*m_Seed)() % 26;
+			for (ushort_t j = 0; j < temp.size(); j++)
+			{
+				if (x == temp[j])
+				{
+					y = true;
+					break;
+				}
+			}
+			if (y)
+				continue;
+			temp.push_back(x);
+			file << x << std::endl;
+			if (temp.size() > 26)
+				break;
+		}
+		file.close();
+	}
+#endif
 }

@@ -16,14 +16,21 @@ namespace Enigma
 		int m_Count{ 0 };
 
 		ushort_t m_SeedNo{};
-		std::mt19937* m_Seed;
 
 		void Rotate();
 	public:
 		Rotor() = delete;
+		
 		Rotor(bool FirstRotor, ushort_t seed);
 		void In(char& c);
 		void Out(char& c);
+
+#if DEBUG_CODE_ACTIVE
+		Rotor(ushort_t seed) : m_SeedNo(seed), m_Seed(new std::mt19937(seed)) {}
+		void DEBUG_CacheSeedVals();
+	private:
+		std::mt19937* m_Seed;
+#endif
 
 		ushort_t GetSeed() const { return m_SeedNo; }
 	};
