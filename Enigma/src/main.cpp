@@ -10,7 +10,7 @@ using namespace Enigma;
 bool CheckInvalidChar(s_Pairs pair)
 {
 	ushort_t count{ 0 };
-	for (int i = 0; i < 26; i++)
+	for (ushort_t i = 0; i < 26; i++)
 	{
 		if (pair.pair1 == alphabet[i])
 			count++;
@@ -27,7 +27,7 @@ int main()
 {
 	s_Pairs* pairs = new s_Pairs[13];
 
-	for (int i = 0; i < 13; i++)
+	for (ushort_t i = 0; i < 13; i++)
 	{
 		std::cout << "Enter a pair of letters or enter '00' to use default pairs: ";
 		std::cin >> pairs[i].pair1 >> pairs[i].pair2;
@@ -70,7 +70,7 @@ int main()
 	delete temp;
 
 	char* out = new char;
-	for (int i = 0; i < inp.size(); i++)
+	for (uint64_t i = 0; i < inp.size(); i++)
 	{
 		try
 		{

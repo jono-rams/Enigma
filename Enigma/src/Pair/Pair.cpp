@@ -11,10 +11,10 @@ namespace Enigma
 
 	Pair::Pair()
 	{
-		for (int i = 0; i < 26; i++)
+		for (ushort_t i = 0; i < 26; i++)
 			m_Connections[i] = i;
 
-		for (int i = 0, j = 25; i < 13; i++, j--)
+		for (ushort_t i = 0, j = 25; i < 13; i++, j--)
 		{
 			m_Pairs[i].pair1 = alphabet[i];
 			m_Pairs[i].pair2 = alphabet[j];
@@ -23,10 +23,10 @@ namespace Enigma
 
 	Pair::Pair(s_Pairs pairs[13])
 	{
-		for (int i = 0; i < 26; i++)
+		for (ushort_t i = 0; i < 26; i++)
 			m_Connections[i] = i;
 		
-		for (int i = 0; i < 13; i++)
+		for (ushort_t i = 0; i < 13; i++)
 		{
 			m_Pairs[i].pair1 = pairs[i].pair1;
 			m_Pairs[i].pair2 = pairs[i].pair2;
@@ -36,9 +36,9 @@ namespace Enigma
 			throw std::logic_error("Duplicate letters in pairs!");
 	}
 
-	char Pair::PairOut(char letter) // To change to unsigned short after rotor logic is added
+	char Pair::PairOut(char letter)
 	{
-		for (int i = 0; i < 13; i++)
+		for (ushort_t i = 0; i < 13; i++)
 		{
 			if (letter == m_Pairs[i].pair1)
 			{
@@ -71,7 +71,7 @@ namespace Enigma
 #if DEBUG_CODE_ACTIVE
 	void Pair::DEBUG_PrintPairs() const
 	{
-		for (int i = 0; i < 13; i++)
+		for (ushort_t i = 0; i < 13; i++)
 			std::cout << m_Pairs[i];
 	}
 #endif

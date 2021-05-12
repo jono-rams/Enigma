@@ -91,11 +91,13 @@
     <ClCompile Include="src\Core\Core.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Pair\Pair.cpp" />
+    <ClCompile Include="src\Rotor\Rotor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GenericCode.h" />
     <ClInclude Include="src\Core\Core.h" />
     <ClInclude Include="src\Pair\Pair.h" />
+    <ClInclude Include="src\Rotor\Rotor.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
