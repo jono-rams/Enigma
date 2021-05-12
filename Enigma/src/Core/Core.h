@@ -2,6 +2,9 @@
 #include "../GenericCode.h"
 #include "../Pair/Pair.h"
 
+#ifndef CORE_H_
+#define CORE_H_
+
 namespace Enigma
 {
 	class Core
@@ -18,3 +21,4 @@ namespace Enigma
 		~Core();
 	};
 }
+#endif
