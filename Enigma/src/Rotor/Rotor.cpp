@@ -2,7 +2,6 @@
 
 #include <vector>
 #include <fstream>
-#include <string>
 
 namespace Enigma
 {
@@ -16,71 +15,82 @@ namespace Enigma
 		m_Rotator[25] = temp;
 	}
 
-	Rotor::Rotor(bool FirstRotor, ushort_t seed, bool ThirdRotor)
-		: m_FirstRotor(FirstRotor), m_SeedNo(seed), m_ThirdRotor(ThirdRotor)
+	Rotor::Rotor(uchar_t rotModuleNum, ushort_t seed)
+		: m_RotNum(new uchar_t), m_SeedNo(new ushort_t)
 	{
+		*m_SeedNo = seed;
+		*m_RotNum = rotModuleNum;
+		
 		std::vector<ushort_t> temp;
-		ushort_t x{};
-		bool y{ false };
+		ushort_t *x = new ushort_t{};
+		std::ifstream *in;
 
 		if (seed == 1)
 		{
-			std::ifstream in("data1.txt", std::ios::in);
-			while (in >> x)
+			in->open("RotorModules/Module1.rot", std::ios::in);
+			while ((*in) >> *x)
 			{
-				temp.push_back(x);
+				temp.push_back(*x);
 			}
 		}
 		else if (seed == 2)
 		{
-			std::ifstream in("data2.txt", std::ios::in);
-			while (in >> x)
+			in->open("RotorModules/Module2.rot", std::ios::in);
+			while ((*in) >> *x)
 			{
-				temp.push_back(x);
+				temp.push_back(*x);
 			}
 		}
 		else if (seed == 3)
 		{
-			std::ifstream in("data3.txt", std::ios::in);
-			while (in >> x)
+			in->open("RotorModules/Module3.rot", std::ios::in);
+			while ((*in) >> *x)
 			{
-				temp.push_back(x);
+				temp.push_back(*x);
 			}
 		}
 		else if (seed == 4)
 		{
-			std::ifstream in("data4.txt", std::ios::in);
-			while (in >> x)
+			in->open("RotorModules/Module4.rot", std::ios::in);
+			while ((*in) >> *x)
 			{
-				temp.push_back(x);
+				temp.push_back(*x);
 			}
 		}
 		else
 		{
-			std::ifstream in("data5.txt", std::ios::in);
-			while (in >> x)
+			in->open("RotorModules/Module5.rot", std::ios::in);
+			while ((*in) >> *x)
 			{
-				temp.push_back(x);
+				temp.push_back((*x);
 			}
 		}
 
+		in->close();
+		delete in;
+		delete x;
+
 		for (ushort_t i = 0; i < 26; i++)
 			m_Rotator[i] = alphabet[temp[i]];
+
+		temp.clear();
+		temp.shrink_to_fit();
 	}
 
-	void Rotor::In(char& c)
+	void Rotor::In(char& c) const
 	{
-		ushort_t temp{};
+		ushort_t *temp = new ushort_t{};
 		for (ushort_t i = 0; i < 26; i++)
 		{
 			if (c == alphabet[i])
 			{
-				temp = i;
+				*temp = i;
 				break;
 			}
 		}
 
-		c = m_Rotator[temp];
+		c = m_Rotator[*temp];
+		delete temp;
 	}
 
 	void Rotor::Out(char& c)
@@ -94,45 +104,22 @@ namespace Enigma
 			}
 		}
 
-		if (!m_FirstRotor)
-			m_Count++;
+		if (*m_RotNum != 1)
+			(*m_Count)++;
 		else
 			Rotate();
 
-		if (m_Count >= 26 && !m_ThirdRotor)
+		if (*m_Count >= 26 && *m_RotNum != 3)
 			Rotate();
-		else if (m_Count >= 52)
+		else if (*m_Count >= 52)
 			Rotate();
 	}
-	
-#if DEBUG_CODE_ACTIVE
-	void Rotor::DEBUG_CacheSeedVals()
-	{
-		std::vector<ushort_t> temp;
-		std::string fileN = "data1.txt";
-		std::ofstream file(fileN, std::ios::out);
-		ushort_t x{};
-		bool y{ false };
 
-		while (1)
-		{
-			x = (*m_Seed)() % 26;
-			for (ushort_t j = 0; j < temp.size(); j++)
-			{
-				if (x == temp[j])
-				{
-					y = true;
-					break;
-				}
-			}
-			if (y)
-				continue;
-			temp.push_back(x);
-			file << x << std::endl;
-			if (temp.size() > 26)
-				break;
-		}
-		file.close();
+	Rotor::~Rotor()
+	{
+		delete[] m_Rotator;
+		delete m_Count;
+		delete m_RotNum;
+		delete m_SeedNo;
 	}
-#endif
 }

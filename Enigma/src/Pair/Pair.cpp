@@ -11,9 +11,6 @@ namespace Enigma
 
 	Pair::Pair()
 	{
-		for (ushort_t i = 0; i < 26; i++)
-			m_Connections[i] = i;
-
 		for (ushort_t i = 0, j = 25; i < 13; i++, j--)
 		{
 			m_Pairs[i].pair1 = alphabet[i];
@@ -23,20 +20,27 @@ namespace Enigma
 
 	Pair::Pair(s_Pairs pairs[13])
 	{
-		for (ushort_t i = 0; i < 26; i++)
-			m_Connections[i] = i;
-		
+	
 		for (ushort_t i = 0; i < 13; i++)
 		{
 			m_Pairs[i].pair1 = pairs[i].pair1;
 			m_Pairs[i].pair2 = pairs[i].pair2;
+
+			if (CheckInvalidChar(m_Pairs[i]))
+			{
+				delete[] m_Pairs;
+				throw std::logic_error("Invalid character entered in Pair!");
+			}
 		}
 
 		if (CheckDuplicates(pairs))
+		{
+			delete[] m_Pairs;
 			throw std::logic_error("Duplicate letters in pairs!");
+		}
 	}
 
-	void Pair::PairOut(char &letter)
+	void Pair::PairOut(char &letter) const
 	{
 		for (ushort_t i = 0; i < 13; i++)
 		{
@@ -68,6 +72,26 @@ namespace Enigma
 			}
 		}
 		return false;
+	}
+
+	bool Pair::CheckInvalidChar(s_Pairs pair) const
+	{
+		ushort_t *count = new ushort_t{ 0 };
+		for (ushort_t i = 0; i < 26; i++)
+		{
+			if (pair.pair1 == alphabet[i])
+				(*count)++;
+			if (pair.pair2 == alphabet[i])
+				(*count)++;
+
+			if (*count > 1)
+			{
+				delete count;
+				return false;
+			}
+		}
+		delete count;
+		return true;
 	}
 
 #if DEBUG_CODE_ACTIVE

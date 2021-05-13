@@ -18,15 +18,16 @@ namespace Enigma
 
 	class Pair
 	{
-		s_Pairs m_Pairs[13];
-		ushort_t m_Connections[26]{ };
+		s_Pairs *m_Pairs = new s_Pairs[13];
 
 		bool CheckDuplicates(s_Pairs pairs[13]) const;
+		bool CheckInvalidChar(s_Pairs pair) const;
 	public:
 		Pair();
+		~Pair() { delete[] m_Pairs; }
 		Pair(s_Pairs pairs[13]);
 
-		void PairOut(char &letter);
+		void PairOut(char &letter) const;
 
 #if DEBUG_CODE_ACTIVE
 		void DEBUG_PrintPairs() const;

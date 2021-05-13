@@ -2,6 +2,36 @@
 
 namespace Enigma
 {
+	char Core::InternalEncrypt(char letter) const
+	{
+		bool *invalid = new bool{ true };
+		for (ushort_t i = 0; i < 26; i++)
+		{
+			if (letter == alphabet[i])
+			{
+				*invalid = false;
+				break;
+			}
+		}
+
+		if (*invalid)
+		{
+			delete invalid;
+			throw std::logic_error("Invalid character\n");
+		}
+
+		m_RotorF->In(letter);
+		m_RotorS->In(letter);
+		m_RotorT->In(letter);
+		m_PairModule->PairOut(letter);
+		m_RotorT->Out(letter);
+		m_RotorS->Out(letter);
+		m_RotorF->Out(letter);
+
+		delete invalid;
+		return letter;
+	}
+
 	Core::Core()
 		: m_PairModule(nullptr), m_RotorF(nullptr), m_RotorS(nullptr), m_RotorT(nullptr)
 	{
@@ -31,9 +61,9 @@ namespace Enigma
 		catch (std::logic_error err)
 		{
 			std::cout << err.what() << std::endl;
-			std::cout << "Pair could not be generated!\n";
 			delete m_PairModule;
 			m_PairModule = nullptr;
+			throw std::logic_error("Pair could not be generated!");
 		}
 	}
 
@@ -42,13 +72,20 @@ namespace Enigma
 		if (Rot1 > 5 || Rot2 > 5 || Rot3 > 5)
 			throw std::logic_error("Invalid Rotor Number!");
 
-		seeds[0] = Rot1;
-		seeds[1] = Rot2;
-		seeds[2] = Rot3;
+		if (m_RotorF != nullptr)
+		{
+			delete m_RotorF;
+			delete m_RotorS;
+			delete m_RotorT;
 
-		m_RotorF = new Rotor(true, Rot1);
-		m_RotorS = new Rotor(false, Rot2);
-		m_RotorT = new Rotor(false, Rot3);
+			m_RotorF = nullptr;
+			m_RotorS = nullptr;
+			m_RotorT = nullptr;
+		}
+
+		m_RotorF = new Rotor(1, Rot1);
+		m_RotorS = new Rotor(2, Rot2);
+		m_RotorT = new Rotor(3, Rot3);
 	}
 
 	void Core::SwitchRotorModule(ushort_t RotModuleNo, ushort_t Rot)
@@ -65,7 +102,8 @@ namespace Enigma
 				throw std::logic_error("Invalid Rotor Number!");
 
 			delete m_RotorF;
-			m_RotorF = new Rotor(true, Rot);
+			m_RotorF = nullptr;
+			m_RotorF = new Rotor(1, Rot);
 		}
 		else if (RotModuleNo == 2)
 		{
@@ -79,7 +117,8 @@ namespace Enigma
 				throw std::logic_error("Invalid Rotor Number!");
 
 			delete m_RotorS;
-			m_RotorS = new Rotor(false, Rot);
+			m_RotorS = nullptr;
+			m_RotorS = new Rotor(2, Rot);
 		}
 		else if (RotModuleNo == 3)
 		{
@@ -93,7 +132,8 @@ namespace Enigma
 				throw std::logic_error("Invalid Rotor Number!");
 
 			delete m_RotorT;
-			m_RotorT = new Rotor(false, Rot);
+			m_RotorT = nullptr;
+			m_RotorT = new Rotor(3, Rot);
 		}
 		else
 		{
@@ -101,34 +141,60 @@ namespace Enigma
 		}
 	}
 
-	char Core::Encrypt(char letter) const
+	void Core::Encrypt(const std::string &word, std::string &output) const
 	{
-		bool invalid{ true };
-		for (ushort_t i = 0; i < 26; i++)
+		std::vector<char> wordV;
+		std::copy(word.begin(), word.end(), std::back_inserter(wordV));
+
+		char *temp = new char;
+		for (uint64_t i = 0; i < wordV.size(); i++)
 		{
-			if (letter == alphabet[i])
+			try 
 			{
-				invalid = false;
-				break;
+				*temp = InternalEncrypt(wordV[i]);
 			}
+			catch (std::logic_error err)
+			{
+				throw err;
+			}
+			output.push_back(*temp);
 		}
+		wordV.clear();
+		wordV.shrink_to_fit();
+		delete temp;
+	}
 
-		if (invalid)
-			throw std::logic_error("Invalid character\n");
+	std::string Core::Encrypt(const std::string& word) const
+	{
+		std::string output;
+		std::vector<char> wordV;
+		std::copy(word.begin(), word.end(), std::back_inserter(wordV));
 
-		m_RotorF->In(letter);
-		m_RotorS->In(letter);
-		m_RotorT->In(letter);
-		m_PairModule->PairOut(letter);
-		m_RotorT->Out(letter);
-		m_RotorS->Out(letter);
-		m_RotorF->Out(letter);
+		char* temp = new char;
+		for (uint64_t i = 0; i < wordV.size(); i++)
+		{
+			try
+			{
+				*temp = InternalEncrypt(wordV[i]);
+			}
+			catch (std::logic_error err)
+			{
+				throw err;
+			}
+			output.push_back(*temp);
+		}
+		wordV.clear();
+		wordV.shrink_to_fit();
+		delete temp;
 
-		return letter;
+		return output;
 	}
 
 	Core::~Core()
 	{
 		delete m_PairModule;
+		delete m_RotorF;
+		delete m_RotorS;
+		delete m_RotorT;
 	}
 }

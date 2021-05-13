@@ -10,30 +10,23 @@ namespace Enigma
 {
 	class Rotor
 	{
-		char m_Rotator[26]{};
+		char *m_Rotator = new char[26];
 
-		bool m_FirstRotor{ false };
-		bool m_ThirdRotor{ false };
-		int m_Count{ 0 };
+		uchar_t *m_RotNum = nullptr;
+		ushort_t *m_Count = new ushort_t{ 0 };
 
-		ushort_t m_SeedNo{};
+		ushort_t *m_SeedNo = nullptr;
 
 		void Rotate();
 	public:
 		Rotor() = delete;
+		~Rotor();
 		
-		Rotor(bool FirstRotor, ushort_t seed, bool ThirdRotor = false);
-		void In(char& c);
+		Rotor(uchar_t rotModuleNum, ushort_t seed);
+		void In(char& c) const;
 		void Out(char& c);
 
-#if DEBUG_CODE_ACTIVE
-		Rotor(ushort_t seed) : m_SeedNo(seed), m_Seed(new std::mt19937(seed)) {}
-		void DEBUG_CacheSeedVals();
-	private:
-		std::mt19937* m_Seed;
-#endif
-
-		ushort_t GetSeed() const { return m_SeedNo; }
+		ushort_t GetSeed() const { return *m_SeedNo; }
 	};
 }
 
