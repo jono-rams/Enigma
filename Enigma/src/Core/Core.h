@@ -24,7 +24,7 @@ namespace Enigma
 		void GenNewPairModule();
 		void GenNewPairModule(s_Pairs pairs[13]);
 
-#if DEBUG_CODE_ACTIVE
+#ifdef DEBUG_CODE_ACTIVE
 		const Pair* GetPairModule() const { return m_PairModule; }
 #endif
 
