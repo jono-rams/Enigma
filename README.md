@@ -26,3 +26,6 @@ The roadmap has recently been created and will be updated over the next few days
 * Improved Error Handling.
 * Better memory management.
   * Most is done manually in the code by the programmer.
+
+## BETA 2 CHANGELOG
+* IN PROGRESS
