@@ -19,3 +19,6 @@ The roadmap has recently been created and will be updated over the next few days
   * 5 Rotors created and can be edited by user.
   * User can set any three Rotors in any order.
 * Encryption fully implemented.
+
+## Beta 1 Changelog
+* IN PROGRESS
