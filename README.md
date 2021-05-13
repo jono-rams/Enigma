@@ -28,4 +28,7 @@ The roadmap has recently been created and will be updated over the next few days
   * Most is done manually in the code by the programmer.
 
 ## BETA 2 CHANGELOG
-* IN PROGRESS
+* Added Comments to code
+* Further improved memory management and error handling
+* Minor bug fixes and code cleanup
+* Made Debug Code Macro user defined
