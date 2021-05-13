@@ -6,6 +6,7 @@
 
 typedef unsigned short int ushort_t;
 typedef unsigned long long uint64_t;
+typedef unsigned char uchar_t;
 
 namespace Enigma
 {
