@@ -20,5 +20,9 @@ The roadmap has recently been created and will be updated over the next few days
   * User can set any three Rotors in any order.
 * Encryption fully implemented.
 
-## Beta 1 Changelog
-* IN PROGRESS
+## BETA 1 CHANGELOG
+* Encryption now takes a string instead of character.
+  * Can output a string or write to a string reference.
+* Improved Error Handling.
+* Better memory management.
+  * Most is done manually in the code by the programmer.
