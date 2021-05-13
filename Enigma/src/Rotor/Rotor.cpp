@@ -23,7 +23,7 @@ namespace Enigma
 		
 		std::vector<ushort_t> temp;
 		ushort_t *x = new ushort_t{};
-		std::ifstream *in;
+		std::ifstream *in = new std::ifstream;
 
 		if (seed == 1)
 		{
@@ -62,7 +62,7 @@ namespace Enigma
 			in->open("RotorModules/Module5.rot", std::ios::in);
 			while ((*in) >> *x)
 			{
-				temp.push_back((*x);
+				temp.push_back(*x);
 			}
 		}
 
