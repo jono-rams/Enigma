@@ -23,7 +23,7 @@ namespace Enigma
 		
 		std::vector<ushort_t> temp;
 		ushort_t *x = new ushort_t{};
-		std::ifstream *in;
+		std::ifstream *in = new std::ifstream;
 
 		if (seed == 1)
 		{
