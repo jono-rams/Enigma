@@ -12,28 +12,29 @@ namespace Enigma
 {
 	class Core
 	{
+		// Member variables for Pair module and Three Rotor modules as pointers
 		Pair* m_PairModule;
 		Rotor* m_RotorF;
 		Rotor* m_RotorS;
 		Rotor* m_RotorT;
 
-		char InternalEncrypt(char letter) const;
+		char InternalEncrypt(char letter) const; // Function to encrypt character. This contains the actual encryption logic
 	public:
-		Core();
+		Core(); // Default constructor
 		
-		void GenNewPairModule();
-		void GenNewPairModule(s_Pairs pairs[13]);
+		void GenNewPairModule(); // Generate Pair Module with default pairs
+		void GenNewPairModule(s_Pairs pairs[13]); // Generate Pair Module with user set pairs
 
-#ifdef DEBUG_CODE_ACTIVE
+#ifdef DEBUG_CODE_ACTIVE // Code in this statement is only compiled if DEBUG_CODE_ACTIVE Macro is defined (This can be done in any user CPP File)
 		const Pair* GetPairModule() const { return m_PairModule; }
 #endif
 
-		void GenNewRotorsModules(ushort_t Rot1, ushort_t Rot2, ushort_t Rot3);
-		void SwitchRotorModule(ushort_t RotModuleNo, ushort_t Rot);
+		void GenNewRotorsModules(ushort_t Rot1, ushort_t Rot2, ushort_t Rot3); // Generates Rotors using 3 different seed values
+		void SwitchRotorModule(ushort_t RotModuleNo, ushort_t Rot); // Switches a specific rotor with a new one with a user determined seed
 
-		void Encrypt(const std::string &word, std::string &output) const;
-		std::string Encrypt(const std::string& word) const;
-		~Core();
+		void Encrypt(const std::string &word, std::string &output) const; // Encryption code for a string that takes a reference to a user string to write the output to
+		std::string Encrypt(const std::string& word) const; // Encryption code for a string that returns a string
+		~Core(); // Destructor
 	};
 }
 #endif
