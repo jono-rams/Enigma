@@ -1,5 +1,7 @@
 #include "Core.h"
 
+static_assert(sizeof(void*) != 4, "Compile in 64-bit mode only");
+
 namespace Enigma
 {
 	char Core::InternalEncrypt(char letter) const

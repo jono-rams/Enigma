@@ -62,7 +62,7 @@ namespace Enigma
 			in->open("RotorModules/Module5.rot", std::ios::in);
 			while ((*in) >> *x)
 			{
-				temp.push_back((*x);
+				temp.push_back(*x);
 			}
 		}
 
