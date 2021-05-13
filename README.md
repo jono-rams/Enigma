@@ -15,4 +15,7 @@ The roadmap has recently been created and will be updated over the next few days
   * A check has been implemented to ensure it's only valid characters.
 
 ## ALPHA 2 CHANGELOG
-* IN DEVELOPMENT
+* Rotor modules implemented in Core.
+  * 5 Rotors created and can be edited by user.
+  * User can set any three Rotors in any order.
+* Encryption fully implemented.

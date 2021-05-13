@@ -26,7 +26,7 @@ namespace Enigma
 		Pair();
 		Pair(s_Pairs pairs[13]);
 
-		char PairOut(char letter);
+		void PairOut(char &letter);
 
 #if DEBUG_CODE_ACTIVE
 		void DEBUG_PrintPairs() const;
