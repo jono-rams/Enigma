@@ -56,7 +56,7 @@ int main()
 		std::cout << err.what() << std::endl;
 	}
 
-#if DEBUG_CODE_ACTIVE	
+#ifdef DEBUG_CODE_ACTIVE	
 		if (machine.GetPairModule() != nullptr)
 			machine.GetPairModule()->DEBUG_PrintPairs();
 #endif
