@@ -15,7 +15,7 @@ namespace Enigma
 		char pair1;
 		char pair2;
 
-		s_Pairs(){};
+		s_Pairs(){} // Default Constructor
 		s_Pairs(s_Pairs& obj); // Overloaded Copy Constructor
 		s_Pairs & operator=(const s_Pairs& obj); // Overloaded Copy Assignment
 		friend std::ostream& operator<<(std::ostream& os, const s_Pairs& pair); // Overloaded ostream operator for s_Pairs struct
