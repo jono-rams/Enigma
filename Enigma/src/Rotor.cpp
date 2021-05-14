@@ -18,7 +18,7 @@ namespace Enigma
 		delete temp; // Deallocates memory for temp variable
 	}
 
-	Rotor::Rotor(uchar_t rotModuleNum, ushort_t seed)
+	Rotor::Rotor(uchar_t rotModuleNum, ushort_t seed, std::string ROTOR_FILE_PATH)
 		: m_RotNum(new uchar_t), m_SeedNo(new ushort_t) // Allocates memory for m_RotNum and m_SeedNo
 	{
 		*m_SeedNo = seed; // Sets seed value
@@ -37,7 +37,8 @@ namespace Enigma
 		// Reads from specific .rot data file depending on seed and adds all values to temp vector
 		if (seed == 1)
 		{
-			in->open("$(SolutionDir)RotorModules/Module1.rot", std::ios::in);
+			ROTOR_FILE_PATH += "/Module1.rot";
+			in->open(ROTOR_FILE_PATH.c_str(), std::ios::in);
 			while ((*in) >> *x)
 			{
 				temp.push_back(*x);
@@ -45,7 +46,8 @@ namespace Enigma
 		}
 		else if (seed == 2)
 		{
-			in->open("$(SolutionDir)RotorModules/Module2.rot", std::ios::in);
+			ROTOR_FILE_PATH += "/Module2.rot";
+			in->open(ROTOR_FILE_PATH.c_str(), std::ios::in);
 			while ((*in) >> *x)
 			{
 				temp.push_back(*x);
@@ -53,7 +55,8 @@ namespace Enigma
 		}
 		else if (seed == 3)
 		{
-			in->open("$(SolutionDir)RotorModules/Module3.rot", std::ios::in);
+			ROTOR_FILE_PATH += "/Module3.rot";
+			in->open(ROTOR_FILE_PATH.c_str(), std::ios::in);
 			while ((*in) >> *x)
 			{
 				temp.push_back(*x);
@@ -61,7 +64,8 @@ namespace Enigma
 		}
 		else if (seed == 4)
 		{
-			in->open("$(SolutionDir)RotorModules/Module4.rot", std::ios::in);
+			ROTOR_FILE_PATH += "/Module4.rot";
+			in->open(ROTOR_FILE_PATH.c_str(), std::ios::in);
 			while ((*in) >> *x)
 			{
 				temp.push_back(*x);
@@ -69,7 +73,8 @@ namespace Enigma
 		}
 		else
 		{
-			in->open("$(SolutionDir)RotorModules/Module5.rot", std::ios::in);
+			ROTOR_FILE_PATH += "/Module5.rot";
+			in->open(ROTOR_FILE_PATH.c_str(), std::ios::in);
 			while ((*in) >> *x)
 			{
 				temp.push_back(*x);

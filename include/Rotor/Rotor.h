@@ -1,6 +1,8 @@
 #pragma once
 #include "../Core/GenericCode.h"
 
+#include <string>
+
 #ifndef ROTOR_H_
 #define ROTOR_H_
 
@@ -20,7 +22,7 @@ namespace Enigma
 		Rotor() = delete; // Deletes the default constructor so that it can't be used
 		~Rotor(); // Deconstructor
 		
-		Rotor(uchar_t rotModuleNum, ushort_t seed); // Constructor that takes in what slot the rotor is in and it's seed value
+		Rotor(uchar_t rotModuleNum, ushort_t seed, std::string ROTOR_FILE_PATH); // Constructor that takes in what slot the rotor is in and it's seed value
 		void In(char& c) const; // Encryption logic for the letter entered by the user going TO the pair module
 		void Out(char& c); // Encryption logic for the letter entered by the user coming FROM the pair module
 
