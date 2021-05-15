@@ -43,6 +43,11 @@ namespace Enigma
 	Core::Core()
 		: m_PairModule(nullptr), m_RotorF(nullptr), m_RotorS(nullptr), m_RotorT(nullptr), m_RotPath(nullptr) // Sets all member variable pointers to nullptr
 	{
+
+#ifdef ENIGMA_LOGGING_ENABLED
+		std::cout << "Core Object successfully created!" << std::endl;
+#endif
+
 	}
 
 	void Core::GenNewPairModule()
@@ -56,6 +61,11 @@ namespace Enigma
 		}
 
 		m_PairModule = new Pair{}; // Allocates memory for a new Pair created with the default constructor
+
+#ifdef ENIGMA_LOGGING_ENABLED
+		std::cout << "Pair module successfully generated with default values!" << std::endl;
+#endif
+
 	}
 
 	void Core::GenNewPairModule(s_Pairs pairs[13])
@@ -72,6 +82,11 @@ namespace Enigma
 		try
 		{
 			m_PairModule = new Pair{ pairs }; // Allocates memory for a new Pair created with the default constructor
+		
+#ifdef ENIGMA_LOGGING_ENABLED
+			std::cout << "Pair module successfully generated with custom values!" << std::endl;
+#endif
+		
 		}
 		catch (std::logic_error err)
 		{
@@ -115,6 +130,11 @@ namespace Enigma
 		m_RotorF = new Rotor(1, Rot1, *m_RotPath);
 		m_RotorS = new Rotor(2, Rot2, *m_RotPath);
 		m_RotorT = new Rotor(3, Rot3, *m_RotPath);
+
+#ifdef ENIGMA_LOGGING_ENABLED
+		std::cout << "All Rotor modules successfully generated!" << std::endl;
+#endif
+
 	}
 
 	void Core::SwitchRotorModule(ushort_t RotModuleNo, ushort_t Rot)
@@ -169,6 +189,11 @@ namespace Enigma
 		{
 			throw std::logic_error("Only THREE(3) Rotor Modules"); // Throws a logic error to be caught when calling the function
 		}
+
+#ifdef ENIGMA_LOGGING_ENABLED
+		std::cout << "Rotor module " << RotModuleNo << " successfully switched!" << std::endl;
+#endif
+
 	}
 
 	void Core::Encrypt(const std::string &word, std::string &output) const
@@ -188,6 +213,7 @@ namespace Enigma
 			}
 			catch (std::logic_error err)
 			{
+				output.clear(); // Deletes output data since error was found
 				throw err; // Throws caught logic error to be caught when calling the function
 			}
 			output.push_back(*temp); // Adds letter to output string
@@ -223,7 +249,7 @@ namespace Enigma
 		wordV.shrink_to_fit(); // Shrinks the vector to 0 to deallocate memory
 		delete temp; // Deallocates memory for temp
 
-		return output; // Returns output string
+		return std::move(output); // Returns output string
 	}
 
 	Core::~Core()
