@@ -7,7 +7,6 @@
 
 #ifndef CORE_H_
 #define CORE_H_
-#define ENIGMA_LOGGING_ENABLED
 
 namespace Enigma
 {
