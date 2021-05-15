@@ -7,6 +7,7 @@
 
 #ifndef CORE_H_
 #define CORE_H_
+#define ENIGMA_LOGGING_ENABLED
 
 namespace Enigma
 {
@@ -38,6 +39,36 @@ namespace Enigma
 		void Encrypt(const std::string &word, std::string &output) const; // Encryption code for a string that takes a reference to a user string to write the output to
 		std::string Encrypt(const std::string& word) const; // Encryption code for a string that returns a string
 		~Core(); // Destructor
+
+	private:
+#ifdef ENIGMA_LOGGING_ENABLED
+		void LOGGING(ushort_t log_message, ushort_t RotModuleNo = 0)
+		{
+			switch (log_message)
+			{
+			case 1:
+				std::cout << "Core Object successfully created!" << std::endl;
+				break;
+			case 2:
+				std::cout << "Pair module successfully generated with default values!" << std::endl;
+				break;
+			case 3:
+				std::cout << "Pair module successfully generated with custom values!" << std::endl;
+				break;
+			case 4:
+				std::cout << "All Rotor modules successfully generated!" << std::endl;
+				break;
+			case 5:
+				std::cout << "Rotor module " << RotModuleNo << " successfully switched!" << std::endl;
+				break;
+			default:
+				break;
+			}
+		}
+#else
+		void LOGGING(ushort_t log_message, ushort_t RotModuleNo = 0) { return; }
+#endif
+
 	};
 }
 #endif

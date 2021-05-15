@@ -113,12 +113,4 @@ namespace Enigma
 		delete count;
 		return true;
 	}
-
-#ifdef ENIGMA_DEBUG_CODE_ACTIVE
-	void Pair::DEBUG_PrintPairs() const
-	{
-		for (ushort_t i = 0; i < 13; i++)
-			std::cout << m_Pairs[i];
-	}
-#endif
 }
