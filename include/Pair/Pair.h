@@ -34,7 +34,7 @@ namespace Enigma
 
 		void PairOut(char &letter) const; // This function does the encryption logic of the Pair module
 
-#ifdef DEBUG_CODE_ACTIVE // Code in this statement is only compiled if DEBUG_CODE_ACTIVE Macro is defined (This can be done in any user CPP File)
+#ifdef ENIGMA_DEBUG_CODE_ACTIVE // Code in this statement is only compiled if DEBUG_CODE_ACTIVE Macro is defined (This can be done in any user CPP File)
 		void DEBUG_PrintPairs() const; // This function Prints the pairs out to the screen
 #endif
 

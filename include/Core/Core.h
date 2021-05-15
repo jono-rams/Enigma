@@ -27,7 +27,7 @@ namespace Enigma
 		void GenNewPairModule(); // Generate Pair Module with default pairs
 		void GenNewPairModule(s_Pairs pairs[13]); // Generate Pair Module with user set pairs
 
-#ifdef DEBUG_CODE_ACTIVE // Code in this statement is only compiled if DEBUG_CODE_ACTIVE Macro is defined (This can be done in any user CPP File)
+#ifdef ENIGMA_DEBUG_CODE_ACTIVE // Code in this statement is only compiled if DEBUG_CODE_ACTIVE Macro is defined (This can be done in any user CPP File)
 		const Pair* GetPairModule() const { return m_PairModule; }
 #endif
 
