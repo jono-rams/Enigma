@@ -43,7 +43,6 @@ namespace Enigma
 	Core::Core()
 		: m_PairModule(nullptr), m_RotorF(nullptr), m_RotorS(nullptr), m_RotorT(nullptr), m_RotPath(nullptr) // Sets all member variable pointers to nullptr
 	{
-		LOGGING(1);
 	}
 
 	void Core::GenNewPairModule()
@@ -57,8 +56,6 @@ namespace Enigma
 		}
 
 		m_PairModule = new Pair{}; // Allocates memory for a new Pair created with the default constructor
-
-		LOGGING(2);
 	}
 
 	void Core::GenNewPairModule(s_Pairs pairs[13])
@@ -75,7 +72,6 @@ namespace Enigma
 		try
 		{
 			m_PairModule = new Pair{ pairs }; // Allocates memory for a new Pair created with the default constructor
-			LOGGING(3);
 		}
 		catch (std::logic_error err)
 		{
@@ -119,8 +115,6 @@ namespace Enigma
 		m_RotorF = new Rotor(1, Rot1, *m_RotPath);
 		m_RotorS = new Rotor(2, Rot2, *m_RotPath);
 		m_RotorT = new Rotor(3, Rot3, *m_RotPath);
-
-		LOGGING(4);
 	}
 
 	void Core::SwitchRotorModule(ushort_t RotModuleNo, ushort_t Rot)
@@ -175,8 +169,6 @@ namespace Enigma
 		{
 			throw std::logic_error("Only THREE(3) Rotor Modules"); // Throws a logic error to be caught when calling the function
 		}
-
-		LOGGING(5, RotModuleNo);
 	}
 
 	void Core::Encrypt(const std::string &word, std::string &output) const

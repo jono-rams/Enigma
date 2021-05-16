@@ -33,15 +33,6 @@ namespace Enigma
 		Pair(s_Pairs pairs[13]); // Constructor that takes an array of 13 s_Pairs
 
 		void PairOut(char &letter) const; // This function does the encryption logic of the Pair module
-
-#ifdef ENIGMA_DEBUG_CODE_ACTIVE // Code in this statement is only compiled if DEBUG_CODE_ACTIVE Macro is defined (This can be done in any user CPP File)
-		void DEBUG_PrintPairs() const // This function Prints the pairs out to the screen
-		{
-			for (ushort_t i = 0; i < 13; i++)
-				std::cout << m_Pairs[i];
-		}
-#endif
-
 	};
 }
 #endif
