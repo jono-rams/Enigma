@@ -7,6 +7,7 @@
 
 using namespace Enigma;
 
+/*
 int main()
 {
 	s_Pairs* pairs = new s_Pairs[13];
@@ -27,6 +28,10 @@ int main()
 	}
 
 	Core machine{};
+	std::string *path = new std::string;
+	*path = "RotorModules";
+	machine.SetRotorDataPath(*path);
+	delete path;
 
 	if (pairs == nullptr)
 		machine.GenNewPairModule();
@@ -79,4 +84,26 @@ int main()
 	std::cout << out << std::endl;
 
 	return 0;
+}*/
+
+int main()
+{
+	s_EnigmaTimer t;
+
+	Core machine{};
+	std::string* path = new std::string;
+	*path = "RotorModules";
+	machine.SetRotorDataPath(*path);
+	delete path;
+
+	machine.GenNewPairModule();
+	machine.GenNewRotorsModules(5, 4, 3);
+
+	std::string i1 = "hello";
+	std::string i2 = "world";
+
+	std::string o1 = machine.Encrypt(i1);
+	std::string o2 = machine.Encrypt(i2);
+
+	std::cout << o1 << " " << o2 << std::endl;
 }

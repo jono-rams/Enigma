@@ -18,7 +18,7 @@ namespace Enigma
 		delete temp; // Deallocates memory for temp variable
 	}
 
-	Rotor::Rotor(uchar_t rotModuleNum, ushort_t seed)
+	Rotor::Rotor(uchar_t rotModuleNum, ushort_t seed, std::string ROTOR_FILE_PATH)
 		: m_RotNum(new uchar_t), m_SeedNo(new ushort_t) // Allocates memory for m_RotNum and m_SeedNo
 	{
 		*m_SeedNo = seed; // Sets seed value
@@ -29,15 +29,16 @@ namespace Enigma
 			delete m_Count; // Deallocates memory for m_Count as it is not needed for rotor in first slot
 			m_Count = nullptr; // Points m_Count to nullptr to avoid errors when destructor tries to deallocate its memory again
 		}
-		
+
 		std::vector<ushort_t> temp; // Vector to hold all values from .rot data files, these files contain how the rotor connects from one letter to the next
-		ushort_t *x = new ushort_t{}; // Temporary variable to hold data from .rot data files before adding it to vector
-		std::ifstream *in = new std::ifstream; // Temporary ifstream object to open and read from .rot data files
+		ushort_t* x = new ushort_t{}; // Temporary variable to hold data from .rot data files before adding it to vector
+		std::ifstream* in = new std::ifstream; // Temporary ifstream object to open and read from .rot data files
 
 		// Reads from specific .rot data file depending on seed and adds all values to temp vector
 		if (seed == 1)
 		{
-			in->open("RotorModules/Module1.rot", std::ios::in);
+			ROTOR_FILE_PATH += "/Module1.rot";
+			in->open(ROTOR_FILE_PATH.c_str(), std::ios::in);
 			while ((*in) >> *x)
 			{
 				temp.push_back(*x);
@@ -45,7 +46,8 @@ namespace Enigma
 		}
 		else if (seed == 2)
 		{
-			in->open("RotorModules/Module2.rot", std::ios::in);
+			ROTOR_FILE_PATH += "/Module2.rot";
+			in->open(ROTOR_FILE_PATH.c_str(), std::ios::in);
 			while ((*in) >> *x)
 			{
 				temp.push_back(*x);
@@ -53,7 +55,8 @@ namespace Enigma
 		}
 		else if (seed == 3)
 		{
-			in->open("RotorModules/Module3.rot", std::ios::in);
+			ROTOR_FILE_PATH += "/Module3.rot";
+			in->open(ROTOR_FILE_PATH.c_str(), std::ios::in);
 			while ((*in) >> *x)
 			{
 				temp.push_back(*x);
@@ -61,7 +64,8 @@ namespace Enigma
 		}
 		else if (seed == 4)
 		{
-			in->open("RotorModules/Module4.rot", std::ios::in);
+			ROTOR_FILE_PATH += "/Module4.rot";
+			in->open(ROTOR_FILE_PATH.c_str(), std::ios::in);
 			while ((*in) >> *x)
 			{
 				temp.push_back(*x);
@@ -69,7 +73,8 @@ namespace Enigma
 		}
 		else
 		{
-			in->open("RotorModules/Module5.rot", std::ios::in);
+			ROTOR_FILE_PATH += "/Module5.rot";
+			in->open(ROTOR_FILE_PATH.c_str(), std::ios::in);
 			while ((*in) >> *x)
 			{
 				temp.push_back(*x);
@@ -90,8 +95,8 @@ namespace Enigma
 
 	void Rotor::In(char& c) const
 	{
-		ushort_t *temp = new ushort_t{}; // Allocates memory for a temp unsigned short
-		
+		ushort_t* temp = new ushort_t{}; // Allocates memory for a temp unsigned short
+
 		// Checks to see which letter was passed and sets temp to the location in alphabet
 		for (ushort_t i = 0; i < 26; i++)
 		{

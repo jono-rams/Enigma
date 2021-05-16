@@ -6,8 +6,8 @@ namespace Enigma
 {
 	char Core::InternalEncrypt(char letter) const
 	{
-		bool *invalid = new bool{ true }; // Allocates memory for a bool that states whether an invalid character was entered
-		
+		bool* invalid = new bool{ true }; // Allocates memory for a bool that states whether an invalid character was entered
+
 		// Checks to see if letter is in the alphabet (a valid character)
 		for (ushort_t i = 0; i < 26; i++)
 		{
@@ -39,8 +39,9 @@ namespace Enigma
 	}
 
 	Core::Core()
-		: m_PairModule(nullptr), m_RotorF(nullptr), m_RotorS(nullptr), m_RotorT(nullptr) // Sets all member variable pointers to nullptr
+		: m_PairModule(nullptr), m_RotorF(nullptr), m_RotorS(nullptr), m_RotorT(nullptr), m_RotPath(nullptr) // Sets all member variable pointers to nullptr
 	{
+		CORE_LOGGING(1);
 	}
 
 	void Core::GenNewPairModule()
@@ -54,6 +55,8 @@ namespace Enigma
 		}
 
 		m_PairModule = new Pair{}; // Allocates memory for a new Pair created with the default constructor
+
+		CORE_LOGGING(2);
 	}
 
 	void Core::GenNewPairModule(s_Pairs pairs[13])
@@ -70,6 +73,7 @@ namespace Enigma
 		try
 		{
 			m_PairModule = new Pair{ pairs }; // Allocates memory for a new Pair created with the default constructor
+			CORE_LOGGING(3);
 		}
 		catch (std::logic_error err)
 		{
@@ -78,6 +82,16 @@ namespace Enigma
 			m_PairModule = nullptr;
 			throw std::logic_error("Pair could not be generated!"); // Throws a logic error to be caught when calling the function
 		}
+	}
+
+	void Core::SetRotorDataPath(std::string path)
+	{
+		if (m_RotPath != nullptr)
+		{
+			delete m_RotPath;
+			m_RotPath = nullptr;
+		}
+		m_RotPath = new std::string(path);
 	}
 
 	void Core::GenNewRotorsModules(ushort_t Rot1, ushort_t Rot2, ushort_t Rot3)
@@ -100,13 +114,16 @@ namespace Enigma
 		}
 
 		// Creates and allocates memory for Rotor modules in order
-		m_RotorF = new Rotor(1, Rot1);
-		m_RotorS = new Rotor(2, Rot2);
-		m_RotorT = new Rotor(3, Rot3);
+		m_RotorF = new Rotor(1, Rot1, *m_RotPath);
+		m_RotorS = new Rotor(2, Rot2, *m_RotPath);
+		m_RotorT = new Rotor(3, Rot3, *m_RotPath);
+
+		CORE_LOGGING(4);
 	}
 
 	void Core::SwitchRotorModule(ushort_t RotModuleNo, ushort_t Rot)
 	{
+		s_EnigmaTimer t;
 		if (Rot > 5)
 			throw std::logic_error("Invalid Rotor Number!"); // Throws a logic error to be caught when calling the function
 
@@ -116,66 +133,69 @@ namespace Enigma
 			// Checks to make sure seed value is not being used in another rotor module
 			if (Rot == m_RotorS->GetSeed() || Rot == m_RotorT->GetSeed())
 				throw std::logic_error("Rotor already in use in another module!"); // Throws a logic error to be caught when calling the function
-			
+
 			if (Rot == m_RotorF->GetSeed()) // Checks to see if Rotor module is the same as current one
 				return;
 
 			// Deallocates memory for rotor module and sets to nullptr, then creates and allocates memory for Rotor module
 			delete m_RotorF;
 			m_RotorF = nullptr;
-			m_RotorF = new Rotor(1, Rot);
+			m_RotorF = new Rotor(1, Rot, *m_RotPath);
 		}
 		else if (RotModuleNo == 2)
 		{
 			// Checks to make sure seed value is not being used in another rotor module
 			if (Rot == m_RotorF->GetSeed() || Rot == m_RotorT->GetSeed())
 				throw std::logic_error("Rotor already in use in another module!"); // Throws a logic error to be caught when calling the function
-			
+
 			if (Rot == m_RotorS->GetSeed()) // Checks to see if Rotor module is the same as current one
 				return;
 
 			// Deallocates memory for rotor module and sets to nullptr, then creates and allocates memory for Rotor module
 			delete m_RotorS;
 			m_RotorS = nullptr;
-			m_RotorS = new Rotor(2, Rot);
+			m_RotorS = new Rotor(2, Rot, *m_RotPath);
 		}
 		else if (RotModuleNo == 3)
 		{
 			// Checks to make sure seed value is not being used in another rotor module
-			if (Rot == m_RotorS->GetSeed() || Rot == m_RotorF->GetSeed())			
+			if (Rot == m_RotorS->GetSeed() || Rot == m_RotorF->GetSeed())
 				throw std::logic_error("Rotor already in use in another module!"); // Throws a logic error to be caught when calling the function
-			
+
 			if (Rot == m_RotorT->GetSeed()) // Checks to see if Rotor module is the same as current one
 				return;
 
 			// Deallocates memory for rotor module and sets to nullptr, then creates and allocates memory for Rotor module
 			delete m_RotorT;
 			m_RotorT = nullptr;
-			m_RotorT = new Rotor(3, Rot);
+			m_RotorT = new Rotor(3, Rot, *m_RotPath);
 		}
 		else // If user is trying to set to a rotor module that does not exist
 		{
 			throw std::logic_error("Only THREE(3) Rotor Modules"); // Throws a logic error to be caught when calling the function
 		}
+
+		CORE_LOGGING(5, RotModuleNo);
 	}
 
-	void Core::Encrypt(const std::string &word, std::string &output) const
+	void Core::Encrypt(const std::string& word, std::string& output) const
 	{
 		std::vector<char> wordV; // Vector to hold all values from word
 		std::copy(word.begin(), word.end(), std::back_inserter(wordV)); // Copies characters from string to vector
 
-		char *temp = new char; // Temporary variable to hold encrypted character
-		
+		char* temp = new char; // Temporary variable to hold encrypted character
+
 		// Loop that runs through all characters in vector
 		for (uint64_t i = 0; i < wordV.size(); i++)
 		{
 			// Error Handling
-			try 
+			try
 			{
 				*temp = InternalEncrypt(wordV[i]); // Calls internal Encryption for letter
 			}
 			catch (std::logic_error err)
 			{
+				output.clear(); // Deletes output data since error was found
 				throw err; // Throws caught logic error to be caught when calling the function
 			}
 			output.push_back(*temp); // Adds letter to output string
@@ -187,6 +207,7 @@ namespace Enigma
 
 	std::string Core::Encrypt(const std::string& word) const
 	{
+		s_EnigmaTimer t;
 		std::string output; // Temporary string to return
 		std::vector<char> wordV; // Vector to hold all values from word
 		std::copy(word.begin(), word.end(), std::back_inserter(wordV)); // Copies characters from string to vector
@@ -211,7 +232,7 @@ namespace Enigma
 		wordV.shrink_to_fit(); // Shrinks the vector to 0 to deallocate memory
 		delete temp; // Deallocates memory for temp
 
-		return output; // Returns output string
+		return std::move(output); // Returns output string
 	}
 
 	Core::~Core()
@@ -221,5 +242,6 @@ namespace Enigma
 		delete m_RotorF;
 		delete m_RotorS;
 		delete m_RotorT;
+		delete m_RotPath;
 	}
 }
