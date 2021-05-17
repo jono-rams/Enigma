@@ -1,4 +1,12 @@
-# Enigma Binaries
+# Enigma Releases
 Enigma machine implementation in C++
 
-This contains the project files (Also Source Code) for the Binaries.
+This branch contains the Source Code for the Binaries as well as the 64-bit static lirary compiled for VS2019.
+
+## RELEASES
+### V1.0
+* Official Release with core features implemented.
+
+### V1.1
+* Added Move and Copy Constructors and Assignment operators to Core Class.
+* Added Move and Copy Constructors and Assignment operators to s_Pairs struct.
