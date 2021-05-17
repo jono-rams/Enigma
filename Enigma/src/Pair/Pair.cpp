@@ -4,19 +4,37 @@
 
 namespace Enigma
 {
-	s_Pairs::s_Pairs(s_Pairs& obj)
+	s_Pairs::s_Pairs(s_Pairs& obj) noexcept
 	{
 		pair1 = obj.pair1;
 		pair2 = obj.pair2;
 	}
 
-	s_Pairs& s_Pairs::operator=(const s_Pairs& obj)
+	s_Pairs& s_Pairs::operator=(const s_Pairs& obj) noexcept
 	{
 		if (this == &obj) // Checks to see if s_Pairs are the same object
 		{
 			return *this;
 		}
 
+		pair1 = obj.pair1;
+		pair2 = obj.pair2;
+		return *this;
+	}
+
+	s_Pairs::s_Pairs(s_Pairs&& obj) noexcept
+	{
+		pair1 = obj.pair1;
+		pair2 = obj.pair2;
+	}
+
+	s_Pairs& s_Pairs::operator=(const s_Pairs&& obj) noexcept
+	{
+		if (this == &obj) // Checks to see if s_Pairs are the same object
+		{
+			return *this;
+		}
+		
 		pair1 = obj.pair1;
 		pair2 = obj.pair2;
 		return *this;
@@ -113,12 +131,4 @@ namespace Enigma
 		delete count;
 		return true;
 	}
-
-#ifdef DEBUG_CODE_ACTIVE
-	void Pair::DEBUG_PrintPairs() const
-	{
-		for (ushort_t i = 0; i < 13; i++)
-			std::cout << m_Pairs[i];
-	}
-#endif
 }

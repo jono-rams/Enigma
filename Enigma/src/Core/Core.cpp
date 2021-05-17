@@ -41,7 +41,84 @@ namespace Enigma
 	Core::Core()
 		: m_PairModule(nullptr), m_RotorF(nullptr), m_RotorS(nullptr), m_RotorT(nullptr), m_RotPath(nullptr) // Sets all member variable pointers to nullptr
 	{
-		CORE_LOGGING(1);
+	}
+
+	Core::Core(Core& obj)
+	{
+		this->GenNewPairModule(obj.m_PairModule->GetPairs());
+
+		this->GenNewRotorsModules(
+			obj.m_RotorF->GetSeed(),
+			obj.m_RotorS->GetSeed(),
+			obj.m_RotorT->GetSeed()
+		);
+
+		this->SetRotorDataPath(*obj.m_RotPath);
+	}
+
+	Core& Core::operator=(const Core& obj)
+	{
+		if (this == &obj) // Checks to see if the two objects are the same
+		{
+			return *this;
+		}
+
+		this->GenNewPairModule(obj.m_PairModule->GetPairs());
+
+		this->GenNewRotorsModules(
+			obj.m_RotorF->GetSeed(),
+			obj.m_RotorS->GetSeed(),
+			obj.m_RotorT->GetSeed()
+		);
+
+		this->SetRotorDataPath(*obj.m_RotPath);
+
+		return *this;
+	}
+
+	Core::Core(Core&& obj) noexcept
+	{
+		this->GenNewPairModule(obj.m_PairModule->GetPairs());
+
+		this->GenNewRotorsModules(
+			obj.m_RotorF->GetSeed(),
+			obj.m_RotorS->GetSeed(),
+			obj.m_RotorT->GetSeed()
+		);
+
+		this->SetRotorDataPath(*obj.m_RotPath);
+
+		obj.m_PairModule = nullptr;
+		obj.m_RotorF = nullptr;
+		obj.m_RotorS = nullptr;
+		obj.m_RotorT = nullptr;
+		obj.m_RotPath = nullptr;
+	}
+
+	Core& Core::operator=(Core&& obj) noexcept
+	{
+		if (this == &obj) // Checks to see if the two objects are the same
+		{
+			return *this;
+		}
+
+		this->GenNewPairModule(obj.m_PairModule->GetPairs());
+
+		this->GenNewRotorsModules(
+			obj.m_RotorF->GetSeed(),
+			obj.m_RotorS->GetSeed(),
+			obj.m_RotorT->GetSeed()
+		);
+
+		this->SetRotorDataPath(*obj.m_RotPath);
+
+		obj.m_PairModule = nullptr;
+		obj.m_RotorF = nullptr;
+		obj.m_RotorS = nullptr;
+		obj.m_RotorT = nullptr;
+		obj.m_RotPath = nullptr;
+
+		return *this;
 	}
 
 	void Core::GenNewPairModule()
@@ -55,8 +132,6 @@ namespace Enigma
 		}
 
 		m_PairModule = new Pair{}; // Allocates memory for a new Pair created with the default constructor
-
-		CORE_LOGGING(2);
 	}
 
 	void Core::GenNewPairModule(s_Pairs pairs[13])
@@ -73,7 +148,6 @@ namespace Enigma
 		try
 		{
 			m_PairModule = new Pair{ pairs }; // Allocates memory for a new Pair created with the default constructor
-			CORE_LOGGING(3);
 		}
 		catch (std::logic_error err)
 		{
@@ -117,8 +191,6 @@ namespace Enigma
 		m_RotorF = new Rotor(1, Rot1, *m_RotPath);
 		m_RotorS = new Rotor(2, Rot2, *m_RotPath);
 		m_RotorT = new Rotor(3, Rot3, *m_RotPath);
-
-		CORE_LOGGING(4);
 	}
 
 	void Core::SwitchRotorModule(ushort_t RotModuleNo, ushort_t Rot)
@@ -174,8 +246,6 @@ namespace Enigma
 		{
 			throw std::logic_error("Only THREE(3) Rotor Modules"); // Throws a logic error to be caught when calling the function
 		}
-
-		CORE_LOGGING(5, RotModuleNo);
 	}
 
 	void Core::Encrypt(const std::string& word, std::string& output) const
