@@ -133,9 +133,15 @@ namespace Enigma
 		}
 
 		if (*m_Count >= 26 && *m_RotNum == 2)
+		{
 			Rotate();
-		else if (*m_Count >= 52)
+			*m_Count = 0;
+		}
+		else if (*m_Count >= (26 * 26))
+		{
 			Rotate();
+			*m_Count = 0;
+		}
 	}
 
 	Rotor::~Rotor()
