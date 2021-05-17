@@ -45,6 +45,84 @@ namespace Enigma
 	{
 	}
 
+	Core::Core(Core& obj)
+	{
+		this->GenNewPairModule(obj.m_PairModule->GetPairs());
+
+		this->GenNewRotorsModules(
+			obj.m_RotorF->GetSeed(),
+			obj.m_RotorS->GetSeed(),
+			obj.m_RotorT->GetSeed()
+		);
+
+		this->SetRotorDataPath(*obj.m_RotPath);
+	}
+
+	Core& Core::operator=(const Core& obj)
+	{
+		if (this == &obj) // Checks to see if the two objects are the same
+		{
+			return *this;
+		}
+
+		this->GenNewPairModule(obj.m_PairModule->GetPairs());
+
+		this->GenNewRotorsModules(
+			obj.m_RotorF->GetSeed(),
+			obj.m_RotorS->GetSeed(),
+			obj.m_RotorT->GetSeed()
+		);
+
+		this->SetRotorDataPath(*obj.m_RotPath);
+
+		return *this;
+	}
+
+	Core::Core(Core&& obj) noexcept
+	{
+		this->GenNewPairModule(obj.m_PairModule->GetPairs());
+
+		this->GenNewRotorsModules(
+			obj.m_RotorF->GetSeed(),
+			obj.m_RotorS->GetSeed(),
+			obj.m_RotorT->GetSeed()
+		);
+
+		this->SetRotorDataPath(*obj.m_RotPath);
+
+		obj.m_PairModule = nullptr;
+		obj.m_RotorF = nullptr;
+		obj.m_RotorS = nullptr;
+		obj.m_RotorT = nullptr;
+		obj.m_RotPath = nullptr;
+	}
+
+	Core& Core::operator=(Core&& obj) noexcept
+	{
+		if (this == &obj) // Checks to see if the two objects are the same
+		{
+			return *this;
+		}
+
+		this->GenNewPairModule(obj.m_PairModule->GetPairs());
+
+		this->GenNewRotorsModules(
+			obj.m_RotorF->GetSeed(),
+			obj.m_RotorS->GetSeed(),
+			obj.m_RotorT->GetSeed()
+		);
+
+		this->SetRotorDataPath(*obj.m_RotPath);
+
+		obj.m_PairModule = nullptr;
+		obj.m_RotorF = nullptr;
+		obj.m_RotorS = nullptr;
+		obj.m_RotorT = nullptr;
+		obj.m_RotPath = nullptr;
+
+		return *this;
+	}
+
 	void Core::GenNewPairModule()
 	{
 		// Checks to see if a pair module was already created

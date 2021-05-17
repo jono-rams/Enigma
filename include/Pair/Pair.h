@@ -18,6 +18,8 @@ namespace Enigma
 		s_Pairs() {} // Default Constructor
 		s_Pairs(s_Pairs& obj); // Overloaded Copy Constructor
 		s_Pairs & operator=(const s_Pairs& obj); // Overloaded Copy Assignment
+		s_Pairs(s_Pairs&& obj) noexcept; // Overloaded Move Constructor
+		s_Pairs& operator=(const s_Pairs&& obj) noexcept; // Overloaded Move Assignment
 		friend std::ostream& operator<<(std::ostream& os, const s_Pairs& pair); // Overloaded ostream operator for s_Pairs struct
 	};
 
@@ -31,6 +33,8 @@ namespace Enigma
 		Pair(); // Default constructor
 		~Pair() { delete[] m_Pairs; } // Destrcutor that deallocates memory used to store member variable m_Pairs
 		Pair(s_Pairs pairs[13]); // Constructor that takes an array of 13 s_Pairs
+
+		s_Pairs* GetPairs() const { return m_Pairs; }
 
 		void PairOut(char &letter) const; // This function does the encryption logic of the Pair module
 	};

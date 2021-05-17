@@ -23,6 +23,10 @@ namespace Enigma
 		char InternalEncrypt(char letter) const; // Function to encrypt character. This contains the actual encryption logic
 	public:
 		Core(); // Default constructor
+		Core(Core& obj); // Overloaded Copy Constructor
+		Core& operator=(const Core& obj); // Overloaded Copy Assignment
+		Core(Core&& obj) noexcept; // Overloaded Move Constructor
+		Core& operator=(Core&& obj) noexcept;// Overloaded Move Assignment
 
 		void GenNewPairModule(); // Generate Pair Module with default pairs
 		void GenNewPairModule(s_Pairs pairs[13]); // Generate Pair Module with user set pairs

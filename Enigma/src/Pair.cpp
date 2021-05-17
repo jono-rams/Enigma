@@ -22,6 +22,24 @@ namespace Enigma
 		return *this;
 	}
 
+	s_Pairs::s_Pairs(s_Pairs&& obj) noexcept
+	{
+		pair1 = obj.pair1;
+		pair2 = obj.pair2;
+	}
+
+	s_Pairs& s_Pairs::operator=(const s_Pairs&& obj) noexcept
+	{
+		if (this == &obj) // Checks to see if s_Pairs are the same object
+		{
+			return *this;
+		}
+
+		pair1 = obj.pair1;
+		pair2 = obj.pair2;
+		return *this;
+	}
+
 	std::ostream& operator<<(std::ostream& os, const s_Pairs& pair)
 	{
 		return std::cout << "(" << pair.pair1 << ", " << pair.pair2 << ")" << std::endl; // returns Pair in form (pair1, pair2) e.g (a, p)
