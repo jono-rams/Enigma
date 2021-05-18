@@ -138,6 +138,12 @@ namespace Enigma
 			Rotate();
 	}
 
+	void Rotor::Offset(uint64_t offset)
+	{
+		for (uint64_t i = 0; i < offset; i++)
+			Rotate();
+	}
+
 	Rotor::~Rotor()
 	{
 		// Deallocates memory for all member variables

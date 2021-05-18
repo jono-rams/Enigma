@@ -248,6 +248,35 @@ namespace Enigma
 		}
 	}
 
+	void Core::OffsetRotor(uint64_t offset)
+	{
+		if (offset < 26)
+		{ m_RotorF->Offset(offset); }
+		else
+		{
+			uint64_t offS{ 0 };
+			while (offset >= 26)
+			{
+				offset -= 26;
+				offS++;
+			}
+			m_RotorF->Offset(offset);
+			if (offS < 26)
+			{ m_RotorS->Offset(offS); }
+			else
+			{
+				uint64_t offT{ 0 };
+				while (offS >= 26)
+				{
+					offS -= 26;
+					offT++;
+				}
+				m_RotorS->Offset(offS);
+				m_RotorT->Offset(offT);
+			}
+		}
+	}
+
 	void Core::Encrypt(const std::string& word, std::string& output) const
 	{
 		std::vector<char> wordV; // Vector to hold all values from word

@@ -26,6 +26,8 @@ namespace Enigma
 		void In(char& c) const; // Encryption logic for the letter entered by the user going TO the pair module
 		void Out(char& c); // Encryption logic for the letter entered by the user coming FROM the pair module
 
+		void Offset(uint64_t offset);
+
 		ushort_t GetSeed() const { return *m_SeedNo; } // Function that returns the seed number
 	};
 }
