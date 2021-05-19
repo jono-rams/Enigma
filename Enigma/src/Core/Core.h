@@ -4,6 +4,7 @@
 #include "../Rotor/Rotor.h"
 
 #include <string>
+#include <fstream>
 
 #ifndef CORE_H_
 #define CORE_H_
@@ -38,8 +39,23 @@ namespace Enigma
 		void SwitchRotorModule(ushort_t RotModuleNo, ushort_t Rot); // Switches a specific rotor with a new one with a user determined seed
 		void OffsetRotor(uint64_t offset);
 
-		void Encrypt(const std::string &word, std::string &output) const; // Encryption code for a string that takes a reference to a user string to write the output to
-		std::string Encrypt(const std::string& word) const; // Encryption code for a string that returns a string
+		// Encryption code where input is a string
+		void Encrypt(const std::string &word, std::string &output) const; 
+		void Encrypt(const std::string &word, std::fstream &output) const;
+		void Encrypt(const std::string &word, char* output) const;
+		std::string Encrypt(const std::string &word) const;
+		
+		// Encryption code where input is a fstream object
+		void Encrypt(std::fstream &word, std::string &output) const;
+		void Encrypt(std::fstream &word, std::fstream &output) const;
+		void Encrypt(std::fstream &word, char* output) const;
+		std::string Encrypt(std::fstream &word) const;
+
+		void Encrypt(const char* word, std::string &output) const;
+		void Encrypt(const char* word, std::fstream &output) const;
+		void Encrypt(const char* word, char* output) const;
+		std::string Encrypt(const char* word) const;
+
 		~Core(); // Destructor
 	};
 }
