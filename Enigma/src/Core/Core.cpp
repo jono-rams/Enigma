@@ -47,13 +47,13 @@ namespace Enigma
 	{
 		this->GenNewPairModule(obj.m_PairModule->GetPairs());
 
+		this->SetRotorDataPath(*obj.m_RotPath);
+
 		this->GenNewRotorsModules(
 			obj.m_RotorF->GetSeed(),
 			obj.m_RotorS->GetSeed(),
 			obj.m_RotorT->GetSeed()
 		);
-
-		this->SetRotorDataPath(*obj.m_RotPath);
 	}
 
 	Core& Core::operator=(const Core& obj)
@@ -65,13 +65,13 @@ namespace Enigma
 
 		this->GenNewPairModule(obj.m_PairModule->GetPairs());
 
+		this->SetRotorDataPath(*obj.m_RotPath);
+
 		this->GenNewRotorsModules(
 			obj.m_RotorF->GetSeed(),
 			obj.m_RotorS->GetSeed(),
 			obj.m_RotorT->GetSeed()
 		);
-
-		this->SetRotorDataPath(*obj.m_RotPath);
 
 		return *this;
 	}
@@ -80,13 +80,13 @@ namespace Enigma
 	{
 		this->GenNewPairModule(obj.m_PairModule->GetPairs());
 
+		this->SetRotorDataPath(*obj.m_RotPath);
+
 		this->GenNewRotorsModules(
 			obj.m_RotorF->GetSeed(),
 			obj.m_RotorS->GetSeed(),
 			obj.m_RotorT->GetSeed()
 		);
-
-		this->SetRotorDataPath(*obj.m_RotPath);
 
 		obj.m_PairModule = nullptr;
 		obj.m_RotorF = nullptr;
@@ -104,13 +104,13 @@ namespace Enigma
 
 		this->GenNewPairModule(obj.m_PairModule->GetPairs());
 
+		this->SetRotorDataPath(*obj.m_RotPath);
+
 		this->GenNewRotorsModules(
 			obj.m_RotorF->GetSeed(),
 			obj.m_RotorS->GetSeed(),
 			obj.m_RotorT->GetSeed()
 		);
-
-		this->SetRotorDataPath(*obj.m_RotPath);
 
 		obj.m_PairModule = nullptr;
 		obj.m_RotorF = nullptr;
@@ -250,31 +250,12 @@ namespace Enigma
 
 	void Core::OffsetRotor(uint64_t offset)
 	{
-		if (offset < 26)
-		{ m_RotorF->Offset(offset); }
-		else
+		std::string temp;
+		for (uint64_t i = 0; i < offset; i++)
 		{
-			uint64_t offS{ 0 };
-			while (offset >= 26)
-			{
-				offset -= 26;
-				offS++;
-			}
-			m_RotorF->Offset(offset);
-			if (offS < 26)
-			{ m_RotorS->Offset(offS); }
-			else
-			{
-				uint64_t offT{ 0 };
-				while (offS >= 26)
-				{
-					offS -= 26;
-					offT++;
-				}
-				m_RotorS->Offset(offS);
-				m_RotorT->Offset(offT);
-			}
+			temp.push_back('a');
 		}
+		temp = Encrypt(temp);
 	}
 
 	void Core::Encrypt(const std::string& word, std::string& output) const
@@ -306,7 +287,6 @@ namespace Enigma
 
 	std::string Core::Encrypt(const std::string& word) const
 	{
-		s_EnigmaTimer t;
 		std::string output; // Temporary string to return
 		std::vector<char> wordV; // Vector to hold all values from word
 		std::copy(word.begin(), word.end(), std::back_inserter(wordV)); // Copies characters from string to vector

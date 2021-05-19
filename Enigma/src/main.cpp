@@ -88,7 +88,7 @@ int main()
 
 int main()
 {
-	s_EnigmaTimer t;
+	//s_EnigmaTimer t;
 
 	Core machine{};
 	std::string* path = new std::string;
@@ -99,11 +99,14 @@ int main()
 	machine.GenNewPairModule();
 	machine.GenNewRotorsModules(5, 4, 3);
 
+	Core m2 = machine;
+
 	std::string i1 = "hello";
+	m2.OffsetRotor(i1.length());
 	std::string i2 = "world";
 
 	std::string o1 = machine.Encrypt(i1);
-	std::string o2 = machine.Encrypt(i2);
+	std::string o2 = m2.Encrypt(i2);
 
 	std::cout << o1 << " " << o2 << std::endl;
 }
