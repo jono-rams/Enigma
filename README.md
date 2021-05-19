@@ -11,5 +11,5 @@ This branch contains the Source Code for the Binaries as well as the 64-bit stat
 * Added Move and Copy Constructors and Assignment operators to Core Class.
 * Added Move and Copy Constructors and Assignment operators to s_Pairs struct.
 
-### V1.2
+### V1.1.1
 * Fixed major logic error in the rotation logic of the Rotor class.
