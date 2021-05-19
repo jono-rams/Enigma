@@ -49,13 +49,13 @@ namespace Enigma
 	{
 		this->GenNewPairModule(obj.m_PairModule->GetPairs());
 
+		this->SetRotorDataPath(*obj.m_RotPath);
+
 		this->GenNewRotorsModules(
 			obj.m_RotorF->GetSeed(),
 			obj.m_RotorS->GetSeed(),
 			obj.m_RotorT->GetSeed()
 		);
-
-		this->SetRotorDataPath(*obj.m_RotPath);
 	}
 
 	Core& Core::operator=(const Core& obj)
@@ -67,13 +67,13 @@ namespace Enigma
 
 		this->GenNewPairModule(obj.m_PairModule->GetPairs());
 
+		this->SetRotorDataPath(*obj.m_RotPath);
+
 		this->GenNewRotorsModules(
 			obj.m_RotorF->GetSeed(),
 			obj.m_RotorS->GetSeed(),
 			obj.m_RotorT->GetSeed()
 		);
-
-		this->SetRotorDataPath(*obj.m_RotPath);
 
 		return *this;
 	}
@@ -82,13 +82,13 @@ namespace Enigma
 	{
 		this->GenNewPairModule(obj.m_PairModule->GetPairs());
 
+		this->SetRotorDataPath(*obj.m_RotPath);
+
 		this->GenNewRotorsModules(
 			obj.m_RotorF->GetSeed(),
 			obj.m_RotorS->GetSeed(),
 			obj.m_RotorT->GetSeed()
 		);
-
-		this->SetRotorDataPath(*obj.m_RotPath);
 
 		obj.m_PairModule = nullptr;
 		obj.m_RotorF = nullptr;
@@ -106,13 +106,13 @@ namespace Enigma
 
 		this->GenNewPairModule(obj.m_PairModule->GetPairs());
 
+		this->SetRotorDataPath(*obj.m_RotPath);
+
 		this->GenNewRotorsModules(
 			obj.m_RotorF->GetSeed(),
 			obj.m_RotorS->GetSeed(),
 			obj.m_RotorT->GetSeed()
 		);
-
-		this->SetRotorDataPath(*obj.m_RotPath);
 
 		obj.m_PairModule = nullptr;
 		obj.m_RotorF = nullptr;
