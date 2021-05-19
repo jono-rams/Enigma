@@ -249,6 +249,16 @@ namespace Enigma
 		}
 	}
 
+	void Core::OffsetRotor(uint64_t offset)
+	{
+		std::string temp;
+		for (uint64_t i = 0; i < offset; i++)
+		{
+			temp.push_back('a');
+		}
+		temp = Encrypt(temp);
+	}
+
 	void Core::Encrypt(const std::string &word, std::string &output) const
 	{
 		std::vector<char> wordV; // Vector to hold all values from word
