@@ -13,3 +13,6 @@ This branch contains the Source Code for the Binaries as well as the 64-bit stat
 
 ### V1.1.1
 * Fixed major logic error in the rotation logic of the Rotor class.
+
+### V1.2
+* Added ability to offset Rotors for continued use from previous state.
