@@ -263,7 +263,7 @@ namespace Enigma
 		std::vector<char> wordV; // Vector to hold all values from word
 		std::copy(word.begin(), word.end(), std::back_inserter(wordV)); // Copies characters from string to vector
 
-		char* temp = new char; // Temporary variable to hold encrypted character
+		char temp{}; // Temporary variable to hold encrypted character
 
 		// Loop that runs through all characters in vector
 		for (uint64_t i = 0; i < wordV.size(); i++)
@@ -271,18 +271,45 @@ namespace Enigma
 			// Error Handling
 			try
 			{
-				*temp = InternalEncrypt(wordV[i]); // Calls internal Encryption for letter
+				temp = InternalEncrypt(wordV[i]); // Calls internal Encryption for letter
 			}
 			catch (std::logic_error err)
 			{
 				output.clear(); // Deletes output data since error was found
 				throw err; // Throws caught logic error to be caught when calling the function
 			}
-			output.push_back(*temp); // Adds letter to output string
+			output.push_back(temp); // Adds letter to output string
 		}
 		wordV.clear(); // Deletes all values from vector
 		wordV.shrink_to_fit(); // Shrinks the vector to 0 to deallocate memory
-		delete temp; // Deallocates memory for temp
+	}
+
+	void Core::Encrypt(const std::string& word, std::fstream& output) const
+	{
+		// Makes sure file is open else throws a runtime error
+		if(!output.is_open())
+			throw std::runtime_error("Please open file before calling this function!");
+
+		std::vector<char> wordV; // Vector to hold all values from word
+		std::copy(word.begin(), word.end(), std::back_inserter(wordV)); // Copies characters from string to vector
+
+		char temp{}; // Temporary variable to hold encrypted character
+
+		for (uint64_t i = 0; i < wordV.size(); i++)
+		{
+			// Error Handling
+			try
+			{
+				temp = InternalEncrypt(wordV[i]); // Calls internal Encryption for letter
+			}
+			catch (std::logic_error err)
+			{
+				throw err; // Throws caught logic error to be caught when calling the function
+			}
+			output << temp;
+		}
+		wordV.clear(); // Deletes all values from vector
+		wordV.shrink_to_fit(); // Shrinks the vector to 0 to deallocate memory
 	}
 
 	std::string Core::Encrypt(const std::string& word) const
@@ -291,7 +318,7 @@ namespace Enigma
 		std::vector<char> wordV; // Vector to hold all values from word
 		std::copy(word.begin(), word.end(), std::back_inserter(wordV)); // Copies characters from string to vector
 
-		char* temp = new char;// Temporary variable to hold encrypted character
+		char temp{}; // Temporary variable to hold encrypted character
 
 		// Loop that runs through all characters in vector
 		for (uint64_t i = 0; i < wordV.size(); i++)
@@ -299,17 +326,16 @@ namespace Enigma
 			// Error Handling
 			try
 			{
-				*temp = InternalEncrypt(wordV[i]); // Calls internal Encryption for letter
+				temp = InternalEncrypt(wordV[i]); // Calls internal Encryption for letter
 			}
 			catch (std::logic_error err)
 			{
 				throw err; // Throws caught logic error to be caught when calling the function
 			}
-			output.push_back(*temp); // Adds letter to output string
+			output.push_back(temp); // Adds letter to output string
 		}
 		wordV.clear(); // Deletes all values from vector
 		wordV.shrink_to_fit(); // Shrinks the vector to 0 to deallocate memory
-		delete temp; // Deallocates memory for temp
 
 		return std::move(output); // Returns output string
 	}
