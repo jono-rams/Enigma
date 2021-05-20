@@ -42,19 +42,12 @@ namespace Enigma
 		// Encryption code where input is a string
 		void Encrypt(const std::string &word, std::string &output) const; 
 		void Encrypt(const std::string &word, std::fstream &output) const;
-		void Encrypt(const std::string &word, char* output) const;
 		std::string Encrypt(const std::string &word) const;
 		
 		// Encryption code where input is a fstream object
 		void Encrypt(std::fstream &word, std::string &output) const;
 		void Encrypt(std::fstream &word, std::fstream &output) const;
-		void Encrypt(std::fstream &word, char* output) const;
 		std::string Encrypt(std::fstream &word) const;
-
-		void Encrypt(const char* word, std::string &output) const;
-		void Encrypt(const char* word, std::fstream &output) const;
-		void Encrypt(const char* word, char* output) const;
-		std::string Encrypt(const char* word) const;
 
 		~Core(); // Destructor
 	};
