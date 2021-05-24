@@ -5,3 +5,4 @@ This branch contains the source code for the program and is used for testing new
 
 ## Features being worked on
 * Overload Encryption function to use fstream objects.
+* Add Log file.
