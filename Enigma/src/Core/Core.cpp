@@ -6,6 +6,7 @@ namespace Enigma
 {
 	char Core::InternalEncrypt(char letter) const
 	{
+		Log::WriteLog("Attempting to encrypt a character");
 		bool* invalid = new bool{ true }; // Allocates memory for a bool that states whether an invalid character was entered
 
 		// Checks to see if letter is in the alphabet (a valid character)
@@ -22,6 +23,7 @@ namespace Enigma
 		if (*invalid)
 		{
 			delete invalid; // Deallocates memory for invalid
+			Log::WriteLog("ERROR: Core.cpp - Invalid character entered for encryption");
 			throw std::logic_error("Invalid character\n"); // Throws a logic error to be caught when calling the function
 		}
 		delete invalid; // Deallocates memory for invalid
@@ -34,18 +36,21 @@ namespace Enigma
 		m_RotorT->Out(letter);
 		m_RotorS->Out(letter);
 		m_RotorF->Out(letter);
-
+		
+		Log::WriteLog("Encrypted a character");
 		return letter; // Returns encrypted letter
 	}
 
 	Core::Core()
 		: m_PairModule(nullptr), m_RotorF(nullptr), m_RotorS(nullptr), m_RotorT(nullptr), m_RotPath(nullptr) // Sets all member variable pointers to nullptr
 	{
+		Log::WriteLog("Attempting to create Core class with default Constructor");
 		Log::WriteLog("Core class created with default Constructor");
 	}
 
 	Core::Core(Core& obj)
 	{
+		Log::WriteLog("Attempting to create Core class with Copy Constructor");
 		this->GenNewPairModule(obj.m_PairModule->GetPairs());
 
 		this->SetRotorDataPath(*obj.m_RotPath);
@@ -61,6 +66,7 @@ namespace Enigma
 
 	Core& Core::operator=(const Core& obj)
 	{
+		Log::WriteLog("Attempting to create Core class with Copy Assignment Operator");
 		if (this == &obj) // Checks to see if the two objects are the same
 		{
 			return *this;
@@ -82,6 +88,7 @@ namespace Enigma
 
 	Core::Core(Core&& obj) noexcept
 	{
+		Log::WriteLog("Attempting to create Core class with Move Constructor");
 		this->GenNewPairModule(obj.m_PairModule->GetPairs());
 
 		this->SetRotorDataPath(*obj.m_RotPath);
@@ -103,6 +110,7 @@ namespace Enigma
 
 	Core& Core::operator=(Core&& obj) noexcept
 	{
+		Log::WriteLog("Attempting to create Core class with Move Assignment Operator");
 		if (this == &obj) // Checks to see if the two objects are the same
 		{
 			return *this;
@@ -131,6 +139,7 @@ namespace Enigma
 
 	void Core::GenNewPairModule()
 	{
+		Log::WriteLog("Generating default pair modules");
 		// Checks to see if a pair module was already created
 		if (m_PairModule != nullptr)
 		{
@@ -146,6 +155,7 @@ namespace Enigma
 
 	void Core::GenNewPairModule(s_Pairs pairs[13])
 	{
+		Log::WriteLog("Generating custom pair modules");
 		// Checks to see if a pair module was already created
 		if (m_PairModule != nullptr)
 		{
@@ -173,6 +183,7 @@ namespace Enigma
 
 	void Core::SetRotorDataPath(std::string path)
 	{
+		Log::WriteLog("Setting Rotor Data Path");
 		if (m_RotPath != nullptr)
 		{
 			delete m_RotPath;
@@ -185,6 +196,7 @@ namespace Enigma
 
 	void Core::GenNewRotorsModules(ushort_t Rot1, ushort_t Rot2, ushort_t Rot3)
 	{
+		Log::WriteLog("Generating Rotor Modules");
 		// Check to make sure none of the seed values are greater than 5
 		if (Rot1 > 5 || Rot2 > 5 || Rot3 > 5)
 		{
@@ -215,8 +227,11 @@ namespace Enigma
 
 	void Core::SwitchRotorModule(ushort_t RotModuleNo, ushort_t Rot)
 	{
+		std::string rm = "Rotor Module " + RotModuleNo;
+		std::string temp = "Switching " + rm;
+		Log::WriteLog(temp);
 		s_EnigmaTimer t;
-		if (Rot > 5)
+		if (Rot > 5 || Rot <= 0)
 		{
 			Log::WriteLog("ERROR: Core.cpp - Rotor Modules not generated because of Invalid Rotor Number!");
 			throw std::logic_error("Invalid Rotor Number!"); // Throws a logic error to be caught when calling the function
@@ -227,8 +242,11 @@ namespace Enigma
 		{
 			// Checks to make sure seed value is not being used in another rotor module
 			if (Rot == m_RotorS->GetSeed() || Rot == m_RotorT->GetSeed())
+			{
+				std::string temp = "Rotor " + Rot + " already in use in another module (" + RotModuleNo + ")";
+				Log::WriteLog(temp);
 				throw std::logic_error("Rotor already in use in another module!"); // Throws a logic error to be caught when calling the function
-
+			}
 			if (Rot == m_RotorF->GetSeed()) // Checks to see if Rotor module is the same as current one
 				return;
 
@@ -241,7 +259,11 @@ namespace Enigma
 		{
 			// Checks to make sure seed value is not being used in another rotor module
 			if (Rot == m_RotorF->GetSeed() || Rot == m_RotorT->GetSeed())
+			{
+				std::string temp = "Rotor " + Rot + " already in use in another module (" + RotModuleNo + ")";
+				Log::WriteLog(temp);
 				throw std::logic_error("Rotor already in use in another module!"); // Throws a logic error to be caught when calling the function
+			}
 
 			if (Rot == m_RotorS->GetSeed()) // Checks to see if Rotor module is the same as current one
 				return;
@@ -255,7 +277,11 @@ namespace Enigma
 		{
 			// Checks to make sure seed value is not being used in another rotor module
 			if (Rot == m_RotorS->GetSeed() || Rot == m_RotorF->GetSeed())
+			{
+				std::string temp = "Rotor " + Rot + " already in use in another module (" + RotModuleNo + ")";
+				Log::WriteLog(temp);
 				throw std::logic_error("Rotor already in use in another module!"); // Throws a logic error to be caught when calling the function
+			}
 
 			if (Rot == m_RotorT->GetSeed()) // Checks to see if Rotor module is the same as current one
 				return;
@@ -267,12 +293,15 @@ namespace Enigma
 		}
 		else // If user is trying to set to a rotor module that does not exist
 		{
+			Log::WriteLog("ERROR: Core.cpp - Invalid Rotor Module was selected to be switched.");
 			throw std::logic_error("Only THREE(3) Rotor Modules"); // Throws a logic error to be caught when calling the function
 		}
+		temp = "Switched " + rm;
 	}
 
 	void Core::OffsetRotor(uint64_t offset)
 	{
+		Log::WriteLog("Offseting Rotor modules");
 		std::string temp;
 		for (uint64_t i = 0; i < offset; i++)
 		{
@@ -305,8 +334,6 @@ namespace Enigma
 			catch (std::logic_error err)
 			{
 				output.clear(); // Deletes output data since error was found
-				std::string log = "ERROR: Core.cpp - " + (std::string)err.what();
-				Log::WriteLog(log);
 				throw err; // Throws caught logic error to be caught when calling the function
 			}
 			output.push_back(temp); // Adds letter to output string
@@ -342,8 +369,6 @@ namespace Enigma
 			}
 			catch (std::logic_error err)
 			{
-				std::string log = "ERROR: Core.cpp - " + (std::string)err.what();
-				Log::WriteLog(log);
 				throw err; // Throws caught logic error to be caught when calling the function
 			}
 			output << temp;
@@ -374,8 +399,6 @@ namespace Enigma
 			}
 			catch (std::logic_error err)
 			{
-				std::string log = "ERROR: Core.cpp - " + (std::string)err.what();
-				Log::WriteLog(log); 
 				throw err; // Throws caught logic error to be caught when calling the function
 			}
 			output.push_back(temp); // Adds letter to output string
@@ -390,6 +413,7 @@ namespace Enigma
 
 	Core::~Core()
 	{
+		Log::WriteLog("Deleting Core class");
 		// Deallocates memory for all member variables
 		delete m_PairModule;
 		delete m_RotorF;
