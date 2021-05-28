@@ -41,6 +41,7 @@ namespace Enigma
 	Core::Core()
 		: m_PairModule(nullptr), m_RotorF(nullptr), m_RotorS(nullptr), m_RotorT(nullptr), m_RotPath(nullptr) // Sets all member variable pointers to nullptr
 	{
+		Log::WriteLog("Core class created with default Constructor");
 	}
 
 	Core::Core(Core& obj)
@@ -54,6 +55,8 @@ namespace Enigma
 			obj.m_RotorS->GetSeed(),
 			obj.m_RotorT->GetSeed()
 		);
+
+		Log::WriteLog("Core class created with Copy Constructor");
 	}
 
 	Core& Core::operator=(const Core& obj)
@@ -73,6 +76,7 @@ namespace Enigma
 			obj.m_RotorT->GetSeed()
 		);
 
+		Log::WriteLog("Core class created with Copy Assignment Operator");
 		return *this;
 	}
 
@@ -93,6 +97,8 @@ namespace Enigma
 		obj.m_RotorS = nullptr;
 		obj.m_RotorT = nullptr;
 		obj.m_RotPath = nullptr;
+
+		Log::WriteLog("Core class created with Move Constructor");
 	}
 
 	Core& Core::operator=(Core&& obj) noexcept
@@ -118,6 +124,8 @@ namespace Enigma
 		obj.m_RotorT = nullptr;
 		obj.m_RotPath = nullptr;
 
+		Log::WriteLog("Core class created with Move Assignment Operator");
+
 		return *this;
 	}
 
@@ -132,6 +140,8 @@ namespace Enigma
 		}
 
 		m_PairModule = new Pair{}; // Allocates memory for a new Pair created with the default constructor
+
+		Log::WriteLog("Default Pair Modules generated for Core class");
 	}
 
 	void Core::GenNewPairModule(s_Pairs pairs[13])
@@ -154,8 +164,11 @@ namespace Enigma
 			std::cout << err.what() << std::endl;
 			delete m_PairModule;
 			m_PairModule = nullptr;
+			Log::WriteLog("ERROR: Core.cpp - Pair could not be generated!");
 			throw std::logic_error("Pair could not be generated!"); // Throws a logic error to be caught when calling the function
 		}
+
+		Log::WriteLog("Custom Pair Modules generated for Core class");
 	}
 
 	void Core::SetRotorDataPath(std::string path)
@@ -166,13 +179,18 @@ namespace Enigma
 			m_RotPath = nullptr;
 		}
 		m_RotPath = new std::string(path);
+		
+		Log::WriteLog("Rotor Data Path set");
 	}
 
 	void Core::GenNewRotorsModules(ushort_t Rot1, ushort_t Rot2, ushort_t Rot3)
 	{
 		// Check to make sure none of the seed values are greater than 5
 		if (Rot1 > 5 || Rot2 > 5 || Rot3 > 5)
+		{
+			Log::WriteLog("ERROR: Core.cpp - Rotor Modules not generated because of Invalid Rotor Number!");
 			throw std::logic_error("Invalid Rotor Number!"); // Throws a logic error to be caught when calling the function
+		} 
 
 		// Checks to see if rotor modules were already created
 		if (m_RotorF != nullptr)
@@ -191,13 +209,18 @@ namespace Enigma
 		m_RotorF = new Rotor(1, Rot1, *m_RotPath);
 		m_RotorS = new Rotor(2, Rot2, *m_RotPath);
 		m_RotorT = new Rotor(3, Rot3, *m_RotPath);
+
+		Log::WriteLog("Rotor Modules generated");
 	}
 
 	void Core::SwitchRotorModule(ushort_t RotModuleNo, ushort_t Rot)
 	{
 		s_EnigmaTimer t;
 		if (Rot > 5)
+		{
+			Log::WriteLog("ERROR: Core.cpp - Rotor Modules not generated because of Invalid Rotor Number!");
 			throw std::logic_error("Invalid Rotor Number!"); // Throws a logic error to be caught when calling the function
+		}
 
 		// Checks which rotor module is being switched
 		if (RotModuleNo == 1)
@@ -256,10 +279,16 @@ namespace Enigma
 			temp.push_back('a');
 		}
 		temp = Encrypt(temp);
+
+		temp = "Rotor modules offset by " + offset;
+
+		Log::WriteLog(temp);
 	}
 
 	void Core::Encrypt(const std::string& word, std::string& output) const
 	{
+		Log::WriteLog("Started Encrypting using void (string, string) Encrypt function");
+
 		std::vector<char> wordV; // Vector to hold all values from word
 		std::copy(word.begin(), word.end(), std::back_inserter(wordV)); // Copies characters from string to vector
 
@@ -276,19 +305,28 @@ namespace Enigma
 			catch (std::logic_error err)
 			{
 				output.clear(); // Deletes output data since error was found
+				std::string log = "ERROR: Core.cpp - " + (std::string)err.what();
+				Log::WriteLog(log);
 				throw err; // Throws caught logic error to be caught when calling the function
 			}
 			output.push_back(temp); // Adds letter to output string
 		}
 		wordV.clear(); // Deletes all values from vector
 		wordV.shrink_to_fit(); // Shrinks the vector to 0 to deallocate memory
+
+		Log::WriteLog("Encrypted using void (string, string) Encrypt function");
 	}
 
 	void Core::Encrypt(const std::string& word, std::fstream& output) const
 	{
+		Log::WriteLog("Started Encrypting using void (string, fstream) Encrypt function");
+
 		// Makes sure file is open else throws a runtime error
-		if(!output.is_open())
+		if (!output.is_open())
+		{
+			Log::WriteLog("ERROR: Core.cpp - File was not opened!");
 			throw std::runtime_error("Please open file before calling this function!");
+		}
 
 		std::vector<char> wordV; // Vector to hold all values from word
 		std::copy(word.begin(), word.end(), std::back_inserter(wordV)); // Copies characters from string to vector
@@ -304,16 +342,22 @@ namespace Enigma
 			}
 			catch (std::logic_error err)
 			{
+				std::string log = "ERROR: Core.cpp - " + (std::string)err.what();
+				Log::WriteLog(log);
 				throw err; // Throws caught logic error to be caught when calling the function
 			}
 			output << temp;
 		}
 		wordV.clear(); // Deletes all values from vector
 		wordV.shrink_to_fit(); // Shrinks the vector to 0 to deallocate memory
+
+		Log::WriteLog("Encrypted using void (string, fstream) Encrypt function");
 	}
 
 	std::string Core::Encrypt(const std::string& word) const
 	{
+		Log::WriteLog("Started Encrypting using string (string) Encrypt function");
+
 		std::string output; // Temporary string to return
 		std::vector<char> wordV; // Vector to hold all values from word
 		std::copy(word.begin(), word.end(), std::back_inserter(wordV)); // Copies characters from string to vector
@@ -330,12 +374,16 @@ namespace Enigma
 			}
 			catch (std::logic_error err)
 			{
+				std::string log = "ERROR: Core.cpp - " + (std::string)err.what();
+				Log::WriteLog(log); 
 				throw err; // Throws caught logic error to be caught when calling the function
 			}
 			output.push_back(temp); // Adds letter to output string
 		}
 		wordV.clear(); // Deletes all values from vector
 		wordV.shrink_to_fit(); // Shrinks the vector to 0 to deallocate memory
+
+		Log::WriteLog("Encrypted using string (string) Encrypt function");
 
 		return std::move(output); // Returns output string
 	}
@@ -348,5 +396,7 @@ namespace Enigma
 		delete m_RotorS;
 		delete m_RotorT;
 		delete m_RotPath;
+
+		Log::WriteLog("Deleted Core class");
 	}
 }

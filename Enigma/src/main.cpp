@@ -3,8 +3,6 @@
 #include <vector>
 #include <string>
 
-// This is an example of how to use the code, this file contains none of the code logic.
-
 using namespace Enigma;
 
 /*
@@ -88,8 +86,6 @@ int main()
 
 int main()
 {
-	//s_EnigmaTimer t;
-
 	Core machine{};
 	std::string* path = new std::string;
 	*path = "RotorModules";
@@ -99,11 +95,11 @@ int main()
 	machine.GenNewPairModule();
 	machine.GenNewRotorsModules(5, 4, 3);
 
-	//Core m2 = machine;
+	Core m2 = machine;
 
-	//std::string i1 = "hello";
-	//m2.OffsetRotor(i1.length());
-	//std::string i2 = "world";
+	std::string i1 = "hello";
+	m2.OffsetRotor(i1.length());
+	std::string i2 = "world";
 
 	std::fstream o3;
 	o3.open("test.txt", std::ios::out);
@@ -111,8 +107,8 @@ int main()
 	machine.Encrypt(i3, o3);
 	o3.close();
 
-	//std::string o1 = machine.Encrypt(i1);
-	//std::string o2 = m2.Encrypt(i2);
-	//
-	//std::cout << o1 << " " << o2 << std::endl;
+	std::string o1 = machine.Encrypt(i1);
+	std::string o2 = m2.Encrypt(i2);
+	
+	std::cout << o1 << " " << o2 << std::endl;
 }
