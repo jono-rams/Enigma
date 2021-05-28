@@ -47,15 +47,18 @@ namespace Enigma
 
 	Pair::Pair()
 	{
+		Log::WriteLog("Attempting to create Pair class with default Constructor");
 		for (ushort_t i = 0, j = 25; i < 13; i++, j--) // For loop with two iterators i starts at alphabet[0] (a) and j starts at alphabet[25] (z)
 		{
 			m_Pairs[i].pair1 = alphabet[i]; // Sets the 13 pair1 values to the first 13 letters in the alphabet
 			m_Pairs[i].pair2 = alphabet[j]; // Sets the 13 pair2 values to the last 13 letters in the alphabet
 		}
+		Log::WriteLog("Created Pair class with default Constructor");
 	}
 
 	Pair::Pair(s_Pairs pairs[13])
 	{
+		Log::WriteLog("Attempting to create Pair class with custom values Constructor");
 		for (ushort_t i = 0; i < 13; i++)
 		{
 			// Sets m_Pairs member variable values to the values of pairs passed by the user when setting 
@@ -65,6 +68,7 @@ namespace Enigma
 			if (CheckInvalidChar(m_Pairs[i])) // Checks if the characters set in m_Pairs are valid
 			{
 				delete[] m_Pairs; // Deallocates memory used to store member variable m_Pairs
+				Log::WriteLog("ERROR: Pair.cpp - Invalid character entered in Pair");
 				throw std::logic_error("Invalid character entered in Pair!"); // Throws a logic error to be caught when calling the function
 			}
 		}
@@ -72,12 +76,15 @@ namespace Enigma
 		if (CheckDuplicates()) // Checks for duplicate letters in entered pairs
 		{
 			delete[] m_Pairs; // Deallocates memory used to store member variable m_Pairs
+			Log::WriteLog("ERROR: Pair.cpp - Duplicate letters in pairs");
 			throw std::logic_error("Duplicate letters in pairs!"); // Throws a logic error to be caught when calling the function
 		}
+		Log::WriteLog("Created Pair class with custom values Constructor");
 	}
 
 	void Pair::PairOut(char &letter) const
 	{
+		Log::WriteLog("ENCRYPTION - Letter entering Pair Module");
 		for (ushort_t i = 0; i < 13; i++)
 		{
 			// Checks which pair the letter is located in and sets it to the other letter in the pair
@@ -92,6 +99,7 @@ namespace Enigma
 				return;
 			}
 		}
+		Log::WriteLog("ENCRYPTION - Letter exiting Pair Module");
 	}
 
 	bool Pair::CheckDuplicates() const
