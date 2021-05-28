@@ -7,6 +7,8 @@ namespace Enigma
 {
 	void Rotor::Rotate()
 	{
+		std::string log = "Rotating Rotor " + *m_RotNum;
+		Log::WriteLog(log);
 		char* temp = new char(m_Rotator[0]); // Sets a temporary char to the first value in array
 
 		// Sets the the first value in array to the second value and so on (except the last value)
@@ -16,11 +18,16 @@ namespace Enigma
 		// Sets the last value in array to the first value which was stored in the temp variable
 		m_Rotator[25] = *temp;
 		delete temp; // Deallocates memory for temp variable
+		
+		log = "Rotated Rotor " + *m_RotNum;
+		Log::WriteLog(log);
 	}
 
 	Rotor::Rotor(uchar_t rotModuleNum, ushort_t seed, std::string ROTOR_FILE_PATH)
 		: m_RotNum(new uchar_t), m_SeedNo(new ushort_t) // Allocates memory for m_RotNum and m_SeedNo
 	{
+		Log::WriteLog("Attempting to create Rotor class with default Constructor");	
+			
 		*m_SeedNo = seed; // Sets seed value
 		*m_RotNum = rotModuleNum; // Sets rotor slot value
 
@@ -91,10 +98,14 @@ namespace Enigma
 
 		temp.clear(); // Deletes all values from vector
 		temp.shrink_to_fit(); // Shrinks the vector to 0 to deallocate memory
+			
+		Log::WriteLog("Created Core class with default Constructor");
 	}
 
 	void Rotor::In(char& c) const
 	{
+		std::string log = "ENCRYPTION - Letter entering Pair Module " + *m_RotNum;
+		Log::WriteLog(log);
 		ushort_t* temp = new ushort_t{}; // Allocates memory for a temp unsigned short
 
 		// Checks to see which letter was passed and sets temp to the location in alphabet
@@ -109,10 +120,15 @@ namespace Enigma
 
 		c = m_Rotator[*temp]; // Sets character to new letter determined by m_Rotator
 		delete temp; // Deallocates memory for temp
+		
+		log = "ENCRYPTION - Letter exiting Pair Module " + *m_RotNum;
+		Log::WriteLog(log);
 	}
 
 	void Rotor::Out(char& c)
 	{
+		log = "ENCRYPTION - Letter entering Pair Module " + *m_RotNum;
+		Log::WriteLog(log);
 		// Does reverse logic of In function
 		for (ushort_t i = 0; i < 26; i++)
 		{
@@ -136,14 +152,20 @@ namespace Enigma
 			Rotate();
 		else if (*m_Count >= 52)
 			Rotate();
+		
+		log = "ENCRYPTION - Letter exiting Pair Module " + *m_RotNum;
+		Log::WriteLog(log);
 	}
 
 	Rotor::~Rotor()
 	{
+		Log::WriteLog("Deleting Rotor class");
 		// Deallocates memory for all member variables
 		delete[] m_Rotator;
 		delete m_Count;
 		delete m_RotNum;
 		delete m_SeedNo;
+		
+		Log::WriteLog("Deleted Rotor class");
 	}
 }
