@@ -44,7 +44,7 @@ namespace Enigma
 		void WriteLogInternal(std::string& message)
 		{
 			file.open(fileName, std::ios::app);
-			std::string temp = message + *(std::string*)count;
+			std::string temp = *(std::string*)count + " - " + message;
 			file << message;
 			file << std::endl;
 			file.close();
@@ -66,7 +66,7 @@ namespace Enigma
 
 		static void WriteLog(std::string message)
 		{
-			count++;
+			++count;
 			Log::Get().WriteLogInternal(message);
 		}
 	};
