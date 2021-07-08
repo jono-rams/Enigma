@@ -417,7 +417,127 @@ namespace Enigma
 
 		return std::move(output); // Returns output string
 	}
+	
+	void Core::Encrypt(std::fstream &word, std::string &output) const
+	{	
+		// Makes sure file is open else throws a runtime error
+		if (!word.is_open())
+		{
+			Log::WriteLog("ERROR: Core.cpp - File was not opened!");
+			throw std::runtime_error("Please open file before calling this function!");
+		}
+		
+		// Reads word from file and puts it in a char vector
+		std::vector<char> wordV; // Vector to hold all values from word
+		char temp{}; // Temporary variable to hold encrypted character
+		while(word >> temp)
+		{
+			wordV.push_back(temp);
+		}
+		
+		// Loop that runs through all characters in vector
+		for (uint64_t i = 0; i < wordV.size(); i++)
+		{
+			// Error Handling
+			try
+			{
+				temp = InternalEncrypt(wordV[i]); // Calls internal Encryption for letter
+			}
+			catch (std::logic_error err)
+			{
+				output.clear(); // Deletes output data since error was found
+				throw err; // Throws caught logic error to be caught when calling the function
+			}
+			output.push_back(temp); // Adds letter to output string
+		}
+		wordV.clear(); // Deletes all values from vector
+		wordV.shrink_to_fit(); // Shrinks the vector to 0 to deallocate memory
 
+		Log::WriteLog("Encrypted using void (fstream, string) Encrypt function");
+	}
+	
+	void Core::Encrypt(std::fstream &word, std::fstream &output) const
+	{	
+		// Makes sure file is open else throws a runtime error
+		if (!word.is_open())
+		{
+			Log::WriteLog("ERROR: Core.cpp - File was not opened!");
+			throw std::runtime_error("Please open file before calling this function!");
+		}
+		if (!output.is_open())
+		{
+			Log::WriteLog("ERROR: Core.cpp - File was not opened!");
+			throw std::runtime_error("Please open file before calling this function!");
+		}
+		
+		// Reads word from file and puts it in a char vector
+		std::vector<char> wordV; // Vector to hold all values from word
+		char temp{}; // Temporary variable to hold encrypted character
+		while(word >> temp)
+		{
+			wordV.push_back(temp);
+		}
+
+		// Loop that runs through all characters in vector
+		for (uint64_t i = 0; i < wordV.size(); i++)
+		{
+			// Error Handling
+			try
+			{
+				temp = InternalEncrypt(wordV[i]); // Calls internal Encryption for letter
+			}
+			catch (std::logic_error err)
+			{
+				output.clear(); // Deletes output data since error was found
+				throw err; // Throws caught logic error to be caught when calling the function
+			}
+			output.push_back(temp); // Adds letter to output string
+		}
+		wordV.clear(); // Deletes all values from vector
+		wordV.shrink_to_fit(); // Shrinks the vector to 0 to deallocate memory
+		
+		Log::WriteLog("Encrypted using void (fstream, fstream) Encrypt function");
+	}
+
+	std::string Encrypt(std::fstream &word) const
+	{
+		// Makes sure file is open else throws a runtime error
+		if (!word.is_open())
+		{
+			Log::WriteLog("ERROR: Core.cpp - File was not opened!");
+			throw std::runtime_error("Please open file before calling this function!");
+		}
+		
+		// Reads word from file and puts it in a char vector
+		std::vector<char> wordV; // Vector to hold all values from word
+		char temp{}; // Temporary variable to hold encrypted character
+		while(word >> temp)
+		{
+			wordV.push_back(temp);
+		}
+		
+		// Loop that runs through all characters in vector
+		for (uint64_t i = 0; i < wordV.size(); i++)
+		{
+			// Error Handling
+			try
+			{
+				temp = InternalEncrypt(wordV[i]); // Calls internal Encryption for letter
+			}
+			catch (std::logic_error err)
+			{
+				throw err; // Throws caught logic error to be caught when calling the function
+			}
+			output.push_back(temp); // Adds letter to output string
+		}
+		wordV.clear(); // Deletes all values from vector
+		wordV.shrink_to_fit(); // Shrinks the vector to 0 to deallocate memory
+
+		Log::WriteLog("Encrypted using string (fstream) Encrypt function");
+
+		return std::move(output); // Returns output string
+	}
+	
 	Core::~Core()
 	{
 		Log::WriteLog("Deleting Core class");
