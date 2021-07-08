@@ -1,0 +1,142 @@
+1 - Attempting to create Core class with default Constructor
+2 - Core class created with default Constructor
+3 - Setting Rotor Data Path
+4 - Rotor Data Path set
+5 - Generating default pair modules
+6 - Attempting to create Pair class with default Constructor
+7 - Created Pair class with default Constructor
+8 - Default Pair Modules generated for Core class
+9 - Generating Rotor Modules
+10 - Attempting to create Rotor class with default Constructor
+11 - Created Rotor class with default Constructor
+12 - Attempting to create Rotor class with default Constructor
+13 - Created Rotor class with default Constructor
+14 - Attempting to create Rotor class with default Constructor
+15 - Created Rotor class with default Constructor
+16 - Rotor Modules generated
+17 - Attempting to create Core class with Copy Constructor
+18 - Generating custom pair modules
+19 - Attempting to create Pair class with custom values Constructor
+20 - Created Pair class with custom values Constructor
+21 - Custom Pair Modules generated for Core class
+22 - Setting Rotor Data Path
+23 - Rotor Data Path set
+24 - Generating Rotor Modules
+25 - Attempting to create Rotor class with default Constructor
+26 - Created Rotor class with default Constructor
+27 - Attempting to create Rotor class with default Constructor
+28 - Created Rotor class with default Constructor
+29 - Attempting to create Rotor class with default Constructor
+30 - Created Rotor class with default Constructor
+31 - Rotor Modules generated
+32 - Core class created with Copy Constructor
+33 - Offseting Rotor modules
+34 - Started Encrypting using string (string) Encrypt function
+35 - Attempting to encrypt a character
+36 - Rotating Rotor
+37 - Rotated Rotor
+38 - Encrypted a character
+39 - Attempting to encrypt a character
+40 - Rotating Rotor
+41 - Rotated Rotor
+42 - Encrypted a character
+43 - Attempting to encrypt a character
+44 - Rotating Rotor
+45 - Rotated Rotor
+46 - Encrypted a character
+47 - Attempting to encrypt a character
+48 - Rotating Rotor
+49 - Rotated Rotor
+50 - Encrypted a character
+51 - Attempting to encrypt a character
+52 - Rotating Rotor
+53 - Rotated Rotor
+54 - Encrypted a character
+55 - Encrypted using string (string) Encrypt function
+56 - Rotor modules offset by 
+57 - Started Encrypting using void (string, fstream) Encrypt function
+58 - Attempting to encrypt a character
+59 - Rotating Rotor
+60 - Rotated Rotor
+61 - Encrypted a character
+62 - Attempting to encrypt a character
+63 - Rotating Rotor
+64 - Rotated Rotor
+65 - Encrypted a character
+66 - Attempting to encrypt a character
+67 - Rotating Rotor
+68 - Rotated Rotor
+69 - Encrypted a character
+70 - Attempting to encrypt a character
+71 - Rotating Rotor
+72 - Rotated Rotor
+73 - Encrypted a character
+74 - Attempting to encrypt a character
+75 - Rotating Rotor
+76 - Rotated Rotor
+77 - Encrypted a character
+78 - Attempting to encrypt a character
+79 - Rotating Rotor
+80 - Rotated Rotor
+81 - Encrypted a character
+82 - Attempting to encrypt a character
+83 - Rotating Rotor
+84 - Rotated Rotor
+85 - Encrypted a character
+86 - Encrypted using void (string, fstream) Encrypt function
+87 - Started Encrypting using string (string) Encrypt function
+88 - Attempting to encrypt a character
+89 - Rotating Rotor
+90 - Rotated Rotor
+91 - Encrypted a character
+92 - Attempting to encrypt a character
+93 - Rotating Rotor
+94 - Rotated Rotor
+95 - Encrypted a character
+96 - Attempting to encrypt a character
+97 - Rotating Rotor
+98 - Rotated Rotor
+99 - Encrypted a character
+100 - Attempting to encrypt a character
+101 - Rotating Rotor
+102 - Rotated Rotor
+103 - Encrypted a character
+104 - Attempting to encrypt a character
+105 - Rotating Rotor
+106 - Rotated Rotor
+107 - Encrypted a character
+108 - Encrypted using string (string) Encrypt function
+109 - Started Encrypting using string (string) Encrypt function
+110 - Attempting to encrypt a character
+111 - Rotating Rotor
+112 - Rotated Rotor
+113 - Encrypted a character
+114 - Attempting to encrypt a character
+115 - Rotating Rotor
+116 - Rotated Rotor
+117 - Encrypted a character
+118 - Attempting to encrypt a character
+119 - Rotating Rotor
+120 - Rotated Rotor
+121 - Encrypted a character
+122 - Attempting to encrypt a character
+123 - Rotating Rotor
+124 - Rotated Rotor
+125 - Encrypted a character
+126 - Attempting to encrypt a character
+127 - Rotating Rotor
+128 - Rotated Rotor
+129 - Encrypted a character
+130 - Encrypted using string (string) Encrypt function
+131 - Deleting Core class
+132 - Deleted Pair class
+133 - Deleted Rotor class
+134 - Deleted Rotor class
+135 - Deleted Rotor class
+136 - Deleted Core class
+137 - Deleting Core class
+138 - Deleted Pair class
+139 - Deleted Rotor class
+140 - Deleted Rotor class
+141 - Deleted Rotor class
+142 - Deleted Core class

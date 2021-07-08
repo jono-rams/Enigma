@@ -1,4 +1,5 @@
 #include "Core.h"
+#include "../Log/Log.h"
 
 static_assert(sizeof(void*) != 4, "Compile in 64-bit mode only");
 
@@ -243,7 +244,9 @@ namespace Enigma
 			// Checks to make sure seed value is not being used in another rotor module
 			if (Rot == m_RotorS->GetSeed() || Rot == m_RotorT->GetSeed())
 			{
-				std::string temp = "Rotor " + Rot + " already in use in another module (" + RotModuleNo + ")";
+				std::string temp = "Rotor " + Rot;
+				temp += " already in use in another module (" + RotModuleNo;
+				temp += +")";
 				Log::WriteLog(temp);
 				throw std::logic_error("Rotor already in use in another module!"); // Throws a logic error to be caught when calling the function
 			}
@@ -260,7 +263,9 @@ namespace Enigma
 			// Checks to make sure seed value is not being used in another rotor module
 			if (Rot == m_RotorF->GetSeed() || Rot == m_RotorT->GetSeed())
 			{
-				std::string temp = "Rotor " + Rot + " already in use in another module (" + RotModuleNo + ")";
+				std::string temp = "Rotor " + Rot;
+				temp += " already in use in another module (" + RotModuleNo;
+				temp += +")";
 				Log::WriteLog(temp);
 				throw std::logic_error("Rotor already in use in another module!"); // Throws a logic error to be caught when calling the function
 			}
@@ -278,7 +283,9 @@ namespace Enigma
 			// Checks to make sure seed value is not being used in another rotor module
 			if (Rot == m_RotorS->GetSeed() || Rot == m_RotorF->GetSeed())
 			{
-				std::string temp = "Rotor " + Rot + " already in use in another module (" + RotModuleNo + ")";
+				std::string temp = "Rotor " + Rot;
+				temp += " already in use in another module (" + RotModuleNo;
+				temp += +")";
 				Log::WriteLog(temp);
 				throw std::logic_error("Rotor already in use in another module!"); // Throws a logic error to be caught when calling the function
 			}
@@ -309,7 +316,7 @@ namespace Enigma
 		}
 		temp = Encrypt(temp);
 
-		temp = "Rotor modules offset by " + offset;
+		temp = "Rotor modules offset";
 
 		Log::WriteLog(temp);
 	}

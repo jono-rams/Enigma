@@ -1,4 +1,5 @@
 #include "Rotor.h"
+#include "../Log/Log.h"
 
 #include <vector>
 #include <fstream>
@@ -7,7 +8,7 @@ namespace Enigma
 {
 	void Rotor::Rotate()
 	{
-		std::string log = "Rotating Rotor " + *m_RotNum;
+		std::string log = "Rotating Rotor";
 		Log::WriteLog(log);
 		char* temp = new char(m_Rotator[0]); // Sets a temporary char to the first value in array
 
@@ -19,7 +20,7 @@ namespace Enigma
 		m_Rotator[25] = *temp;
 		delete temp; // Deallocates memory for temp variable
 		
-		log = "Rotated Rotor " + *m_RotNum;
+		log = "Rotated Rotor";
 		Log::WriteLog(log);
 	}
 
@@ -99,13 +100,11 @@ namespace Enigma
 		temp.clear(); // Deletes all values from vector
 		temp.shrink_to_fit(); // Shrinks the vector to 0 to deallocate memory
 			
-		Log::WriteLog("Created Core class with default Constructor");
+		Log::WriteLog("Created Rotor class with default Constructor");
 	}
 
 	void Rotor::In(char& c) const
 	{
-		std::string log = "ENCRYPTION - Letter entering Pair Module " + *m_RotNum;
-		Log::WriteLog(log);
 		ushort_t* temp = new ushort_t{}; // Allocates memory for a temp unsigned short
 
 		// Checks to see which letter was passed and sets temp to the location in alphabet
@@ -120,15 +119,10 @@ namespace Enigma
 
 		c = m_Rotator[*temp]; // Sets character to new letter determined by m_Rotator
 		delete temp; // Deallocates memory for temp
-		
-		log = "ENCRYPTION - Letter exiting Pair Module " + *m_RotNum;
-		Log::WriteLog(log);
 	}
 
 	void Rotor::Out(char& c)
 	{
-		log = "ENCRYPTION - Letter entering Pair Module " + *m_RotNum;
-		Log::WriteLog(log);
 		// Does reverse logic of In function
 		for (ushort_t i = 0; i < 26; i++)
 		{
@@ -152,14 +146,10 @@ namespace Enigma
 			Rotate();
 		else if (*m_Count >= 52)
 			Rotate();
-		
-		log = "ENCRYPTION - Letter exiting Pair Module " + *m_RotNum;
-		Log::WriteLog(log);
 	}
 
 	Rotor::~Rotor()
 	{
-		Log::WriteLog("Deleting Rotor class");
 		// Deallocates memory for all member variables
 		delete[] m_Rotator;
 		delete m_Count;

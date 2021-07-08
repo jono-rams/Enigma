@@ -32,7 +32,7 @@ namespace Enigma
 		bool CheckInvalidChar(s_Pairs pair) const; // Function to check if a pair has any invalid characters
 	public:
 		Pair(); // Default constructor
-		~Pair() { Log::WriteLog("Deleting Pair class"); delete[] m_Pairs; Log::WriteLog("Deleted Pair class"); } // Destrcutor that deallocates memory used to store member variable m_Pairs
+		~Pair() { delete[] m_Pairs; Log::WriteLog("Deleted Pair class"); } // Destrcutor that deallocates memory used to store member variable m_Pairs
 		Pair(s_Pairs pairs[13]); // Constructor that takes an array of 13 s_Pairs
 
 		s_Pairs* GetPairs() const { return m_Pairs; }

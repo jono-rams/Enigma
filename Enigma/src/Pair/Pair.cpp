@@ -1,4 +1,5 @@
 #include "Pair.h"
+#include "../Log/Log.h"
 
 #define CHECK m_Pairs[i].pair1 == m_Pairs[j].pair1 || m_Pairs[i].pair1 == m_Pairs[j].pair2 || m_Pairs[i].pair2 == m_Pairs[j].pair1 || m_Pairs[i].pair2 == m_Pairs[j].pair2
 
@@ -84,7 +85,6 @@ namespace Enigma
 
 	void Pair::PairOut(char &letter) const
 	{
-		Log::WriteLog("ENCRYPTION - Letter entering Pair Module");
 		for (ushort_t i = 0; i < 13; i++)
 		{
 			// Checks which pair the letter is located in and sets it to the other letter in the pair
@@ -99,7 +99,6 @@ namespace Enigma
 				return;
 			}
 		}
-		Log::WriteLog("ENCRYPTION - Letter exiting Pair Module");
 	}
 
 	bool Pair::CheckDuplicates() const
