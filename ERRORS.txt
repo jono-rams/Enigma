@@ -1,0 +1,24 @@
+ERROR CODE FORMAT
+XX-YZ(W)
+
+XX - Determines which module gave the error:
+03-YZ(W) - Core Module
+16-YZ(W) - Pair Module
+18-YZ(W) - Rotor Module
+
+Y - Determines what module file gave the error
+XX-0Z(W) - Core.obj
+XX-1Z(W) - Pair.obj [16-1Z(W)] Rotor.obj [18-1Z(W)]
+
+Z - Determines specific error
+
+W - Used if it is the same error that was thrown at a different point in the code
+
+ERROR 03-00: Invalid Character - Attempted to encrypt an invalid character(valid characters are a-z case sensitive).
+ERROR 16-00: Pair could not be generated! - Pair module in Core object could not be generated due to error.
+ERROR 16-10: Invalid character entered in pair! - Invalid character was found when trying to create a pair (valid characters are a-z case sensitive).
+ERROR 16-11: Duplicate letters in pairs! - The same letter was used already in another pair.
+ERROR 18-00A: Invalid Rotor Number! - Tried to set an invalid rotor number when generating New Rotor Module (valid rotor numbers are 1-5).
+ERROR 18-00B: Invalid Rotor Number! - Tried to set an invalid rotor number when switching Rotor Module (valid rotor numbers are 1-5).
+ERROR 18-01: Rotor already in use in another sub-module! - Tried to set a rotor that is already used in another rotor sub-module.
+ERROR 18-02: Trying to change Rotor Sub-Module that does NOT exist! - Tried to change a rotor sub-module that does not exist (rotor sub-modules are 1-3).

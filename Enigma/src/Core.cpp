@@ -2,7 +2,7 @@
 
 #include <vector>
 
-static_assert(sizeof(void*) != 4, "Compile in 64-bit mode only");
+//static_assert(sizeof(void*) != 4, "Compile in 64-bit mode only");
 
 namespace Enigma
 {
@@ -24,7 +24,7 @@ namespace Enigma
 		if (*invalid)
 		{
 			delete invalid; // Deallocates memory for invalid
-			throw std::logic_error("Invalid character\n"); // Throws a logic error to be caught when calling the function
+			throw std::logic_error("ERROR 03-00: Invalid character\n"); // Throws a logic error to be caught when calling the function
 		}
 		delete invalid; // Deallocates memory for invalid
 
@@ -156,7 +156,7 @@ namespace Enigma
 			std::cout << err.what() << std::endl;
 			delete m_PairModule;
 			m_PairModule = nullptr;
-			throw std::logic_error("Pair could not be generated!"); // Throws a logic error to be caught when calling the function
+ 			throw std::logic_error("ERROR 16-00 - Pair could not be generated!"); // Throws a logic error to be caught when calling the function
 		}
 	}
 
@@ -174,7 +174,7 @@ namespace Enigma
 	{
 		// Check to make sure none of the seed values are greater than 5
 		if (Rot1 > 5 || Rot2 > 5 || Rot3 > 5)
-			throw std::logic_error("Invalid Rotor Number!"); // Throws a logic error to be caught when calling the function
+			throw std::logic_error("ERROR 18-00A: Invalid Rotor Number!"); // Throws a logic error to be caught when calling the function
 
 		// Checks to see if rotor modules were already created
 		if (m_RotorF != nullptr)
@@ -198,14 +198,14 @@ namespace Enigma
 	void Core::SwitchRotorModule(ushort_t RotModuleNo, ushort_t Rot)
 	{
 		if (Rot > 5)
-			throw std::logic_error("Invalid Rotor Number!"); // Throws a logic error to be caught when calling the function
+			throw std::logic_error("ERROR 18-00B: Invalid Rotor Number!"); // Throws a logic error to be caught when calling the function
 
 		// Checks which rotor module is being switched
 		if (RotModuleNo == 1)
 		{
 			// Checks to make sure seed value is not being used in another rotor module
 			if (Rot == m_RotorS->GetSeed() || Rot == m_RotorT->GetSeed())
-				throw std::logic_error("Rotor already in use in another module!"); // Throws a logic error to be caught when calling the function
+				throw std::logic_error("ERROR 18-01: Rotor already in use in another sub-module!"); // Throws a logic error to be caught when calling the function
 			
 			if (Rot == m_RotorF->GetSeed()) // Checks to see if Rotor module is the same as current one
 				return;
@@ -219,8 +219,8 @@ namespace Enigma
 		{
 			// Checks to make sure seed value is not being used in another rotor module
 			if (Rot == m_RotorF->GetSeed() || Rot == m_RotorT->GetSeed())
-				throw std::logic_error("Rotor already in use in another module!"); // Throws a logic error to be caught when calling the function
-			
+				throw std::logic_error("ERROR 18-01: Rotor already in use in another sub-module!"); // Throws a logic error to be caught when calling the function
+
 			if (Rot == m_RotorS->GetSeed()) // Checks to see if Rotor module is the same as current one
 				return;
 
@@ -232,8 +232,8 @@ namespace Enigma
 		else if (RotModuleNo == 3)
 		{
 			// Checks to make sure seed value is not being used in another rotor module
-			if (Rot == m_RotorS->GetSeed() || Rot == m_RotorF->GetSeed())			
-				throw std::logic_error("Rotor already in use in another module!"); // Throws a logic error to be caught when calling the function
+			if (Rot == m_RotorS->GetSeed() || Rot == m_RotorF->GetSeed())
+				throw std::logic_error("ERROR 18-01: Rotor already in use in sub-another module!"); // Throws a logic error to be caught when calling the function
 			
 			if (Rot == m_RotorT->GetSeed()) // Checks to see if Rotor module is the same as current one
 				return;
@@ -245,7 +245,7 @@ namespace Enigma
 		}
 		else // If user is trying to set to a rotor module that does not exist
 		{
-			throw std::logic_error("Only THREE(3) Rotor Modules"); // Throws a logic error to be caught when calling the function
+			throw std::logic_error("ERROR 18-02: Trying to change Rotor Sub-Module that does NOT exist!)"); // Throws a logic error to be caught when calling the function
 		}
 	}
 

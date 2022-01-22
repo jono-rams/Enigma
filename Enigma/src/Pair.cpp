@@ -65,14 +65,14 @@ namespace Enigma
 			if (CheckInvalidChar(m_Pairs[i])) // Checks if the characters set in m_Pairs are valid
 			{
 				delete[] m_Pairs; // Deallocates memory used to store member variable m_Pairs
-				throw std::logic_error("Invalid character entered in Pair!"); // Throws a logic error to be caught when calling the function
+				throw std::logic_error("ERROR 16-10: Invalid character entered in pair!"); // Throws a logic error to be caught when calling the function
 			}
 		}
 
 		if (CheckDuplicates()) // Checks for duplicate letters in entered pairs
 		{
 			delete[] m_Pairs; // Deallocates memory used to store member variable m_Pairs
-			throw std::logic_error("Duplicate letters in pairs!"); // Throws a logic error to be caught when calling the function
+			throw std::logic_error("ERROR 16-11: Duplicate letters in pairs!"); // Throws a logic error to be caught when calling the function
 		}
 	}
 
