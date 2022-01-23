@@ -1,7 +1,7 @@
 # Enigma Releases
 Enigma machine implementation in C++
 
-This branch contains the Source Code for the Binaries as well as the 64-bit static lirary compiled for VS2019.
+This branch contains the Source Code for the Binaries.
 
 ## RELEASES & UPDATES
 ### V1.2
