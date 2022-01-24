@@ -245,7 +245,7 @@ namespace Enigma
 		}
 		else // If user is trying to set to a rotor module that does not exist
 		{
-			throw std::logic_error("ERROR 18-02: Trying to change Rotor Sub-Module that does NOT exist!)"); // Throws a logic error to be caught when calling the function
+			throw std::logic_error("ERROR 18-02: Trying to change Rotor Sub-Module that does NOT exist!"); // Throws a logic error to be caught when calling the function
 		}
 	}
 
@@ -313,6 +313,119 @@ namespace Enigma
 		delete temp; // Deallocates memory for temp
 
 		return std::move(output); // Returns output string
+	}
+
+	void Core::Encrypt(const std::string& word, std::ofstream output) const
+	{
+		if (!(output.is_open()))
+		{
+			throw std::logic_error("ERROR 03-01A: ofstream file MUST be Open!");
+		}
+
+		std::string* outputS = new std::string{}; // Temporary string
+		std::vector<char> wordV; // Vector to hold all values from word
+		std::copy(word.begin(), word.end(), std::back_inserter(wordV)); // Copies characters from string to vector
+
+		char* temp = new char;// Temporary variable to hold encrypted character
+
+		// Loop that runs through all characters in vector
+		for (uint64_t i = 0; i < wordV.size(); i++)
+		{
+			// Error Handling
+			try
+			{
+				*temp = InternalEncrypt(wordV[i]); // Calls internal Encryption for letter
+			}
+			catch (std::logic_error err)
+			{
+				throw err; // Throws caught logic error to be caught when calling the function
+			}
+			outputS->push_back(*temp); // Adds letter to output string
+		}
+		wordV.clear(); // Deletes all values from vector
+		wordV.shrink_to_fit(); // Shrinks the vector to 0 to deallocate memory
+		delete temp; // Deallocates memory for temp
+
+		output << outputS; // Writes the output string to the output file
+		delete outputS; // Deallocates memory for outputS
+	}
+
+	void Core::Encrypt(std::ifstream word, std::string& output) const
+	{
+		if (!(word.is_open()))
+		{
+			throw std::logic_error("ERROR 03-02A: ifstream file MUST be Open!");
+		}
+
+		std::string* inS = new std::string{}; // Temp string to read contents from file
+		word >> *inS; // Reads contents from file
+
+		std::vector<char> wordV; // Vector to hold all values from word
+		std::copy(inS->begin(), inS->end(), std::back_inserter(wordV)); // Copies characters from string to vector
+		delete inS; // Deallocates memory for inS
+
+		char* temp = new char;// Temporary variable to hold encrypted character
+
+		// Loop that runs through all characters in vector
+		for (uint64_t i = 0; i < wordV.size(); i++)
+		{
+			// Error Handling
+			try
+			{
+				*temp = InternalEncrypt(wordV[i]); // Calls internal Encryption for letter
+			}
+			catch (std::logic_error err)
+			{
+				throw err; // Throws caught logic error to be caught when calling the function
+			}
+			output.push_back(*temp); // Adds letter to output string
+		}
+		wordV.clear(); // Deletes all values from vector
+		wordV.shrink_to_fit(); // Shrinks the vector to 0 to deallocate memory
+		delete temp; // Deallocates memory for temp
+	}
+
+	void Core::Encrypt(std::ifstream word, std::ofstream output) const
+	{
+		if (!(word.is_open()))
+		{
+			throw std::logic_error("ERROR 03-02B: ifstream file MUST be Open!");
+		}
+		if (!(output.is_open()))
+		{
+			throw std::logic_error("ERROR 03-01B: ofstream file MUST be Open!");
+		}
+
+		std::string* inS = new std::string{}; // Temp string to read contents from file
+		word >> *inS; // Reads contents from file
+
+		std::string* outputS = new std::string{}; // Temporary string
+		std::vector<char> wordV; // Vector to hold all values from word
+		std::copy(inS->begin(), inS->end(), std::back_inserter(wordV)); // Copies characters from string to vector
+		delete inS; // Deallocates memory for inS
+
+		char* temp = new char;// Temporary variable to hold encrypted character
+
+		// Loop that runs through all characters in vector
+		for (uint64_t i = 0; i < wordV.size(); i++)
+		{
+			// Error Handling
+			try
+			{
+				*temp = InternalEncrypt(wordV[i]); // Calls internal Encryption for letter
+			}
+			catch (std::logic_error err)
+			{
+				throw err; // Throws caught logic error to be caught when calling the function
+			}
+			outputS->push_back(*temp); // Adds letter to output string
+		}
+		wordV.clear(); // Deletes all values from vector
+		wordV.shrink_to_fit(); // Shrinks the vector to 0 to deallocate memory
+		delete temp; // Deallocates memory for temp
+
+		output << outputS; // Writes the output string to the output file
+		delete outputS; // Deallocates memory for outputS
 	}
 
 	Core::~Core()
