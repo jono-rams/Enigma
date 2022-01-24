@@ -39,9 +39,6 @@ namespace Enigma
 
 		void Encrypt(const std::string &word, std::string &output) const; // Encryption code for a string that takes a reference to a user string to write the output to
 		std::string Encrypt(const std::string& word) const; // Encryption code for a string that returns a string
-		void Encrypt(const std::string& word, std::ofstream output) const; // Encryption code for a string that takes a reference to a user file to write the output to
-		void Encrypt(std::ifstream word, std::string& output) const; // Encryption code for a file that takes a reference to a user string to write the output to
-		void Encrypt(std::ifstream word, std::ofstream output) const; // Encryption code for a file that takes a reference to a user file to write the output to
 
 		~Core(); // Destructor
 	};

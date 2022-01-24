@@ -4,9 +4,6 @@ Enigma machine implementation in C++
 This branch contains the Source Code for the Binaries.
 
 ## RELEASES & UPDATES
-### V2.0
-* Added ability to read from and write to files when encrypting.
-
 ### V1.2
 * Added ability to offset Rotors for continued use from previous state.
 
