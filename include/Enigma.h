@@ -7,4 +7,6 @@
 #include "Pair/Pair.h"
 #include "Rotor/Rotor.h"
 
+typedef Enigma::Core ENIGMA_MACHINE;
+
 #endif
