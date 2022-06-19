@@ -11,13 +11,13 @@ namespace Enigma
 	{
 		char m_Rotator[26]; // This contains the random assortment of characters
 
-		Enigma_Char m_RotNum;
+		Enigma_Short m_RotNum;
 		Enigma_Short* m_Count;
 		Enigma_Short m_SeedNum;
 
 		void Rotate();
 	public:
-		Rotor() : m_Count(nullptr) {}
+		Rotor();
 
 		void SetRotor(Enigma_Char rotModuleNum, Enigma_Short seed, std::string ROTOR_FILE_PATH); // Constructor that takes in what slot the rotor is in and it's seed value
 

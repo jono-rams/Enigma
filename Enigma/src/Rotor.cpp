@@ -18,6 +18,15 @@ namespace Enigma
 		delete temp; // Deallocates memory for temp variable
 	}
 
+	Rotor::Rotor() :
+		m_Count(nullptr), m_RotNum(0), m_SeedNum(0)
+	{
+		for (Enigma_Short i = 0; i < 26; i++)
+		{
+			m_Rotator[i] = '0';
+		}
+	}
+
 	void Rotor::SetRotor(Enigma_Char rotModuleNum, Enigma_Short seed, std::string ROTOR_FILE_PATH)
 	{
 		m_RotNum = rotModuleNum;
@@ -40,8 +49,11 @@ namespace Enigma
 			ROTOR_FILE_PATH += "/Module1.rot";
 			in.open(ROTOR_FILE_PATH.c_str(), std::ios::in);
 
-			if(!in.is_open())
+			if (!in.is_open())
+			{
+				delete x;
 				throw std::logic_error("ERROR 18-10: Rotor File could not be opened!"); // Throws a logic error to be caught when calling the function
+			}
 
 			while (in >> *x)
 			{
@@ -54,7 +66,10 @@ namespace Enigma
 			in.open(ROTOR_FILE_PATH.c_str(), std::ios::in);
 
 			if (!in.is_open())
+			{
+				delete x;
 				throw std::logic_error("ERROR 18-10: Rotor File could not be opened!"); // Throws a logic error to be caught when calling the function
+			}
 
 			while (in >> *x)
 			{
@@ -67,7 +82,10 @@ namespace Enigma
 			in.open(ROTOR_FILE_PATH.c_str(), std::ios::in);
 
 			if (!in.is_open())
+			{
+				delete x;
 				throw std::logic_error("ERROR 18-10: Rotor File could not be opened!"); // Throws a logic error to be caught when calling the function
+			}
 
 			while (in >> *x)
 			{
@@ -80,7 +98,10 @@ namespace Enigma
 			in.open(ROTOR_FILE_PATH.c_str(), std::ios::in);
 
 			if (!in.is_open())
+			{
+				delete x;
 				throw std::logic_error("ERROR 18-10: Rotor File could not be opened!"); // Throws a logic error to be caught when calling the function
+			}
 
 			while (in >> *x)
 			{
@@ -93,7 +114,10 @@ namespace Enigma
 			in.open(ROTOR_FILE_PATH.c_str(), std::ios::in);
 
 			if (!in.is_open())
+			{
+				delete x;
 				throw std::logic_error("ERROR 18-10: Rotor File could not be opened!"); // Throws a logic error to be caught when calling the function
+			}
 
 			while (in >> *x)
 			{

@@ -105,6 +105,21 @@ namespace Enigma
 		m_PairModule.SetPairs();
 	}
 
+#ifdef ENIGMA_USE_STD_PAIR
+	void Core::GenNewPairModule(std::array<std::pair<char, char>, 13> pairs)
+	{
+		// Error Handling
+		try
+		{
+			m_PairModule.SetPairs(pairs);
+		}
+		catch (std::logic_error& err)
+		{
+			std::cout << err.what() << std::endl;
+			throw std::logic_error("ERROR 16-00 - Pair could not be generated!"); // Throws a logic error to be caught when calling the function
+		}
+	}
+#else
 	void Core::GenNewPairModule(std::array<s_Pairs, 13> pairs)
 	{
 		// Error Handling
@@ -112,12 +127,13 @@ namespace Enigma
 		{
 			m_PairModule.SetPairs(pairs);
 		}
-		catch (std::logic_error err)
+		catch (std::logic_error& err)
 		{
 			std::cout << err.what() << std::endl;
 			throw std::logic_error("ERROR 16-00 - Pair could not be generated!"); // Throws a logic error to be caught when calling the function
 		}
 	}
+#endif
 
 	void Core::GenNewRotorsModules(Enigma_Short Rot1, Enigma_Short Rot2, Enigma_Short Rot3)
 	{
@@ -130,7 +146,7 @@ namespace Enigma
 		{
 			m_RotorF.SetRotor(1, Rot1, m_RotPath);
 		}
-		catch (std::logic_error err)
+		catch (std::logic_error& err)
 		{
 			std::cout << err.what() << std::endl;
 			throw std::logic_error("ERROR 18-03A: Rotor 1 could not be generated!"); // Throws a logic error to be caught when calling the function
@@ -140,7 +156,7 @@ namespace Enigma
 		{
 			m_RotorS.SetRotor(2, Rot2, m_RotPath);
 		}
-		catch (std::logic_error err)
+		catch (std::logic_error& err)
 		{
 			std::cout << err.what() << std::endl;
 			throw std::logic_error("ERROR 18-03A: Rotor 2 could not be generated!"); // Throws a logic error to be caught when calling the function
@@ -150,7 +166,7 @@ namespace Enigma
 		{
 			m_RotorT.SetRotor(3, Rot1, m_RotPath);
 		}
-		catch (std::logic_error err)
+		catch (std::logic_error& err)
 		{
 			std::cout << err.what() << std::endl;
 			throw std::logic_error("ERROR 18-03A: Rotor 3 could not be generated!"); // Throws a logic error to be caught when calling the function
@@ -176,7 +192,7 @@ namespace Enigma
 			{
 				m_RotorF.SetRotor(1, Rot, m_RotPath);
 			}
-			catch (std::logic_error err)
+			catch (std::logic_error& err)
 			{
 				std::cout << err.what() << std::endl;
 				throw std::logic_error("ERROR 18-03B: Rotor 1 could not be generated!"); // Throws a logic error to be caught when calling the function
@@ -195,7 +211,7 @@ namespace Enigma
 			{
 				m_RotorS.SetRotor(2, Rot, m_RotPath);
 			}
-			catch (std::logic_error err)
+			catch (std::logic_error& err)
 			{
 				std::cout << err.what() << std::endl;
 				throw std::logic_error("ERROR 18-03B: Rotor 2 could not be generated!"); // Throws a logic error to be caught when calling the function
@@ -214,7 +230,7 @@ namespace Enigma
 			{
 				m_RotorF.SetRotor(3, Rot, m_RotPath);
 			}
-			catch (std::logic_error err)
+			catch (std::logic_error& err)
 			{
 				std::cout << err.what() << std::endl;
 				throw std::logic_error("ERROR 18-03B: Rotor 3 could not be generated!"); // Throws a logic error to be caught when calling the function
@@ -233,7 +249,7 @@ namespace Enigma
 		{
 			temp.push_back('a');
 		}
-		temp = Encrypt(temp);
+		Encrypt(temp);
 	}
 
 	void Core::Encrypt(const std::string& word, std::string& output)
@@ -241,17 +257,18 @@ namespace Enigma
 		std::vector<char> wordV; // Vector to hold all values from word
 		std::copy(word.begin(), word.end(), std::back_inserter(wordV)); // Copies characters from string to vector
 
-		char* temp = new char; // Temporary variable to hold encrypted character
+		char* temp = new char{}; // Temporary variable to hold encrypted character
 
 		// Loop that runs through all characters in vector
 		for (uint64_t i = 0; i < wordV.size(); i++)
 		{
+			*temp = wordV[i];
 			// Error Handling
 			try
 			{
-				InternalEncrypt(wordV[i]); // Calls internal Encryption for letter
+				InternalEncrypt(*temp); // Calls internal Encryption for letter
 			}
-			catch (std::logic_error err)
+			catch (std::logic_error& err)
 			{
 				output.clear(); // Deletes output data since error was found
 				throw err; // Throws caught logic error to be caught when calling the function
@@ -274,12 +291,13 @@ namespace Enigma
 		// Loop that runs through all characters in vector
 		for (uint64_t i = 0; i < wordV.size(); i++)
 		{
+			*temp = wordV[i];
 			// Error Handling
 			try
 			{
-				InternalEncrypt(wordV[i]); // Calls internal Encryption for letter
+				InternalEncrypt(*temp); // Calls internal Encryption for letter
 			}
-			catch (std::logic_error err)
+			catch (std::logic_error& err)
 			{
 				throw err; // Throws caught logic error to be caught when calling the function
 			}

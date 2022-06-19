@@ -27,7 +27,11 @@ namespace Enigma
 		~Core() = default; // Destructor
 
 		void GenNewPairModule(); // Generate Pair Module with default pairs
+#ifdef ENIGMA_USE_STD_PAIR
+		void GenNewPairModule(std::array<std::pair<char, char>, 13> pairs);
+#else
 		void GenNewPairModule(std::array<s_Pairs, 13> pairs); // Generate Pair Module with user set pairs
+#endif
 
 		inline void SetRotorDataPath(std::string path) { m_RotPath = path; }
 		void GenNewRotorsModules(Enigma_Short Rot1, Enigma_Short Rot2, Enigma_Short Rot3); // Generates Rotors using 3 different seed values
