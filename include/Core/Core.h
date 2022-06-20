@@ -40,6 +40,8 @@ namespace Enigma
 
 		std::string Encrypt(const std::string& word); // Encryption code for a string that returns a string
 		void Encrypt(const std::string& word, std::string& output); // Encryption code for a string that takes a reference to a user string to write the output to
+
+		char* Encrypt(const char* word);
 	};
 }
 

@@ -286,4 +286,18 @@ namespace Enigma
 	{
 		output = Encrypt(word);
 	}
+
+	char* Core::Encrypt(const char* word)
+	{
+		std::string str{ word };
+		str = Encrypt(str);
+
+		auto size = str.length();
+		char* out = new char[size];
+		
+		for (int i = 0; i < size; i++)
+			out[i] = str[i];
+
+		return out;
+	}
 }
