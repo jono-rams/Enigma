@@ -252,34 +252,6 @@ namespace Enigma
 		Encrypt(temp);
 	}
 
-	void Core::Encrypt(const std::string& word, std::string& output)
-	{
-		std::vector<char> wordV; // Vector to hold all values from word
-		std::copy(word.begin(), word.end(), std::back_inserter(wordV)); // Copies characters from string to vector
-
-		char* temp = new char{}; // Temporary variable to hold encrypted character
-
-		// Loop that runs through all characters in vector
-		for (uint64_t i = 0; i < wordV.size(); i++)
-		{
-			*temp = wordV[i];
-			// Error Handling
-			try
-			{
-				InternalEncrypt(*temp); // Calls internal Encryption for letter
-			}
-			catch (std::logic_error& err)
-			{
-				output.clear(); // Deletes output data since error was found
-				throw err; // Throws caught logic error to be caught when calling the function
-			}
-			output.push_back(*temp); // Adds letter to output string
-		}
-		wordV.clear(); // Deletes all values from vector
-		wordV.shrink_to_fit(); // Shrinks the vector to 0 to deallocate memory
-		delete temp; // Deallocates memory for temp
-	}
-
 	std::string Core::Encrypt(const std::string& word)
 	{
 		std::string output; // Temporary string to return
@@ -308,5 +280,10 @@ namespace Enigma
 		delete temp; // Deallocates memory for temp
 
 		return std::move(output); // Returns output string
+	}
+
+	void Core::Encrypt(const std::string& word, std::string& output)
+	{
+		output = Encrypt(word);
 	}
 }

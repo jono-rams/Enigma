@@ -38,8 +38,8 @@ namespace Enigma
 		void SwitchRotorModule(Enigma_Short RotModuleNo, Enigma_Short Rot); // Switches a specific rotor with a new one with a user determined seed
 		void OffsetRotor(uint64_t offset); // Offsets Rotor for continued use of machine from a previous state
 
-		void Encrypt(const std::string& word, std::string& output); // Encryption code for a string that takes a reference to a user string to write the output to
 		std::string Encrypt(const std::string& word); // Encryption code for a string that returns a string
+		void Encrypt(const std::string& word, std::string& output); // Encryption code for a string that takes a reference to a user string to write the output to
 	};
 }
 
