@@ -1,3 +1,4 @@
+#pragma once
 #ifndef GENERIC_INCLUDE_H_
 #define GENERIC_INCLUDE_H_
 

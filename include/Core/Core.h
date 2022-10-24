@@ -1,11 +1,12 @@
+#pragma once
+#ifndef CORE_H_
+#define CORE_H_
+
 #include <Core/GenericInclude.h>
 #include <Pair/Pair.h>
 #include <Rotor/Rotor.h>
 
 #include <string>
-
-#ifndef CORE_H_
-#define CORE_H_
 
 namespace Enigma
 {

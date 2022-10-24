@@ -1,10 +1,9 @@
-#include <Core/GenericInclude.h>
+#pragma once
+#ifndef PAIR_H_
+#define PAIR_H_
 
 #include <iostream>
 #include <array>
-
-#ifndef PAIR_H_
-#define PAIR_H_
 
 namespace Enigma
 {

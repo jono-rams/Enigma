@@ -1,3 +1,7 @@
+#pragma once
+#ifndef ROTOR_H_
+#define ROTOR_H_
+
 #include <Core/GenericInclude.h>
 
 #include <string>
