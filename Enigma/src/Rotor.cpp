@@ -18,6 +18,11 @@ namespace Enigma
 		delete temp; // Deallocates memory for temp variable
 	}
 
+	void Rotor::SetNumberOfModules(Enigma_64 NumberOfModules)
+	{
+		m_NumberOfModules = NumberOfModules;
+	}
+
 	Rotor::Rotor() :
 		m_Count(nullptr), m_RotNum(0), m_SeedNum(0)
 	{
@@ -27,7 +32,7 @@ namespace Enigma
 		}
 	}
 
-	void Rotor::SetRotor(Enigma_Char rotModuleNum, Enigma_Short seed, std::string ROTOR_FILE_PATH)
+	void Rotor::SetRotor(Enigma_Char rotModuleNum, Enigma_64 seed, std::string ROTOR_FILE_PATH)
 	{
 		m_RotNum = rotModuleNum;
 		m_Count = new Enigma_Short{0}; // Allocates memory for m_Count variable
@@ -40,93 +45,25 @@ namespace Enigma
 		}
 
 		std::vector<Enigma_Short> temp; // Vector to hold all values from .rot data files, these files contain how the rotor connects from one letter to the next
-		Enigma_Short* x = new Enigma_Short{}; // Temporary variable to hold data from .rot data files before adding it to vector
+		Enigma_Short x{0}; // Temporary variable to hold data from .rot data files before adding it to vector
 		std::ifstream in; // ifstream object to open and read from .rot data files
 
-		// Reads from specific .rot data file depending on seed and adds all values to temp vector
-		if (seed == 1)
+		ROTOR_FILE_PATH += "/Module";
+		ROTOR_FILE_PATH += seed;
+		ROTOR_FILE_PATH += ".rot";
+
+		in.open(ROTOR_FILE_PATH.c_str(), std::ios::in);
+		if(!in.is_open())
 		{
-			ROTOR_FILE_PATH += "/Module1.rot";
-			in.open(ROTOR_FILE_PATH.c_str(), std::ios::in);
-
-			if (!in.is_open())
-			{
-				delete x;
-				throw std::logic_error("ERROR 18-10: Rotor File could not be opened!"); // Throws a logic error to be caught when calling the function
-			}
-
-			while (in >> *x)
-			{
-				temp.push_back(*x);
-			}
-		}
-		else if (seed == 2)
-		{
-			ROTOR_FILE_PATH += "/Module2.rot";
-			in.open(ROTOR_FILE_PATH.c_str(), std::ios::in);
-
-			if (!in.is_open())
-			{
-				delete x;
-				throw std::logic_error("ERROR 18-10: Rotor File could not be opened!"); // Throws a logic error to be caught when calling the function
-			}
-
-			while (in >> *x)
-			{
-				temp.push_back(*x);
-			}
-		}
-		else if (seed == 3)
-		{
-			ROTOR_FILE_PATH += "/Module3.rot";
-			in.open(ROTOR_FILE_PATH.c_str(), std::ios::in);
-
-			if (!in.is_open())
-			{
-				delete x;
-				throw std::logic_error("ERROR 18-10: Rotor File could not be opened!"); // Throws a logic error to be caught when calling the function
-			}
-
-			while (in >> *x)
-			{
-				temp.push_back(*x);
-			}
-		}
-		else if (seed == 4)
-		{
-			ROTOR_FILE_PATH += "/Module4.rot";
-			in.open(ROTOR_FILE_PATH.c_str(), std::ios::in);
-
-			if (!in.is_open())
-			{
-				delete x;
-				throw std::logic_error("ERROR 18-10: Rotor File could not be opened!"); // Throws a logic error to be caught when calling the function
-			}
-
-			while (in >> *x)
-			{
-				temp.push_back(*x);
-			}
-		}
-		else
-		{
-			ROTOR_FILE_PATH += "/Module5.rot";
-			in.open(ROTOR_FILE_PATH.c_str(), std::ios::in);
-
-			if (!in.is_open())
-			{
-				delete x;
-				throw std::logic_error("ERROR 18-10: Rotor File could not be opened!"); // Throws a logic error to be caught when calling the function
-			}
-
-			while (in >> *x)
-			{
-				temp.push_back(*x);
-			}
+			throw std::logic_error("ERROR 18-10: Rotor File could not be opened!"); // Throws a logic error to be caught when calling the function
 		}
 
+		while (in >> x)
+		{
+			temp.push_back(x);
+		}
+		
 		in.close(); // Closes file
-		delete x; // Deallocates memory for x
 
 		// Sets the m_Rotator values to those from .rot files via the vector
 		for (Enigma_Short i = 0; i < 26; i++)

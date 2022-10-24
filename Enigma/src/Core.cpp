@@ -137,8 +137,9 @@ namespace Enigma
 
 	void Core::GenNewRotorsModules(Enigma_Short Rot1, Enigma_Short Rot2, Enigma_Short Rot3)
 	{
+		const auto NumberOfModules = Rotor::GetNumberOfModules();
 		// Check to make sure none of the seed values are greater than 5
-		if (Rot1 > 5 || Rot2 > 5 || Rot3 > 5)
+		if (Rot1 > NumberOfModules || Rot2 > NumberOfModules || Rot3 > NumberOfModules)
 			throw std::logic_error("ERROR 18-00A: Invalid Rotor Number!"); // Throws a logic error to be caught when calling the function
 
 		// Creates and allocates memory for Rotor modules in order
@@ -175,7 +176,7 @@ namespace Enigma
 
 	void Core::SwitchRotorModule(Enigma_Short RotModuleNo, Enigma_Short Rot)
 	{
-		if (Rot > 5)
+		if (Rot > Rotor::GetNumberOfModules())
 			throw std::logic_error("ERROR 18-00B: Invalid Rotor Number!"); // Throws a logic error to be caught when calling the function
 
 		// Checks which rotor module is being switched
