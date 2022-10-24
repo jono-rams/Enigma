@@ -1,3 +1,7 @@
+# Enigma 2.0
+Updated Enigma Library that makes Rotor more modular:
+* Number of Rotor Files are now set by the user (No longer limited to 5)
+
 # Enigma Releases
 Enigma machine implementation in C++
 

@@ -35,6 +35,7 @@ namespace Enigma
 #endif
 
 		inline void SetRotorDataPath(std::string path) { m_RotPath = path; }
+		inline void SetNumberOfRotorModules(Enigma_64 NumberOfModules) const { Rotor::SetNumberOfModules(NumberOfModules); } // Sets number of Rotor modules that are available to choose from.
 		void GenNewRotorsModules(Enigma_Short Rot1, Enigma_Short Rot2, Enigma_Short Rot3); // Generates Rotors using 3 different seed values
 		void SwitchRotorModule(Enigma_Short RotModuleNo, Enigma_Short Rot); // Switches a specific rotor with a new one with a user determined seed
 		void OffsetRotor(uint64_t offset); // Offsets Rotor for continued use of machine from a previous state
