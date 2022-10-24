@@ -386,3 +386,4 @@ MigrationBackup/
 # Project Specific
 bin/
 bin-int/
+.idea/
