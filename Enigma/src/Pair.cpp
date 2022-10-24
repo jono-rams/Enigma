@@ -1,4 +1,5 @@
 #include <Pair/Pair.h>
+#include "../include/Core/GenericInclude.h"
 
 #define CHECK m_Pairs[i].pair1 == m_Pairs[j].pair1 || m_Pairs[i].pair1 == m_Pairs[j].pair2 || m_Pairs[i].pair2 == m_Pairs[j].pair1 || m_Pairs[i].pair2 == m_Pairs[j].pair2
 #ifdef ENIGMA_USE_STD_PAIR
