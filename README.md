@@ -1,13 +1,14 @@
-# Enigma 2.0
-Updated Enigma Library that makes Rotor more modular:
-* Number of Rotor Files are now set by the user (No longer limited to 5)
-
 # Enigma Releases
 Enigma machine implementation in C++
 
 This branch contains the Source Code for the Binaries.
 
 ## RELEASES & UPDATES
+### V2.0
+* Number of Rotor Files are now set by the user (No longer limited to 5).
+* Pair module can now use std::pair instead of local s_Pair.
+* Added Encryption function that returns and uses c-strings.
+
 ### V1.2
 * Added ability to offset Rotors for continued use from previous state.
 
