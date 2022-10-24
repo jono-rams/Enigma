@@ -14,11 +14,11 @@ namespace Enigma
 
 		Enigma_Short m_RotNum;
 		Enigma_Short* m_Count;
-		Enigma_Short m_SeedNum;
+		Enigma_64 m_SeedNum;
 
 		void Rotate();
 
-		static Enigma_64 m_NumberOfModules = 5;
+		inline static Enigma_64 m_NumberOfModules = 5;
 	public:
 		static void SetNumberOfModules(Enigma_64 NumberOfModules);
 		static Enigma_64 GetNumberOfModules() { return m_NumberOfModules; }
@@ -29,7 +29,7 @@ namespace Enigma
 		void In(char& c) const; // Encryption logic for the letter entered by the user going TO the pair module
 		void Out(char& c); // Encryption logic for the letter entered by the user coming FROM the pair module
 
-		Enigma_Short GetSeed() const { return m_SeedNum; } // Function that returns the seed number
+		Enigma_64 GetSeed() const { return m_SeedNum; } // Function that returns the seed number
 	};
 }
 

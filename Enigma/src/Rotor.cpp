@@ -49,7 +49,7 @@ namespace Enigma
 		std::ifstream in; // ifstream object to open and read from .rot data files
 
 		ROTOR_FILE_PATH += "/Module";
-		ROTOR_FILE_PATH += seed;
+		ROTOR_FILE_PATH += std::to_string(seed);
 		ROTOR_FILE_PATH += ".rot";
 
 		in.open(ROTOR_FILE_PATH.c_str(), std::ios::in);
