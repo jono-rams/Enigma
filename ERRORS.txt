@@ -18,8 +18,8 @@ ERROR 03-00: Invalid Character - Attempted to encrypt an invalid character(valid
 ERROR 16-00: Pair could not be generated! - Pair module in Core object could not be generated due to error.
 ERROR 16-10: Invalid character entered in pair! - Invalid character was found when trying to create a pair (valid characters are a-z case sensitive).
 ERROR 16-11: Duplicate letters in pairs! - The same letter was used already in another pair.
-ERROR 18-00A: Invalid Rotor Number! - Tried to set an invalid rotor number when generating New Rotor Module (valid rotor numbers are 1-5).
-ERROR 18-00B: Invalid Rotor Number! - Tried to set an invalid rotor number when switching Rotor Module (valid rotor numbers are 1-5).
+ERROR 18-00A: Invalid Rotor Number! - Tried to set an invalid rotor number when generating New Rotor Module (valid rotor numbers are 1-5 by default).
+ERROR 18-00B: Invalid Rotor Number! - Tried to set an invalid rotor number when switching Rotor Module (valid rotor numbers are 1-5 by default).
 ERROR 18-01: Rotor already in use in another sub-module! - Tried to set a rotor that is already used in another rotor sub-module.
 ERROR 18-02: Trying to change Rotor Sub-Module that does NOT exist! - Tried to change a rotor sub-module that does not exist (rotor sub-modules are 1-3).
 ERROR 18-03A: One of the Rotor modules in Core object when generating new Rotors could not be generated due to error.
