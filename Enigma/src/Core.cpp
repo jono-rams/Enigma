@@ -4,6 +4,12 @@
 
 namespace Enigma
 {
+	Core::Core()
+		: m_PairModule(), m_RotorF(), m_RotorS(), m_RotorT(),
+		m_RotPath("RotorModules")
+	{
+
+	}
 
 	Core::Core(Core& obj)
 	{

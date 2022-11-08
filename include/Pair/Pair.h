@@ -10,7 +10,7 @@ namespace Enigma
 #ifndef ENIGMA_USE_STD_PAIR
 	struct s_Pairs // Struct containing the two characters in a pair
 	{
-		char pair1, pair2;
+		char first, second;
 
 		friend std::ostream& operator<<(std::ostream& os, const s_Pairs& pair); // Overloaded ostream operator for s_Pairs struct
 	};
@@ -21,7 +21,7 @@ namespace Enigma
 		bool CheckDuplicates() const;
 
 #ifdef ENIGMA_USE_STD_PAIR
-		std::array<std::pair<char, char>, 13> m_StdPairs;
+		std::array<std::pair<char, char>, 13> m_Pairs;
 		bool CheckInvalidChar(std::pair<char, char> pair) const;
 #else
 		std::array<s_Pairs, 13> m_Pairs;

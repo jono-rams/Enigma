@@ -20,7 +20,7 @@ namespace Enigma
 
 		void InternalEncrypt(char& letter); // Function to encrypt character. This contains the actual encryption logic
 	public:
-		Core() = default; // Default constructor
+		Core(); // Default constructor
 		Core(Core& obj); // Overloaded Copy Constructor
 		Core& operator=(const Core& obj); // Overloaded Copy Assignment
 		Core(Core&& obj) noexcept; // Overloaded Move Constructor
