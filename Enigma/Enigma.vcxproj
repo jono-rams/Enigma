@@ -172,7 +172,7 @@
     <ClInclude Include="..\include\Core\Core.h" />
     <ClInclude Include="..\include\Core\GenericInclude.h" />
     <ClInclude Include="..\include\Enigma.h" />
-    <ClInclude Include="..\include\Pair\Pair.h" />
+    <ClInclude Include="..\include\Pair\Reflector.h" />
     <ClInclude Include="..\include\Rotor\Rotor.h" />
     <ClInclude Include="include\Core\Core.h" />
     <ClInclude Include="include\Core\GenericCode.h" />

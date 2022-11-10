@@ -1,4 +1,4 @@
-#include <Pair/Pair.h>
+#include <Pair/Reflector.h>
 #include "../include/Core/GenericInclude.h"
 
 #define CHECK m_Pairs[i].first == m_Pairs[j].first || m_Pairs[i].first == m_Pairs[j].second || m_Pairs[i].second == m_Pairs[j].first || m_Pairs[i].second == m_Pairs[j].second
@@ -6,13 +6,13 @@
 namespace Enigma
 {
 #ifndef ENIGMA_USE_STD_PAIR
-	std::ostream& operator<<(std::ostream& os, const s_Pairs& pair)
+	std::ostream& operator<<(std::ostream& os, const Enigma_Pairs& pair)
 	{
 		return std::cout << "(" << pair.first << ", " << pair.second << ")" << std::endl; // returns Pair in form (pair1, pair2) e.g (a, p)
 	}
 #endif // !1
 
-	bool Pair::CheckDuplicates() const
+	bool Reflector::CheckDuplicates() const
 	{
 		// Checks the first 12 pairs against itself and all the pairs that come after it to see if a letter is duplicated
 		for (Enigma_Short i = 0; i < 12; i++)
@@ -51,7 +51,7 @@ namespace Enigma
 		return true;
 	}
 #else
-	bool Pair::CheckInvalidChar(s_Pairs pair) const
+	bool Reflector::CheckInvalidChar(Enigma_Pairs pair) const
 	{
 		Enigma_Short* count = new Enigma_Short{ 0 };
 		for (Enigma_Short i = 0; i < 26; i++)
@@ -73,7 +73,7 @@ namespace Enigma
 	}
 #endif
 
-	void Pair::SetPairs()
+	void Reflector::SetPairs()
 	{
 		for (Enigma_Short i = 0, j = 25; i < 13; i++, j--) // For loop with two iterators i starts at alphabet[0] (a) and j starts at alphabet[25] (z)
 		{
@@ -99,7 +99,7 @@ namespace Enigma
 			throw std::logic_error("ERROR 16-11: Duplicate letters in pairs!"); // Throws a logic error to be caught when calling the function
 	}
 #else
-	void Pair::SetPairs(std::array<s_Pairs, 13> pairs)
+	void Reflector::SetPairs(std::array<Enigma_Pairs, 13> pairs)
 	{
 		for (Enigma_Short i = 0; i < 13; i++)
 		{
@@ -116,7 +116,7 @@ namespace Enigma
 	}
 #endif
 
-	void Pair::PairOut(char& letter) const
+	void Reflector::PairOut(char& letter) const
 	{
 		for (Enigma_Short i = 0; i < 13; i++)
 		{

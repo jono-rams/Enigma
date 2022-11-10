@@ -4,7 +4,7 @@
 
 #include "Core/Core.h"
 #include "Core/GenericInclude.h"
-#include "Pair/Pair.h"
+#include "Pair/Reflector.h"
 #include "Rotor/Rotor.h"
 
 typedef Enigma::Core ENIGMA_MACHINE;

@@ -13,7 +13,7 @@ namespace Enigma
 
 	Core::Core(Core& obj)
 	{
-		this->GenNewPairModule(obj.m_PairModule.GetPairs());
+		this->GenNewReflector(obj.m_PairModule.GetPairs());
 
 		this->SetRotorDataPath(obj.m_RotPath);
 
@@ -31,7 +31,7 @@ namespace Enigma
 			return *this;
 		}
 
-		this->GenNewPairModule(obj.m_PairModule.GetPairs());
+		this->GenNewReflector(obj.m_PairModule.GetPairs());
 
 		this->SetRotorDataPath(obj.m_RotPath);
 
@@ -46,7 +46,7 @@ namespace Enigma
 
 	Core::Core(Core&& obj) noexcept
 	{
-		this->GenNewPairModule(obj.m_PairModule.GetPairs());
+		this->GenNewReflector(obj.m_PairModule.GetPairs());
 
 		this->SetRotorDataPath(obj.m_RotPath);
 
@@ -64,7 +64,7 @@ namespace Enigma
 			return *this;
 		}
 
-		this->GenNewPairModule(obj.m_PairModule.GetPairs());
+		this->GenNewReflector(obj.m_PairModule.GetPairs());
 
 		this->SetRotorDataPath(obj.m_RotPath);
 
@@ -106,13 +106,13 @@ namespace Enigma
 		m_RotorF.Out(letter);
 	}
 
-	void Core::GenNewPairModule()
+	void Core::GenNewReflector()
 	{
 		m_PairModule.SetPairs();
 	}
 
 #ifdef ENIGMA_USE_STD_PAIR
-	void Core::GenNewPairModule(std::array<std::pair<char, char>, 13> pairs)
+	void Core::GenNewReflector(std::array<std::pair<char, char>, 13> pairs)
 	{
 		// Error Handling
 		try
@@ -122,11 +122,11 @@ namespace Enigma
 		catch (std::logic_error& err)
 		{
 			std::cout << err.what() << std::endl;
-			throw std::logic_error("ERROR 16-00 - Pair could not be generated!"); // Throws a logic error to be caught when calling the function
+			throw std::logic_error("ERROR 16-00 - Reflector could not be generated!"); // Throws a logic error to be caught when calling the function
 		}
 	}
 #else
-	void Core::GenNewPairModule(std::array<s_Pairs, 13> pairs)
+	void Core::GenNewReflector(std::array<Enigma_Pairs, 13> pairs)
 	{
 		// Error Handling
 		try
@@ -136,7 +136,7 @@ namespace Enigma
 		catch (std::logic_error& err)
 		{
 			std::cout << err.what() << std::endl;
-			throw std::logic_error("ERROR 16-00 - Pair could not be generated!"); // Throws a logic error to be caught when calling the function
+			throw std::logic_error("ERROR 16-00 - Reflector could not be generated!"); // Throws a logic error to be caught when calling the function
 		}
 	}
 #endif

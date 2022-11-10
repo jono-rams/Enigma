@@ -3,7 +3,7 @@
 #define CORE_H_
 
 #include <Core/GenericInclude.h>
-#include <Pair/Pair.h>
+#include <Pair/Reflector.h>
 #include <Rotor/Rotor.h>
 
 #include <string>
@@ -13,7 +13,7 @@ namespace Enigma
 	class Core
 	{
 		// Member variables for Pair module and Three Rotor modules
-		Pair m_PairModule;
+		Reflector m_PairModule;
 		Rotor m_RotorF, m_RotorS, m_RotorT;
 
 		std::string m_RotPath;
@@ -27,11 +27,11 @@ namespace Enigma
 		Core& operator=(Core&& obj) noexcept;// Overloaded Move Assignment
 		~Core() = default; // Destructor
 
-		void GenNewPairModule(); // Generate Pair Module with default pairs
+		void GenNewReflector(); // Generate Pair Module with default pairs
 #ifdef ENIGMA_USE_STD_PAIR
-		void GenNewPairModule(std::array<std::pair<char, char>, 13> pairs);
+		void GenNewReflector(std::array<std::pair<char, char>, 13> pairs);
 #else
-		void GenNewPairModule(std::array<s_Pairs, 13> pairs); // Generate Pair Module with user set pairs
+		void GenNewReflector(std::array<Enigma_Pairs, 13> pairs); // Generate Pair Module with user set pairs
 #endif
 
 		inline void SetRotorDataPath(std::string path) { m_RotPath = path; }
