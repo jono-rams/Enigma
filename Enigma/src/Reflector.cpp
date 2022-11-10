@@ -1,4 +1,4 @@
-#include <Pair/Reflector.h>
+#include <Reflector/Reflector.h>
 #include "../include/Core/GenericInclude.h"
 
 #define CHECK m_Pairs[i].first == m_Pairs[j].first || m_Pairs[i].first == m_Pairs[j].second || m_Pairs[i].second == m_Pairs[j].first || m_Pairs[i].second == m_Pairs[j].second
@@ -83,7 +83,7 @@ namespace Enigma
 	}
 
 #ifdef ENIGMA_USE_STD_PAIR
-	void Pair::SetPairs(std::array<std::pair<char, char>, 13> pairs)
+	EnigmaError Pair::SetPairs(std::array<std::pair<char, char>, 13> pairs)
 	{
 		for (Enigma_Short i = 0; i < 13; i++)
 		{
@@ -92,14 +92,14 @@ namespace Enigma
 			m_StdPairs[i].second = pairs[i].second;
 
 			if (CheckInvalidChar(m_StdPairs[i]))
-				throw std::logic_error("ERROR 16-10: Invalid character entered in pair!"); // Throws a logic error to be caught when calling the function
+				return EnigmaError::E16_10; // Throws a logic error to be caught when calling the function
 		}
 
 		if (CheckDuplicates())
-			throw std::logic_error("ERROR 16-11: Duplicate letters in pairs!"); // Throws a logic error to be caught when calling the function
+			return EnigmaError::E16_11; // Throws a logic error to be caught when calling the function
 	}
 #else
-	void Reflector::SetPairs(std::array<Enigma_Pairs, 13> pairs)
+	EnigmaError Reflector::SetPairs(std::array<Enigma_Pairs, 13> pairs)
 	{
 		for (Enigma_Short i = 0; i < 13; i++)
 		{
@@ -108,15 +108,15 @@ namespace Enigma
 			m_Pairs[i].second = pairs[i].second;
 
 			if (CheckInvalidChar(m_Pairs[i]))
-				throw std::logic_error("ERROR 16-10: Invalid character entered in pair!"); // Throws a logic error to be caught when calling the function
+				return EnigmaError::E16_10; // Throws a logic error to be caught when calling the function
 		}
 
 		if (CheckDuplicates())
-			throw std::logic_error("ERROR 16-11: Duplicate letters in pairs!"); // Throws a logic error to be caught when calling the function
+			return EnigmaError::E16_11; // Throws a logic error to be caught when calling the function
 	}
 #endif
 
-	void Reflector::PairOut(char& letter) const
+	void Reflector::ReflectorOut(char& letter) const
 	{
 		for (Enigma_Short i = 0; i < 13; i++)
 		{

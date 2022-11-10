@@ -166,13 +166,16 @@
   <ItemGroup>
     <ClCompile Include="src\Core.cpp" />
     <ClCompile Include="src\Pair.cpp" />
+    <ClCompile Include="src\PlugBoard.cpp" />
+    <ClCompile Include="src\Reflector.cpp" />
     <ClCompile Include="src\Rotor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Core\Core.h" />
     <ClInclude Include="..\include\Core\GenericInclude.h" />
     <ClInclude Include="..\include\Enigma.h" />
-    <ClInclude Include="..\include\Pair\Reflector.h" />
+    <ClInclude Include="..\include\PlugBoard\PlugBoard.h" />
+    <ClInclude Include="..\include\Reflector\Reflector.h" />
     <ClInclude Include="..\include\Rotor\Rotor.h" />
     <ClInclude Include="include\Core\Core.h" />
     <ClInclude Include="include\Core\GenericCode.h" />

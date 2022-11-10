@@ -24,7 +24,7 @@ namespace Enigma
 		static Enigma_64 GetNumberOfModules() { return m_NumberOfModules; }
 		Rotor();
 
-		void SetRotor(Enigma_Char rotModuleNum, Enigma_64 seed, std::string ROTOR_FILE_PATH); // Constructor that takes in what slot the rotor is in and it's seed value
+		EnigmaError SetRotor(Enigma_Char rotModuleNum, Enigma_64 seed, std::string ROTOR_FILE_PATH); // Constructor that takes in what slot the rotor is in and it's seed value
 
 		void In(char& c) const; // Encryption logic for the letter entered by the user going TO the pair module
 		void Out(char& c); // Encryption logic for the letter entered by the user coming FROM the pair module

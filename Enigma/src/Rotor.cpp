@@ -32,7 +32,7 @@ namespace Enigma
 		}
 	}
 
-	void Rotor::SetRotor(Enigma_Char rotModuleNum, Enigma_64 seed, std::string ROTOR_FILE_PATH)
+	EnigmaError Rotor::SetRotor(Enigma_Char rotModuleNum, Enigma_64 seed, std::string ROTOR_FILE_PATH)
 	{
 		m_RotNum = rotModuleNum;
 		m_Count = new Enigma_Short{0}; // Allocates memory for m_Count variable
@@ -55,7 +55,7 @@ namespace Enigma
 		in.open(ROTOR_FILE_PATH.c_str(), std::ios::in);
 		if(!in.is_open())
 		{
-			throw std::logic_error("ERROR 18-10: Rotor File could not be opened!"); // Throws a logic error to be caught when calling the function
+			return EnigmaError::E18_10; // Throws a logic error to be caught when calling the function
 		}
 
 		while (in >> x)
@@ -71,6 +71,7 @@ namespace Enigma
 
 		temp.clear(); // Deletes all values from vector
 		temp.shrink_to_fit(); // Shrinks the vector to 0 to deallocate memory
+		return EnigmaError::NO_ERROR;
 	}
 
 	void Rotor::In(char& c) const

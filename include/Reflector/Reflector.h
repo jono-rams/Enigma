@@ -34,9 +34,9 @@ namespace Enigma
 		void SetPairs();
 
 #ifdef ENIGMA_USE_STD_PAIR
-		void SetPairs(std::array<std::pair<char, char>, 13> pairs);
+		EnigmaError SetPairs(std::array<std::pair<char, char>, 13> pairs);
 #else
-		void SetPairs(std::array<Enigma_Pairs, 13> pairs);
+		EnigmaError SetPairs(std::array<Enigma_Pairs, 13> pairs);
 #endif
 
 		
@@ -46,7 +46,7 @@ namespace Enigma
 		std::array<Enigma_Pairs, 13> GetPairs() const { return m_Pairs; }
 #endif
 
-		void PairOut(char& letter) const;
+		void ReflectorOut(char& letter) const;
 	};
 }
 

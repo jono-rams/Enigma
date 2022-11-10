@@ -24,6 +24,12 @@
     <ClCompile Include="src\Rotor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\PlugBoard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Reflector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\Core.h">
@@ -47,13 +53,16 @@
     <ClInclude Include="..\include\Rotor\Rotor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Pair\Pair.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Core\Core.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Core\GenericInclude.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Reflector\Reflector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\PlugBoard\PlugBoard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

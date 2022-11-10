@@ -5,7 +5,7 @@
 namespace Enigma
 {
 	Core::Core()
-		: m_PairModule(), m_RotorF(), m_RotorS(), m_RotorT(),
+		: m_PairModule(), m_RotorF(), m_RotorS(), m_RotorT(), m_PlugBoard(),
 		m_RotPath("RotorModules")
 	{
 
@@ -22,6 +22,8 @@ namespace Enigma
 			obj.m_RotorS.GetSeed(),
 			obj.m_RotorT.GetSeed()
 		);
+
+		this->m_PlugBoard = m_PlugBoard;
 	}
 
 	Core& Core::operator=(const Core& obj)
@@ -41,6 +43,8 @@ namespace Enigma
 			obj.m_RotorT.GetSeed()
 		);
 
+		this->m_PlugBoard = m_PlugBoard;
+
 		return *this;
 	}
 
@@ -55,6 +59,8 @@ namespace Enigma
 			obj.m_RotorS.GetSeed(),
 			obj.m_RotorT.GetSeed()
 		);
+
+		this->m_PlugBoard = m_PlugBoard;
 	}
 
 	Core& Core::operator=(Core&& obj) noexcept
@@ -73,10 +79,13 @@ namespace Enigma
 			obj.m_RotorS.GetSeed(),
 			obj.m_RotorT.GetSeed()
 		);
+
+		this->m_PlugBoard = m_PlugBoard;
+
 		return *this;
 	}
 
-	void Core::InternalEncrypt(char& letter)
+	EnigmaError Core::InternalEncrypt(char& letter)
 	{
 		bool invalid{ true }; // A bool that states whether an invalid character was entered
 
@@ -93,17 +102,21 @@ namespace Enigma
 		// Checks to see if an invalid character was entered
 		if (invalid)
 		{
-			throw std::logic_error("ERROR 03-00: Invalid character\n"); // Throws a logic error to be caught when calling the function
+			return EnigmaError::E03_00; // Throws a logic error to be caught when calling the function
 		}
 
 		// Encryption logic
+		m_PlugBoard.PlugBoardOut(letter);
 		m_RotorF.In(letter);
 		m_RotorS.In(letter);
 		m_RotorT.In(letter);
-		m_PairModule.PairOut(letter);
+		m_PairModule.ReflectorOut(letter);
 		m_RotorT.Out(letter);
 		m_RotorS.Out(letter);
 		m_RotorF.Out(letter);
+		m_PlugBoard.PlugBoardOut(letter);
+
+		return EnigmaError::NO_ERROR;
 	}
 
 	void Core::GenNewReflector()
@@ -112,7 +125,7 @@ namespace Enigma
 	}
 
 #ifdef ENIGMA_USE_STD_PAIR
-	void Core::GenNewReflector(std::array<std::pair<char, char>, 13> pairs)
+	EnigmaError Core::GenNewReflector(std::array<std::pair<char, char>, 13> pairs)
 	{
 		// Error Handling
 		try
@@ -122,11 +135,13 @@ namespace Enigma
 		catch (std::logic_error& err)
 		{
 			std::cout << err.what() << std::endl;
-			throw std::logic_error("ERROR 16-00 - Reflector could not be generated!"); // Throws a logic error to be caught when calling the function
+			return EnigmaError::E16_00; // Throws a logic error to be caught when calling the function
 		}
+
+		return EnigmaError::NO_ERROR;
 	}
 #else
-	void Core::GenNewReflector(std::array<Enigma_Pairs, 13> pairs)
+	EnigmaError Core::GenNewReflector(std::array<Enigma_Pairs, 13> pairs)
 	{
 		// Error Handling
 		try
@@ -136,117 +151,112 @@ namespace Enigma
 		catch (std::logic_error& err)
 		{
 			std::cout << err.what() << std::endl;
-			throw std::logic_error("ERROR 16-00 - Reflector could not be generated!"); // Throws a logic error to be caught when calling the function
+			return EnigmaError::E16_00; // Throws a logic error to be caught when calling the function
 		}
+
+		return EnigmaError::NO_ERROR;
 	}
 #endif
 
-	void Core::GenNewRotorsModules(Enigma_64 Rot1, Enigma_64 Rot2, Enigma_64 Rot3)
+	EnigmaError Core::GenNewRotorsModules(Enigma_64 Rot1, Enigma_64 Rot2, Enigma_64 Rot3)
 	{
 		const auto NumberOfModules = Rotor::GetNumberOfModules();
 		// Check to make sure none of the seed values are greater than 5
 		if (Rot1 > NumberOfModules || Rot2 > NumberOfModules || Rot3 > NumberOfModules)
-			throw std::logic_error("ERROR 18-00A: Invalid Rotor Number!"); // Throws a logic error to be caught when calling the function
+			return EnigmaError::E18_00A; // Throws a logic error to be caught when calling the function
 
 		// Creates and allocates memory for Rotor modules in order
-		try
+		auto res = m_RotorF.SetRotor(1, Rot1, m_RotPath);
+
+		if (res != EnigmaError::NO_ERROR)
 		{
-			m_RotorF.SetRotor(1, Rot1, m_RotPath);
-		}
-		catch (std::logic_error& err)
-		{
-			std::cout << err.what() << std::endl;
-			throw std::logic_error("ERROR 18-03A: Rotor 1 could not be generated!"); // Throws a logic error to be caught when calling the function
+			std::cout << Errors[res].what() << std::endl;
+			return EnigmaError::E18_03A; // Throws a logic error to be caught when calling the function
 		}
 
-		try
+		res = m_RotorF.SetRotor(2, Rot2, m_RotPath);
+
+		if (res != EnigmaError::NO_ERROR)
 		{
-			m_RotorS.SetRotor(2, Rot2, m_RotPath);
-		}
-		catch (std::logic_error& err)
-		{
-			std::cout << err.what() << std::endl;
-			throw std::logic_error("ERROR 18-03A: Rotor 2 could not be generated!"); // Throws a logic error to be caught when calling the function
+			std::cout << Errors[res].what() << std::endl;
+			return EnigmaError::E18_03A; // Throws a logic error to be caught when calling the function
 		}
 
-		try
+		res = m_RotorF.SetRotor(1, Rot1, m_RotPath);
+
+		if (res != EnigmaError::NO_ERROR)
 		{
-			m_RotorT.SetRotor(3, Rot1, m_RotPath);
+			std::cout << Errors[res].what() << std::endl;
+			return EnigmaError::E18_03A; // Throws a logic error to be caught when calling the function
 		}
-		catch (std::logic_error& err)
-		{
-			std::cout << err.what() << std::endl;
-			throw std::logic_error("ERROR 18-03A: Rotor 3 could not be generated!"); // Throws a logic error to be caught when calling the function
-		}
+
+		return EnigmaError::NO_ERROR;
 	}
 
-	void Core::SwitchRotorModule(Enigma_Short RotModuleNo, Enigma_64 Rot)
+	EnigmaError Core::SwitchRotorModule(Enigma_Short RotModuleNo, Enigma_64 Rot)
 	{
 		if (Rot > Rotor::GetNumberOfModules())
-			throw std::logic_error("ERROR 18-00B: Invalid Rotor Number!"); // Throws a logic error to be caught when calling the function
+			return EnigmaError::E18_00B; // Throws a logic error to be caught when calling the function
 
 		// Checks which rotor module is being switched
 		if (RotModuleNo == 1)
 		{
 			// Checks to make sure seed value is not being used in another rotor module
 			if (Rot == m_RotorS.GetSeed() || Rot == m_RotorT.GetSeed())
-				throw std::logic_error("ERROR 18-01: Rotor already in use in another sub-module!"); // Throws a logic error to be caught when calling the function
+				return EnigmaError::E18_01; // Throws a logic error to be caught when calling the function
 
 			if (Rot == m_RotorF.GetSeed()) // Checks to see if Rotor module is the same as current one
 				return;
 
-			try
+			auto res = m_RotorF.SetRotor(1, Rot, m_RotPath);
+
+			if (res != EnigmaError::NO_ERROR)
 			{
-				m_RotorF.SetRotor(1, Rot, m_RotPath);
+				std::cout << Errors[res].what() << std::endl;
+				return EnigmaError::E18_03B; // Throws a logic error to be caught when calling the function
 			}
-			catch (std::logic_error& err)
-			{
-				std::cout << err.what() << std::endl;
-				throw std::logic_error("ERROR 18-03B: Rotor 1 could not be generated!"); // Throws a logic error to be caught when calling the function
-			}
+
 		}
 		else if (RotModuleNo == 2)
 		{
 			// Checks to make sure seed value is not being used in another rotor module
 			if (Rot == m_RotorF.GetSeed() || Rot == m_RotorT.GetSeed())
-				throw std::logic_error("ERROR 18-01: Rotor already in use in another sub-module!"); // Throws a logic error to be caught when calling the function
+				return EnigmaError::E18_01; // Throws a logic error to be caught when calling the function
 
 			if (Rot == m_RotorS.GetSeed()) // Checks to see if Rotor module is the same as current one
 				return;
 
-			try
+			auto res = m_RotorF.SetRotor(2, Rot, m_RotPath);
+
+			if (res != EnigmaError::NO_ERROR)
 			{
-				m_RotorS.SetRotor(2, Rot, m_RotPath);
-			}
-			catch (std::logic_error& err)
-			{
-				std::cout << err.what() << std::endl;
-				throw std::logic_error("ERROR 18-03B: Rotor 2 could not be generated!"); // Throws a logic error to be caught when calling the function
+				std::cout << Errors[res].what() << std::endl;
+				return EnigmaError::E18_03B; // Throws a logic error to be caught when calling the function
 			}
 		}
 		else if (RotModuleNo == 3)
 		{
 			// Checks to make sure seed value is not being used in another rotor module
 			if (Rot == m_RotorS.GetSeed() || Rot == m_RotorF.GetSeed())
-				throw std::logic_error("ERROR 18-01: Rotor already in use in sub-another module!"); // Throws a logic error to be caught when calling the function
+				return EnigmaError::E18_01; // Throws a logic error to be caught when calling the function
 
 			if (Rot == m_RotorT.GetSeed()) // Checks to see if Rotor module is the same as current one
 				return;
 
-			try
+			auto res = m_RotorF.SetRotor(3, Rot, m_RotPath);
+
+			if (res != EnigmaError::NO_ERROR)
 			{
-				m_RotorF.SetRotor(3, Rot, m_RotPath);
-			}
-			catch (std::logic_error& err)
-			{
-				std::cout << err.what() << std::endl;
-				throw std::logic_error("ERROR 18-03B: Rotor 3 could not be generated!"); // Throws a logic error to be caught when calling the function
+				std::cout << Errors[res].what() << std::endl;
+				return EnigmaError::E18_03B; // Throws a logic error to be caught when calling the function
 			}
 		}
 		else // If user is trying to set to a rotor module that does not exist
 		{
-			throw std::logic_error("ERROR 18-02: Trying to change Rotor Sub-Module that does NOT exist!"); // Throws a logic error to be caught when calling the function
+			return EnigmaError::E18_02; // Throws a logic error to be caught when calling the function
 		}
+
+		return EnigmaError::NO_ERROR;
 	}
 
 	void Core::OffsetRotor(uint64_t offset)
@@ -272,14 +282,11 @@ namespace Enigma
 		{
 			*temp = wordV[i];
 			// Error Handling
-			try
-			{
-				InternalEncrypt(*temp); // Calls internal Encryption for letter
-			}
-			catch (std::logic_error& err)
-			{
-				throw err; // Throws caught logic error to be caught when calling the function
-			}
+
+			auto res = InternalEncrypt(*temp); // Calls internal Encryption for letter
+			if (res != EnigmaError::NO_ERROR)
+				throw Errors[res]; // Throws caught logic error to be caught when calling the function
+
 			output.push_back(*temp); // Adds letter to output string
 		}
 		wordV.clear(); // Deletes all values from vector
@@ -301,7 +308,7 @@ namespace Enigma
 
 		auto size = str.length();
 		char* out = new char[size];
-		
+
 		for (int i = 0; i < size; i++)
 			out[i] = str[i];
 
