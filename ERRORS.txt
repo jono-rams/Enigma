@@ -3,19 +3,20 @@ XX-YZ(W)
 
 XX - Determines which module gave the error:
 03-YZ(W) - Core Module
-16-YZ(W) - Pair Module
+16-YZ(W) - Reflector Module
 18-YZ(W) - Rotor Module
+20-YZ(W) - PlugBoard Module
 
 Y - Determines what module file gave the error
 XX-0Z(W) - Core.obj
-XX-1Z(W) - Pair.obj [16-1Z(W)] Rotor.obj [18-1Z(W)]
+XX-1Z(W) - Reflector.obj [16-1Z(W)] Rotor.obj [18-1Z(W)] PlugBoard.obj [20-1Z(W)]
 
 Z - Determines specific error
 
 W - Used if it is the same error that was thrown at a different point in the code
 
 ERROR 03-00: Invalid Character - Attempted to encrypt an invalid character(valid characters are a-z case sensitive).
-ERROR 16-00: Pair could not be generated! - Pair module in Core object could not be generated due to error.
+ERROR 16-00: Reflector could not be generated! - Reflector module in Core object could not be generated due to error.
 ERROR 16-10: Invalid character entered in pair! - Invalid character was found when trying to create a pair (valid characters are a-z case sensitive).
 ERROR 16-11: Duplicate letters in pairs! - The same letter was used already in another pair.
 ERROR 18-00A: Invalid Rotor Number! - Tried to set an invalid rotor number when generating New Rotor Module (valid rotor numbers are 1-5 by default).
@@ -25,3 +26,6 @@ ERROR 18-02: Trying to change Rotor Sub-Module that does NOT exist! - Tried to c
 ERROR 18-03A: One of the Rotor modules in Core object when generating new Rotors could not be generated due to error.
 ERROR 18-03B: One of the Rotor modules in Core object when switching a Rotor could not be generated due to error.
 ERROR 18-10: Rotor File could not be opened, meaning the filepath for the Rotor is invalid.
+ERROR 20-00: Connection could not be made! - PlugBoard plug connection could not be made.
+ERROR 20-10: Max number of Connections made! - Only a maximum of 10 connections can be made.
+ERROR 20-11: Plug already connected! - A letter in the plugboard is already connected.
