@@ -170,7 +170,7 @@ namespace Enigma
 
 		if (res != EnigmaError::NO_ERROR)
 		{
-			std::cout << Errors[res].what() << std::endl;
+			std::cout << res << std::endl;
 			return EnigmaError::E18_03A; // Throws a logic error to be caught when calling the function
 		}
 
@@ -178,7 +178,7 @@ namespace Enigma
 
 		if (res != EnigmaError::NO_ERROR)
 		{
-			std::cout << Errors[res].what() << std::endl;
+			std::cout << res << std::endl;
 			return EnigmaError::E18_03A; // Throws a logic error to be caught when calling the function
 		}
 
@@ -186,7 +186,7 @@ namespace Enigma
 
 		if (res != EnigmaError::NO_ERROR)
 		{
-			std::cout << Errors[res].what() << std::endl;
+			std::cout << res << std::endl;
 			return EnigmaError::E18_03A; // Throws a logic error to be caught when calling the function
 		}
 
@@ -212,7 +212,7 @@ namespace Enigma
 
 			if (res != EnigmaError::NO_ERROR)
 			{
-				std::cout << Errors[res].what() << std::endl;
+				std::cout << res << std::endl;
 				return EnigmaError::E18_03B; // Throws a logic error to be caught when calling the function
 			}
 
@@ -230,7 +230,7 @@ namespace Enigma
 
 			if (res != EnigmaError::NO_ERROR)
 			{
-				std::cout << Errors[res].what() << std::endl;
+				std::cout << res << std::endl;
 				return EnigmaError::E18_03B; // Throws a logic error to be caught when calling the function
 			}
 		}
@@ -247,7 +247,7 @@ namespace Enigma
 
 			if (res != EnigmaError::NO_ERROR)
 			{
-				std::cout << Errors[res].what() << std::endl;
+				std::cout << res << std::endl;
 				return EnigmaError::E18_03B; // Throws a logic error to be caught when calling the function
 			}
 		}

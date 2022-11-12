@@ -3,7 +3,8 @@
 #define GENERIC_INCLUDE_H_
 
 #include <map>
-#include <stdexcept>
+#include <ostream>
+#include <string>
 
 namespace Enigma
 {
@@ -32,23 +33,30 @@ namespace Enigma
 		E20_11
 	};
 
-	std::map<EnigmaError, std::logic_error> Errors
+	std::map<EnigmaError, std::string> Errors
 	{
-		std::make_pair(EnigmaError::E03_00, std::logic_error("ERROR 03-00: Invalid character\n")),
-		std::make_pair(EnigmaError::E16_00, std::logic_error("ERROR 16-00 - Reflector could not be generated!")),
-		std::make_pair(EnigmaError::E16_10, std::logic_error("ERROR 16-10: Invalid character entered in pair!")),
-		std::make_pair(EnigmaError::E16_11, std::logic_error("ERROR 16-11: Duplicate letters in pairs!")),
-		std::make_pair(EnigmaError::E18_00A, std::logic_error("ERROR 18-00A: Invalid Rotor Number!")),
-		std::make_pair(EnigmaError::E18_00B, std::logic_error("ERROR 18-00B: Invalid Rotor Number!")),
-		std::make_pair(EnigmaError::E18_01, std::logic_error("ERROR 18-01: Rotor already in use in another sub-module!")),
-		std::make_pair(EnigmaError::E18_02, std::logic_error("ERROR 18-02: Trying to change Rotor Sub-Module that does NOT exist!")),
-		std::make_pair(EnigmaError::E18_03A, std::logic_error("ERROR 18-03A: Rotor 3 could not be generated!")),
-		std::make_pair(EnigmaError::E18_03B, std::logic_error("ERROR 18-03B: Rotor 1 could not be generated!")),
-		std::make_pair(EnigmaError::E18_10, std::logic_error("ERROR 18-10: Rotor File could not be opened!")),
-		std::make_pair(EnigmaError::E20_00, std::logic_error("ERROR 20-00: PlugBoard could not be generated!")),
-		std::make_pair(EnigmaError::E20_10, std::logic_error("ERROR 20-10: Max number of Connections made!")),
-		std::make_pair(EnigmaError::E20_11, std::logic_error("ERROR 20-11: Plug already connected!"))
+		std::make_pair(EnigmaError::NO_ERROR, std::string("NO ERROR")),
+		std::make_pair(EnigmaError::E03_00, std::string("ERROR 03-00: Invalid character\n")),
+		std::make_pair(EnigmaError::E16_00, std::string("ERROR 16-00 - Reflector could not be generated!")),
+		std::make_pair(EnigmaError::E16_10, std::string("ERROR 16-10: Invalid character entered in pair!")),
+		std::make_pair(EnigmaError::E16_11, std::string("ERROR 16-11: Duplicate letters in pairs!")),
+		std::make_pair(EnigmaError::E18_00A, std::string("ERROR 18-00A: Invalid Rotor Number!")),
+		std::make_pair(EnigmaError::E18_00B, std::string("ERROR 18-00B: Invalid Rotor Number!")),
+		std::make_pair(EnigmaError::E18_01, std::string("ERROR 18-01: Rotor already in use in another sub-module!")),
+		std::make_pair(EnigmaError::E18_02, std::string("ERROR 18-02: Trying to change Rotor Sub-Module that does NOT exist!")),
+		std::make_pair(EnigmaError::E18_03A, std::string("ERROR 18-03A: Rotor 3 could not be generated!")),
+		std::make_pair(EnigmaError::E18_03B, std::string("ERROR 18-03B: Rotor 1 could not be generated!")),
+		std::make_pair(EnigmaError::E18_10, std::string("ERROR 18-10: Rotor File could not be opened!")),
+		std::make_pair(EnigmaError::E20_00, std::string("ERROR 20-00: PlugBoard could not be generated!")),
+		std::make_pair(EnigmaError::E20_10, std::string("ERROR 20-10: Max number of Connections made!")),
+		std::make_pair(EnigmaError::E20_11, std::string("ERROR 20-11: Plug already connected!"))
 	};
+
+	std::ostream& operator << (std::ostream& out, const EnigmaError& e)
+	{
+		out << Errors[e];
+		return out;
+	}
 }
 
 #endif
