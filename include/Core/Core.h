@@ -45,6 +45,7 @@ namespace Enigma
 		EnigmaError SwitchRotorModule(Enigma_Short RotModuleNo, Enigma_64 Rot); // Switches a specific rotor with a new one with a user determined seed
 		void OffsetRotor(uint64_t offset); // Offsets Rotor for continued use of machine from a previous state
 
+		inline void SetMaxNumberOfPlugBoardConnections(Enigma_Short NewValue) const { PlugBoard::SetMaxNumberOfConnections(NewValue); }
 		EnigmaError MakePlugBoardConnection(Enigma_Char a, Enigma_Char b);
 		void RemovePlugBoardConnection(Enigma_Char letter);
 

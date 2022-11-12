@@ -10,6 +10,11 @@ namespace Enigma
 		}
 	}
 
+	void PlugBoard::SetMaxNumberOfConnections(Enigma_Short NewValue)
+	{
+		MaxNumberOfConnections = NewValue;
+	}
+
 	EnigmaError PlugBoard::MakeConnection(Enigma_Char a, Enigma_Char b)
 	{
 		if(NumOfConnections >= 10)

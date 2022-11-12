@@ -23,9 +23,13 @@ namespace Enigma
 		std::array<Plug, 26> Plugs;
 		int NumOfConnections;
 
+		inline static Enigma_Short MaxNumberOfConnections = 10;
+
 	public:
 		PlugBoard();
 		~PlugBoard() = default;
+
+		static void SetMaxNumberOfConnections(Enigma_Short NewValue);
 
 		EnigmaError MakeConnection(Enigma_Char a, Enigma_Char b);
 		void RemoveConnection(Enigma_Char letter);
