@@ -15,7 +15,8 @@ Z - Determines specific error
 
 W - Used if it is the same error that was thrown at a different point in the code
 
-ERROR 03-00: Invalid Character - Attempted to encrypt an invalid character(valid characters are a-z case sensitive).
+ERROR 03-00A: Invalid Character - Attempted to encrypt an invalid character(valid characters are a-z case sensitive).
+ERROR 03-00B: Invalid Character - Attempted to make a PlugBoard connection with an invalid character(valid characters are a-z case sensitive).
 ERROR 16-00: Reflector could not be generated! - Reflector module in Core object could not be generated due to error.
 ERROR 16-10: Invalid character entered in pair! - Invalid character was found when trying to create a pair (valid characters are a-z case sensitive).
 ERROR 16-11: Duplicate letters in pairs! - The same letter was used already in another pair.
