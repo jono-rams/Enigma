@@ -21,6 +21,7 @@ namespace Enigma
 		std::string m_RotPath;
 
 		EnigmaError InternalEncrypt(char& letter); // Function to encrypt character. This contains the actual encryption logic
+		bool CheckIfValidLetter(char letter);
 	public:
 		Core(); // Default constructor
 		Core(Core& obj); // Overloaded Copy Constructor
@@ -42,7 +43,6 @@ namespace Enigma
 		EnigmaError SwitchRotorModule(Enigma_Short RotModuleNo, Enigma_64 Rot); // Switches a specific rotor with a new one with a user determined seed
 		void OffsetRotor(uint64_t offset); // Offsets Rotor for continued use of machine from a previous state
 
-		// TODO: Make PlugBoard connection function and function to remove connection
 		EnigmaError MakePlugBoardConnection(Enigma_Char a, Enigma_Char b);
 		void RemovePlugBoardConnection(Enigma_Char letter);
 

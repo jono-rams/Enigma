@@ -17,7 +17,8 @@ namespace Enigma
 	enum class EnigmaError
 	{
 		NO_ERROR,
-		E03_00,
+		E03_00A,
+		E03_00B,
 		E16_00,
 		E16_10,
 		E16_11,
@@ -33,10 +34,11 @@ namespace Enigma
 		E20_11
 	};
 
-	std::map<EnigmaError, std::string> Errors
+	static std::map<EnigmaError, std::string> Errors
 	{
 		std::make_pair(EnigmaError::NO_ERROR, std::string("NO ERROR")),
-		std::make_pair(EnigmaError::E03_00, std::string("ERROR 03-00: Invalid character\n")),
+		std::make_pair(EnigmaError::E03_00A, std::string("ERROR 03-00A: Invalid character")),
+		std::make_pair(EnigmaError::E03_00B, std::string("ERROR 03-00B: Invalid character")),
 		std::make_pair(EnigmaError::E16_00, std::string("ERROR 16-00 - Reflector could not be generated!")),
 		std::make_pair(EnigmaError::E16_10, std::string("ERROR 16-10: Invalid character entered in pair!")),
 		std::make_pair(EnigmaError::E16_11, std::string("ERROR 16-11: Duplicate letters in pairs!")),
@@ -52,7 +54,7 @@ namespace Enigma
 		std::make_pair(EnigmaError::E20_11, std::string("ERROR 20-11: Plug already connected!"))
 	};
 
-	std::ostream& operator << (std::ostream& out, const EnigmaError& e)
+	static std::ostream& operator<< (std::ostream& out, const EnigmaError& e)
 	{
 		out << Errors[e];
 		return out;

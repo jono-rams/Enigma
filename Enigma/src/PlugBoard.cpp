@@ -15,9 +15,9 @@ namespace Enigma
 		if(NumOfConnections >= 10)
 			return EnigmaError::E20_10;
 
-		int locA, locB, count = 0;
+		int locA{}, locB{}, count{ 0 };
 
-		for (size_t i = 0; i < 26; i++)
+		for (int i = 0; i < 26; i++)
 		{
 			if (alphabet[i] == a)
 			{
@@ -48,10 +48,31 @@ namespace Enigma
 		return EnigmaError::NO_ERROR;
 	}
 
+	void PlugBoard::RemoveConnection(Enigma_Char letter)
+	{
+		int loc{};
+		for (int i = 0; i < 26; i++)
+		{
+			if (alphabet[i] == letter)
+			{
+				loc = i;
+				break;
+			}
+		}
+
+		if (!(Plugs[loc].connected))
+			return;
+
+		Plugs[loc].connectedLetter->connected = false;
+		Plugs[loc].connectedLetter->connectedLetter = nullptr;
+		Plugs[loc].connected = false;
+		Plugs[loc].connectedLetter = nullptr;
+	}
+
 	void PlugBoard::PlugBoardOut(char& letter)
 	{
-		int loc;
-		for (size_t i = 0; i < 26; i++)
+		int loc{};
+		for (int i = 0; i < 26; i++)
 		{
 			if (alphabet[i] == letter)
 			{

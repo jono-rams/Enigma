@@ -18,9 +18,6 @@
     <ClCompile Include="src\Core.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Pair.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Rotor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

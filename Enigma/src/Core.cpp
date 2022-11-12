@@ -87,22 +87,10 @@ namespace Enigma
 
 	EnigmaError Core::InternalEncrypt(char& letter)
 	{
-		bool invalid{ true }; // A bool that states whether an invalid character was entered
-
-		// Checks to see if letter is in the alphabet (a valid character)
-		for (Enigma_Short i = 0; i < 26; i++)
-		{
-			if (letter == alphabet[i])
-			{
-				invalid = false;
-				break;
-			}
-		}
-
 		// Checks to see if an invalid character was entered
-		if (invalid)
+		if (CheckIfValidLetter(letter))
 		{
-			return EnigmaError::E03_00; // Throws a logic error to be caught when calling the function
+			return EnigmaError::E03_00A; // Throws a logic error to be caught when calling the function
 		}
 
 		// Encryption logic
@@ -117,6 +105,23 @@ namespace Enigma
 		m_PlugBoard.PlugBoardOut(letter);
 
 		return EnigmaError::NO_ERROR;
+	}
+
+	bool Core::CheckIfValidLetter(char letter)
+	{
+		bool invalid{ true }; // A bool that states whether an invalid character was entered
+
+		// Checks to see if letter is in the alphabet (a valid character)
+		for (Enigma_Short i = 0; i < 26; i++)
+		{
+			if (letter == alphabet[i])
+			{
+				invalid = false;
+				break;
+			}
+		}
+
+		return invalid;
 	}
 
 	void Core::GenNewReflector()
@@ -206,7 +211,7 @@ namespace Enigma
 				return EnigmaError::E18_01; // Throws a logic error to be caught when calling the function
 
 			if (Rot == m_RotorF.GetSeed()) // Checks to see if Rotor module is the same as current one
-				return;
+				return EnigmaError::NO_ERROR;
 
 			auto res = m_RotorF.SetRotor(1, Rot, m_RotPath);
 
@@ -224,7 +229,7 @@ namespace Enigma
 				return EnigmaError::E18_01; // Throws a logic error to be caught when calling the function
 
 			if (Rot == m_RotorS.GetSeed()) // Checks to see if Rotor module is the same as current one
-				return;
+				return EnigmaError::NO_ERROR;
 
 			auto res = m_RotorF.SetRotor(2, Rot, m_RotPath);
 
@@ -241,7 +246,7 @@ namespace Enigma
 				return EnigmaError::E18_01; // Throws a logic error to be caught when calling the function
 
 			if (Rot == m_RotorT.GetSeed()) // Checks to see if Rotor module is the same as current one
-				return;
+				return EnigmaError::NO_ERROR;
 
 			auto res = m_RotorF.SetRotor(3, Rot, m_RotPath);
 
@@ -269,6 +274,36 @@ namespace Enigma
 		Encrypt(temp);
 	}
 
+	EnigmaError Core::MakePlugBoardConnection(Enigma_Char a, Enigma_Char b)
+	{
+		// Checks to see if an invalid character was entered
+		if (CheckIfValidLetter(a) || CheckIfValidLetter(b))
+		{
+			return EnigmaError::E03_00B; // Throws a logic error to be caught when calling the function
+		}
+
+		auto res = m_PlugBoard.MakeConnection(a, b);
+
+		if (res != EnigmaError::NO_ERROR)
+		{
+			std::cout << res << std::endl;
+			return EnigmaError::E20_00;
+		}
+
+		return EnigmaError::NO_ERROR;
+	}
+
+	void Core::RemovePlugBoardConnection(Enigma_Char letter)
+	{
+		// Checks to see if an invalid character was entered
+		if (CheckIfValidLetter(letter))
+		{
+			return;
+		}
+
+		m_PlugBoard.RemoveConnection(letter);
+	}
+
 	std::string Core::Encrypt(const std::string& word)
 	{
 		std::string output; // Temporary string to return
@@ -285,7 +320,7 @@ namespace Enigma
 
 			auto res = InternalEncrypt(*temp); // Calls internal Encryption for letter
 			if (res != EnigmaError::NO_ERROR)
-				throw Errors[res]; // Throws caught logic error to be caught when calling the function
+				throw std::logic_error(Errors[res]); // Throws caught logic error to be caught when calling the function
 
 			output.push_back(*temp); // Adds letter to output string
 		}

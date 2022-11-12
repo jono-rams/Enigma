@@ -11,8 +11,11 @@ namespace Enigma
 	struct Plug
 	{
 		Enigma_Char letter;
-		bool connected = false;
+		bool connected;
 		Plug* connectedLetter;
+
+		Plug() : letter('0'), connected(false), connectedLetter(nullptr) {}
+		~Plug() = default;
 	};
 
 	class PlugBoard
@@ -25,10 +28,8 @@ namespace Enigma
 		~PlugBoard() = default;
 
 		EnigmaError MakeConnection(Enigma_Char a, Enigma_Char b);
-		void PlugBoardOut(char& letter);
-
-		// TODO: Function to remove connection
 		void RemoveConnection(Enigma_Char letter);
+		void PlugBoardOut(char& letter);
 	};
 }
 

@@ -165,7 +165,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Core.cpp" />
-    <ClCompile Include="src\Pair.cpp" />
     <ClCompile Include="src\PlugBoard.cpp" />
     <ClCompile Include="src\Reflector.cpp" />
     <ClCompile Include="src\Rotor.cpp" />

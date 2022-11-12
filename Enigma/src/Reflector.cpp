@@ -1,5 +1,4 @@
 #include <Reflector/Reflector.h>
-#include "../include/Core/GenericInclude.h"
 
 #define CHECK m_Pairs[i].first == m_Pairs[j].first || m_Pairs[i].first == m_Pairs[j].second || m_Pairs[i].second == m_Pairs[j].first || m_Pairs[i].second == m_Pairs[j].second
 
@@ -97,6 +96,8 @@ namespace Enigma
 
 		if (CheckDuplicates())
 			return EnigmaError::E16_11; // Throws a logic error to be caught when calling the function
+
+		return EnigmaError::NO_ERROR;
 	}
 #else
 	EnigmaError Reflector::SetPairs(std::array<Enigma_Pairs, 13> pairs)
@@ -113,6 +114,8 @@ namespace Enigma
 
 		if (CheckDuplicates())
 			return EnigmaError::E16_11; // Throws a logic error to be caught when calling the function
+
+		return EnigmaError::NO_ERROR;
 	}
 #endif
 

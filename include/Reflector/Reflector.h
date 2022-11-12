@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <array>
+#include <Core/GenericInclude.h>
 
 namespace Enigma
 {
