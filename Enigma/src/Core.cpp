@@ -87,10 +87,23 @@ namespace Enigma
 
 	EnigmaError Core::InternalEncrypt(char& letter)
 	{
-		// Checks to see if an invalid character was entered
-		if (CheckIfValidLetter(letter))
+		bool isUpper = false;
+
+		if (ConvertToLowerCaseIfUpper(letter))
 		{
-			return EnigmaError::E03_00A; // Throws a logic error to be caught when calling the function
+			isUpper = true;
+		}
+		else
+		{
+			// Checks to see if an invalid character was entered
+			if (CheckIfValidLetter(letter))
+			{
+#ifndef ENIGMA_SUPPORT_SYMBOLS_AND_NUMBERS
+				return EnigmaError::E03_00A; // Throws a logic error to be caught when calling the function
+#else
+				return EnigmaError::NO_ERROR;
+#endif
+			}
 		}
 
 		// Encryption logic
@@ -103,6 +116,11 @@ namespace Enigma
 		m_RotorS.Out(letter);
 		m_RotorF.Out(letter);
 		m_PlugBoard.PlugBoardOut(letter);
+
+		if (isUpper)
+		{
+			ConvertToUpperCase(letter);
+		}
 
 		return EnigmaError::NO_ERROR;
 	}
@@ -119,9 +137,36 @@ namespace Enigma
 				invalid = false;
 				break;
 			}
+
 		}
 
 		return invalid;
+	}
+
+	bool Core::ConvertToLowerCaseIfUpper(char& letter)
+	{
+		for (Enigma_Short i = 0; i < 26; i++)
+		{
+			if (letter == alphabetUC[i])
+			{
+				letter = alphabet[i];
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	void Core::ConvertToUpperCase(char& letter)
+	{
+		for (Enigma_Short i = 0; i < 26; i++)
+		{
+			if (letter == alphabet[i])
+			{
+				letter = alphabetUC[i];
+				return;
+			}
+		}
 	}
 
 	void Core::GenNewReflector()
@@ -316,7 +361,6 @@ namespace Enigma
 		for (uint64_t i = 0; i < wordV.size(); i++)
 		{
 			*temp = wordV[i];
-			// Error Handling
 
 			auto res = InternalEncrypt(*temp); // Calls internal Encryption for letter
 			if (res != EnigmaError::NO_ERROR)

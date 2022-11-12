@@ -22,6 +22,8 @@ namespace Enigma
 
 		EnigmaError InternalEncrypt(char& letter); // Function to encrypt character. This contains the actual encryption logic
 		bool CheckIfValidLetter(char letter);
+		bool ConvertToLowerCaseIfUpper(char& letter);
+		void ConvertToUpperCase(char& letter);
 	public:
 		Core(); // Default constructor
 		Core(Core& obj); // Overloaded Copy Constructor
