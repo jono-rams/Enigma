@@ -12,7 +12,7 @@ Enigma machine implementation in C++
 This branch contains the Source Code for the Binaries.
 
 ## RELEASES & UPDATES
-### V2.1
+### V2.0.1
 * Added default Rotor Data path
 
 ### V2.0
