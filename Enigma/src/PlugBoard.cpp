@@ -17,7 +17,7 @@ namespace Enigma
 
 	EnigmaError PlugBoard::MakeConnection(Enigma_Char a, Enigma_Char b)
 	{
-		if(NumOfConnections >= 10)
+		if(NumOfConnections >= MaxNumberOfConnections)
 			return EnigmaError::E20_10;
 
 		int locA{}, locB{}, count{ 0 };
@@ -72,6 +72,7 @@ namespace Enigma
 		Plugs[loc].connectedLetter->connectedLetter = nullptr;
 		Plugs[loc].connected = false;
 		Plugs[loc].connectedLetter = nullptr;
+		--NumOfConnections;
 	}
 
 	void PlugBoard::PlugBoardOut(char& letter)
