@@ -5,7 +5,7 @@
 namespace Enigma
 {
 	Core::Core()
-		: m_PairModule(), m_RotorF(), m_RotorS(), m_RotorT(), m_PlugBoard(),
+		: m_Reflector(), m_RotorF(), m_RotorS(), m_RotorT(), m_PlugBoard(),
 		m_RotPath("RotorModules")
 	{
 
@@ -13,7 +13,7 @@ namespace Enigma
 
 	Core::Core(Core& obj)
 	{
-		this->GenNewReflector(obj.m_PairModule.GetPairs());
+		this->GenNewReflector(obj.m_Reflector.GetPairs());
 
 		this->SetRotorDataPath(obj.m_RotPath);
 
@@ -28,12 +28,7 @@ namespace Enigma
 
 	Core& Core::operator=(const Core& obj)
 	{
-		if (this == &obj) // Checks to see if the two objects are the same
-		{
-			return *this;
-		}
-
-		this->GenNewReflector(obj.m_PairModule.GetPairs());
+		this->GenNewReflector(obj.m_Reflector.GetPairs());
 
 		this->SetRotorDataPath(obj.m_RotPath);
 
@@ -50,7 +45,7 @@ namespace Enigma
 
 	Core::Core(Core&& obj) noexcept
 	{
-		this->GenNewReflector(obj.m_PairModule.GetPairs());
+		this->GenNewReflector(obj.m_Reflector.GetPairs());
 
 		this->SetRotorDataPath(obj.m_RotPath);
 
@@ -70,7 +65,7 @@ namespace Enigma
 			return *this;
 		}
 
-		this->GenNewReflector(obj.m_PairModule.GetPairs());
+		this->GenNewReflector(obj.m_Reflector.GetPairs());
 
 		this->SetRotorDataPath(obj.m_RotPath);
 
@@ -111,7 +106,7 @@ namespace Enigma
 		m_RotorF.In(letter);
 		m_RotorS.In(letter);
 		m_RotorT.In(letter);
-		m_PairModule.ReflectorOut(letter);
+		m_Reflector.ReflectorOut(letter);
 		m_RotorT.Out(letter);
 		m_RotorS.Out(letter);
 		m_RotorF.Out(letter);
@@ -171,7 +166,7 @@ namespace Enigma
 
 	void Core::GenNewReflector()
 	{
-		m_PairModule.SetPairs();
+		m_Reflector.SetPairs();
 	}
 
 #ifdef ENIGMA_USE_STD_PAIR
@@ -180,7 +175,7 @@ namespace Enigma
 		// Error Handling
 		try
 		{
-			m_PairModule.SetPairs(pairs);
+			m_Reflector.SetPairs(pairs);
 		}
 		catch (std::logic_error& err)
 		{
@@ -196,7 +191,7 @@ namespace Enigma
 		// Error Handling
 		try
 		{
-			m_PairModule.SetPairs(pairs);
+			m_Reflector.SetPairs(pairs);
 		}
 		catch (std::logic_error& err)
 		{
